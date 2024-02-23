@@ -1,0 +1,359 @@
+.dashboard {
+    display: flex;
+}
+
+.burger{
+    display: none;
+}
+
+.main-content{
+    width: 100%;
+}
+
+.nav-menu {
+    padding-left: 115px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 90px;
+    position: absolute;
+    top:93px
+}
+
+.nav-menu > span {
+    cursor: pointer;
+    position: relative;
+    font-size: 18px;
+}
+
+.nav-menu > span::after {
+    content: '';
+    display: block;
+    width: 0;
+    height:4px;
+    border-radius: 3px;
+    background-color: #703BF7;
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-menu span.selected::after {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.settings{
+    padding: 75px 115px 0 115px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap:75px;
+}
+
+.setting-bio{
+    width: 670px;
+    background-color: #1D1D1D;
+    border-radius: 12px;
+    border: 1px solid #383838;
+    padding: 25px 20px;
+    position: relative;
+}
+
+.setting-bio > article > h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+
+.setting-bio > article > p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #9CA3AF;
+}
+
+.setting-bio article::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #2B2B2B;
+    position: relative;
+    bottom: -10px;
+    left: 0;
+    margin-bottom: 30px;
+}
+
+.setting-bio > form {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+
+.setting-firstname{
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-lastname {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-firstname > input {
+    background: #292929;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    width: 300px;
+    height: 40px;
+    padding: 0 15px;
+}
+
+.setting-firstname > label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 4px;
+}
+
+.setting-lastname > input {
+    background: #292929;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    width: 300px;
+    height: 40px;
+    padding: 0 15px;
+}
+
+.setting-lastname > label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 4px;
+}
+
+.setting-bio > button {
+    background-color: #353535;
+    border-radius: 8px;
+    border: 1px solid #414141;
+    padding: 7px 27px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.settings-password{
+    width: 670px;
+    background-color: #1D1D1D;
+    border-radius: 12px;
+    border: 1px solid #383838;
+    padding: 25px 20px;
+    position: relative;
+}
+
+.settings-password > article > h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+
+
+.settings-password > article > p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #9CA3AF;
+}
+
+.settings-password article::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #2B2B2B;
+    position: relative;
+    bottom: -10px;
+    left: 0;
+    margin-bottom: 30px;
+}
+
+.settings-password > form {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+
+.setting-newpass{
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-oldpass {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-newpass > input {
+    background: #292929;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    width: 300px;
+    height: 40px;
+    padding: 0 15px;
+}
+
+.setting-newpass > label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 4px;
+}
+
+.setting-oldpass > input {
+    background: #292929;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    width: 300px;
+    height: 40px;
+    padding: 0 15px;
+}
+
+.setting-oldpass> label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+    margin-bottom: 4px;
+}
+
+.settings-password > button {
+    background-color: #353535;
+    border-radius: 8px;
+    border: 1px solid #414141;
+    padding: 7px 27px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.statistics{
+    padding: 75px 115px 0 115px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    gap:75px;
+}
+
+.statistics-text{
+    background-color:#1D1D1D;
+    border-radius: 12px;
+    border: 1px solid #343434;
+    width: 890px;
+    height: 190px;
+    padding: 25px;
+}
+
+.statistics-text >h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.statistics-text__container{
+    display: flex;
+    gap:22px
+}
+
+.statistics-text__item{
+    background-color: #292929;
+    border-radius: 12px;
+    width: 265px;
+    height: 95px;
+    display: flex;
+    justify-content: center;
+}
+
+.statistics-text__item > article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistics-text__item > article > p {
+    color: #9CA3AF;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.statistics-text__item > article > span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 950px) {
+    .settings{
+        padding: 35px 16px 0 16px;
+        gap:35px;
+    }
+    .setting-bio{
+        width: 100%;
+    }
+    .setting-lastname > input {
+        width: 100%;
+    }
+    .setting-firstname > input {
+        width: 100%;
+    }
+    .setting-bio > form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .settings-password{
+        width: 100%;
+    }
+    .setting-oldpass > input {
+        width: 100%;
+    }
+    .setting-newpass > input {
+        width: 100%;
+    }
+    .settings-password > form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-menu {
+        padding-left: 16px;
+        top:72px;
+        gap: 30px;
+    }
+    .statistics-text{
+        width: 100%;
+        height: 100%;
+        padding: 25px;
+    }
+    .statistics-text__container{
+        flex-direction: column;
+    }
+    .statistics {
+        padding: 25px 16px 0 16px;
+        gap: 0;
+    }
+    .statistics-text >h2 {
+       text-align: center;
+    }
+    .statistics-text__item{
+        width: 100%;
+    }
+}

@@ -1,0 +1,85 @@
+.bm-burger-button {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 36px;
+    top: 40px;
+}
+
+.bm-burger-bars {
+    background: red;
+}
+
+.bm-burger-bars-hover {
+    background: #a90000;
+}
+
+.bm-cross-button {
+    height: 24px;
+    width: 24px;
+}
+
+.bm-cross {
+    background: #bdc3c7;
+}
+
+.bm-menu-wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.bm-menu{
+    background: #141414;
+    padding: 1em 0 0 1.5em;
+    font-size: 1.15em;
+}
+
+[id^="home"],
+[id^="shop"],
+[id^="fuel"],
+[id^="fueling"],
+[id^="contact"] {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+#logo{
+    margin-bottom: 15px;
+}
+
+#subheader{
+    margin-bottom: 50px;
+}
+
+.bm-cross-button{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 8px;
+    top: 8px;
+}
+
+
+
+
+
+.bm-morph-shape {
+    fill: #141414;
+    width: 80%;
+}
+
+.bm-item-list {
+    color: #b8b7ad;
+
+}
+
+.icon{
+}
+
+.bm-overlay {
+    background: #141414;
+}

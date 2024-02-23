@@ -1,0 +1,242 @@
+.details-container{
+    color: #fff;
+    padding: 50px 162px 150px 162px;
+
+}
+
+.details-base{
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 50px;
+}
+.details-products__slide{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 30px;
+    background: #1A1A1A;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    width: 820px;
+}
+.img-container__top{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+
+
+    background: #141414;
+    border: 1px solid #262626;
+    border-radius: 12px;
+}
+
+.img-container__top > img {
+    width: 135px;
+    height: 135px;
+}
+
+.img-container__base > img{
+    width: 435px;
+}
+
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 50px;
+    margin-bottom: 50px;
+    justify-content: space-between;
+}
+
+.name-product-container{
+    font-size: 30px;
+    font-weight: 600;
+}
+.price-container > article > h3 {
+    color:#999999;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.price-container > article > p {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.button-container__down{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    background: #141414;
+    border-radius: 100px;
+}
+
+.name-product-container h1 > span{
+    font-size: 20px;
+    font-weight: 500;
+
+    padding: 10px;
+    gap: 20px;
+
+    border: 1px solid #262626;
+    border-radius: 8px;
+}
+.name-product-container h1 {
+    font-size: 30px;
+    font-weight: 600;
+
+}
+
+
+.indicator-activ{
+    width: 20px;
+    height: 5px;
+
+    background: #703BF7;
+    border-radius: 60px;
+
+}
+
+.indicators-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+}
+
+.indicator {
+    width: 20px;
+    height: 5px;
+
+    background: #4D4D4D;
+    border-radius: 60px;
+
+}
+
+
+.details-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 70px;
+}
+
+.details-info > button {
+    padding: 18px 46px;
+    background: #703BF7;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 18px;
+    color: #FFFFFF;
+    width: 292px;
+}
+
+.info-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px;
+
+    border: 1px solid #262626;
+    border-radius: 12px;
+    width: 750px;
+}
+
+.info-text > h2{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.info-text > p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+}
+
+@media screen and (min-width: 951px) and (max-width: 1440px) {
+
+}
+
+
+@media screen and (max-width: 950px) {
+    .details-container{
+        color: #fff;
+        padding: 50px 16px 80px 16px;
+
+    }
+    .details-base{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap:25px;
+    }
+    .details-products__slide{
+        align-items: center;
+        width: auto;
+        gap:15px;
+        padding: 15px;
+    }
+    .info-text{
+        width: auto;
+        padding: 25px;
+    }
+    .info-text > h2{
+        margin-bottom: 8px;
+    }
+    .info-text > p{
+        font-size: 14px;
+    }
+    .details-info{
+        align-items: center;
+
+    }
+    .img-container__top{
+        gap:5px;
+    }
+
+    .img-container__top > img{
+        height: 66px;
+        width: 66px;
+
+    }
+    .price-container > article > h3 {
+        color:#999999;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .price-container > article > p {
+        font-weight: 600;
+        font-size: 20px;
+    }
+    .name-product-container h1 {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .name-product-container h1 > span{
+        font-size: 18px;
+        font-weight: 500;
+
+        padding: 5px;
+        gap: 20px;
+
+        border: 1px solid #262626;
+        border-radius: 8px;
+    }
+}

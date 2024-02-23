@@ -1,0 +1,123 @@
+
+.auth {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-header{
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-header > svg {
+    margin-bottom: 21px;
+}
+
+.auth-header > h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+.mail-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+
+.mail-container > input {
+    width: 357px;
+    height: 42px;
+    background: #1E1E1E;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.mail-container > label {
+    font-weight: 500;
+    font-size: 18px;
+    color: #999999;
+    margin-bottom: 8px;
+}
+
+
+.password-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.password-container > input {
+    width: 357px;
+    height: 42px;
+    background: #1E1E1E;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    padding: 0 15px;
+    font-size: 30px;
+}
+
+.password-container > label {
+    font-weight: 500;
+    font-size: 18px;
+    color: #999999;
+    margin-bottom: 8px;
+}
+
+.reset-password{
+    margin-bottom: 12px;
+}
+
+.reset-password > a{
+    font-weight: 500;
+    font-size: 18px;
+
+    color: #8B5CD1;
+}
+
+.transition-reg{
+    text-align: center;
+}
+
+.transition-reg > p{
+    font-weight: 500;
+    font-size: 18px;
+    color: #999999;
+}
+
+
+.transition-reg p > a{
+    font-weight: 500;
+    font-size: 18px;
+    color: #8B5CD1;
+}
+
+
+.login-btn > button {
+     width: 357px;
+     height: 42px;
+
+     background: #282828;
+     border: 1px solid #414141;
+     border-radius: 8px;
+
+     font-weight: 700;
+     font-size: 18px;
+     color: #FFFFFF;
+     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 950px) {
+    .auth{
+        width: auto;
+        height: 80vh;
+    }
+}

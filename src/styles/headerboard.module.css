@@ -1,0 +1,35 @@
+.headerboard{
+    background: #1C1C1C;
+    border-bottom: 1px solid #383838;
+}
+
+.headerboard-container{
+    padding: 35px 0 51px 115px;
+}
+
+.headerboard-container > h2{
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.headerboard-container > p{
+    font-weight: 500;
+    font-size: 18px;
+    color: #7F848D;
+}
+
+@media screen and (max-width: 950px) {
+
+    .headerboard-container{
+        padding: 45px 16px 25px 16px;
+    }
+    .headerboard-container > h2{
+        font-size: 20px;
+    }
+
+    .headerboard-container > p{
+        font-size: 16px;
+    }
+
+}

@@ -1,0 +1,225 @@
+.dashboard{
+    display: flex;
+}
+
+.burger{
+    display: none;
+}
+
+.main-content{
+    width: 100%;
+}
+
+.basket{
+    padding: 75px 115px 0 115px;
+
+}
+
+.basket-content{
+    display: flex;
+    gap: 50px;
+}
+
+.basket-products {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    background-color: #1B1B1B;
+    border-radius: 12px;
+    border: 1px solid #383838;
+    padding: 50px 45px;
+    width: 650px;
+}
+
+.basket-product {
+    display: flex;
+}
+
+.basket-img {
+
+}
+
+.basket-img > img {
+    width: 112px;
+    height: 168px;
+    object-fit: cover;
+}
+
+.basket-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 80px;
+    margin-left: 30px;
+}
+
+.basket-info > article {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.basket-info > button{
+    padding: 5px 22px;
+    background: #F85050;
+    border-radius: 8px;
+    height: 34px;
+
+}
+
+.basket-price {
+    display: flex;
+    flex-direction: column;
+}
+
+.basket-price > article {
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.basket-price > article > p {
+    color: #9B74FF;
+}
+
+.basket-price > article > p > span {
+    text-decoration: line-through;
+    color: #999999;
+}
+
+.basket-payment{
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border-radius: 12px;
+    border: 1px solid #262626;
+    padding: 40px;
+    width: 585px;
+    height: 370px;
+}
+
+.payment-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.payment-header > h4{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.payment-header > span {
+    font-weight: 500;
+    font-size: 16px;
+    color: #999999;
+}
+
+.payment-allprice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.payment-allprice > h4{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.payment-allprice > span {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.payment-discount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+
+
+.payment-discount > h4{
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.payment-discount > span{
+    font-weight: 700;
+    font-size: 20px;
+    color: #9B74FF;
+}
+
+
+.payment-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 24px;
+
+    background: #703BF7;
+    border-radius: 10px;
+    width: 420px;
+    margin: 0 auto;
+
+}
+
+@media screen and (max-width: 950px) {
+    .basket-content {
+        display: flex;
+        gap: 50px;
+        flex-direction: column;
+    }
+    .basket{
+        padding: 45px 16px 0 16px;
+
+    }
+    .basket-product{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .basket-info{
+        text-align: center;
+        margin: 20px 0 20px 0;
+        gap: 20px;
+    }
+    .basket-price > article {
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    .basket-products{
+        width: 100%;
+    }
+    .basket-payment{
+        width: 100%;
+        height: 100%;
+    }
+    .payment-btn{
+        width: 100%;
+    }
+    .payment-header > h4{
+        font-size: 18px;
+    }
+    .payment-allprice > h4{
+        font-size: 18px;
+    }
+    .payment-discount > h4{
+        font-size: 18px;
+    }
+    .payment-allprice > span {
+        font-size: 18px;
+    }
+    .payment-discount > span{
+        font-size: 18px;
+    }
+    .payment-discount {
+        margin-bottom: 50px;
+    }
+}

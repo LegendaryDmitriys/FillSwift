@@ -1,0 +1,94 @@
+
+
+.sidebar{
+    padding: 30px 75px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #383838;
+}
+
+.logo{
+    margin-bottom: 55px;
+}
+
+.item-container{
+    display: flex;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+    width: 285px;
+    height: 25px;
+    padding: 0 0 0 10px;
+    margin-bottom: 35px;
+}
+
+.icon-plus{
+    margin-left: 138px;
+}
+
+
+.item-container__base{
+    display: flex;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 35px;
+    padding: 0 0 0 10px;
+}
+
+.item-container__setting{
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 0 0 10px;
+}
+
+
+
+.item-container__activ{
+    background: #242424;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    padding: 15px 10px;
+    width: 285px;
+    margin-bottom: 25px;
+}
+
+.nav-icon {
+    margin-right: 10px;
+}
+.nav-menu {
+    margin-bottom: 420px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+
+}
+
+.avatar{
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 15px;
+}
+
+.user-bio {
+    display: flex;
+    gap: 5px;
+}
+
+
+@media screen and (max-width: 950px) {
+    .sidebar{
+       display: none;
+    }
+}

@@ -1,0 +1,60 @@
+.dashboard {
+    display: flex;
+
+}
+
+.burger{
+    display: none;
+}
+
+.main-content{
+    width: 100%;
+}
+
+.history-fuels{
+    padding: 75px 115px 0 115px;
+}
+
+.history-fuels > table{
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: .5rem;
+}
+
+
+.history-fuels > table > thead {
+    background-color: #272727;
+    height: 30px;
+}
+
+
+.history-fuels > table > th,td{
+    text-align: center;
+    padding: 24px 20px;
+}
+
+
+@media screen and (max-width: 950px) {
+    .dashboard{
+        display: flex;
+    }
+    .headerboard-container{
+        padding: 75px 16px 0 16px;
+    }
+    .history-fuels{
+        padding: 16px;
+    }
+    .burger{
+        display: flex;
+    }
+    .history-fuels  table th {
+        text-align: center;
+        padding: 8px;
+        width: 150px;
+    }
+    .history-fuels table td {
+        text-align: right;
+        padding: 8px;
+    }
+}
