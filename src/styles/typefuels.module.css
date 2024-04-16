@@ -1,0 +1,266 @@
+.typefuels{
+    padding: 50px 162px 200px 162px;;
+    display: flex;
+    flex-direction: column;
+}
+
+.fuels-header{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 200px;
+    gap:80px;
+    align-items: center;
+}
+
+.fuels-header__info{
+    max-width: 755px;
+}
+
+.fuels-header__info > article {
+    margin-bottom: 80px;
+}
+
+.fuels-header__info > article > h2{
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.fuels-header__info > article > p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+}
+
+.fuels-header__info > div {
+    background-color: #1A1A1A;
+    border-radius: 12px;
+    border: 1px solid #262626;
+    padding: 24px;
+    width: 210px;
+}
+
+.fuels-header__info > div > span {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.fuels-header__img > img {
+    border: 1px solid #262626;
+    border-radius: 12px;
+}
+
+
+.fuels-type_f{
+    margin-bottom: 250px;
+}
+
+.fuels-type_f > h3{
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 80px;
+}
+
+.fuels-type_g{
+    margin-top: 300px;
+    margin-bottom: 250px;
+}
+
+.fuels-type_g > h3{
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 80px;
+}
+
+.fuels-type__container {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.fuels-type__container > div {
+    background-color: #1A1A1A;
+    border-radius: 12px;
+    border: 1px solid #262626;
+    width: 211px;
+    padding: 24px;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 80px;
+}
+
+.fuels-info__container {
+    display: flex;
+    flex-direction: row;
+    gap:40px
+}
+
+.fuels-info__container > div {
+    background-color: #141414;
+    border-radius: 12px;
+    border: 1px solid #262626;
+    padding: 50px;
+}
+
+.fuels-info__container > div > h3 {
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.fuels-info__container > div > p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #999999;
+}
+
+.faerpuls-container {
+    display: flex;
+    flex-direction: row;
+    gap: 105px;
+    align-items: center;
+}
+
+.faerpuls-container > article {
+   max-width: 610px;
+}
+.faerpuls-container > article > h2 {
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.faerpuls-container > article > p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.faerpuls{
+    display: flex;
+    flex-direction: column;
+    gap:250px;
+}
+
+.gansove {
+    display: flex;
+    flex-direction: column;
+    gap:250px;
+}
+
+.gansove-container {
+    display: flex;
+    flex-direction: row;
+    gap: 105px;
+    align-items: center;
+}
+
+.gansove-container > article {
+    max-width: 610px;
+}
+.gansove-container > article > h2 {
+    font-size: 48px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.gansove-container > article > p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 950px) {
+    .typefuels {
+        padding: 50px 16px 50px 16px;
+    }
+    .fuels-header{
+        flex-direction: column;
+    }
+    .fuels-header__info > div{
+        width: 100%;
+        text-align: center;
+    }
+    .fuels-header__info > article {
+        margin-bottom: 40px;
+    }
+    .fuels-header__info > article > h2{
+        font-size: 24px;
+    }
+    .fuels-header__info > article > p{
+        font-size: 16px;
+    }
+    .fuels-header__info > div > span {
+        font-size: 20px;
+    }
+    .fuels-type_f > h3{
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+    .fuels-type__container {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .fuels-type__container > div {
+        border-radius: 8px;
+        width: auto;
+        padding: 24px;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    .fuels-info__container {
+        flex-direction: column;
+    }
+    .fuels-info__container > div > h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .fuels-info__container > div > p {
+        font-size: 16px;
+    }
+    .faerpuls-container {
+        flex-direction: column;
+    }
+    .fuels-type_f{
+        margin-bottom: 150px;
+    }
+    .faerpuls-container > article > h2 {
+        font-size: 24px;
+    }
+    .faerpuls-container > article > p {
+        font-size: 18px;
+    }
+    .gansove-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .faerpuls-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .faerpuls{
+        gap: 75px;
+    }
+    .fuels-type_f{
+        margin-bottom: 75px;
+    }
+    .fuels-type_g{
+        margin-top: 150px;
+        margin-bottom: 75px;
+    }
+    .fuels-type_g > h3{
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+    .gansove-container > article > h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .gansove-container > article > p {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .gansove {
+        gap:125px;
+    }
+}

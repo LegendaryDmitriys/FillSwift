@@ -59,15 +59,12 @@
 
 
 .cars-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
 }
 
-.cars-card{
-    width: 260px;
-    height: 300px;
+.cars-card {
     background-color: #1B1B1B;
     border-radius: 12px;
     border: 1px solid #383838;
@@ -76,6 +73,7 @@
     align-items: center;
     padding: 35px 32px;
 }
+
 
 .cars-card > img {
     margin-bottom: 30px;

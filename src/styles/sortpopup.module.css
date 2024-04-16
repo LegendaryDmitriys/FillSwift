@@ -1,0 +1,39 @@
+.sort {
+    position: relative;
+}
+
+.sort p {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.button-sort {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+}
+
+.button-sort button {
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.button-sort button:hover {
+    background-color: #f0f0f0;
+    color:black;
+}
+
+.selectedOption {
+    text-decoration: underline dotted #703BF7;
+}

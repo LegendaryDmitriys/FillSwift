@@ -19,7 +19,7 @@ const MinSideBar = () => {
             </svg>}
             burgerButtonClassName={"bm-button"}
         >
-            <svg className='icon' width={134} height={51} id="logo">
+            <svg className='icon-logo' width={134} height={51} id="logo">
                 <use xlinkHref={sprite + "#logo"}/>
             </svg>
             <div className={styles["item-container__base"]}>

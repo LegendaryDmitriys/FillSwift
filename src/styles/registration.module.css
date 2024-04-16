@@ -78,6 +78,34 @@
 }
 
 
+.username-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+
+
+
+.username-container > input {
+    width: 357px;
+    height: 42px;
+    background: #1E1E1E;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.username-container > label {
+    font-weight: 500;
+    font-size: 18px;
+    color: #999999;
+    margin-bottom: 8px;
+}
+
+
+
 .mail-container{
     display: flex;
     flex-direction: column;

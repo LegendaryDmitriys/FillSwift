@@ -2,6 +2,9 @@ import React from 'react';
 import { bubble as Menu } from 'react-burger-menu';
 import sprite from "../../sprite.svg";
 import "../../styles/burger.css"
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../utils/routes";
+import styles from "../../styles/header.module.css";
 
 
 const BurgerMenu = () => {
@@ -17,21 +20,24 @@ const BurgerMenu = () => {
                 <use xlinkHref={sprite + "#logo"}/>
             </svg>
             <h3 id="subheader">Ваш путь к идеальной заправке.</h3>
-            <a id="home" className="menu-item" href="/">
+            <Link id="home" className="menu-item" to={ROUTES.Home}>
                 Главная
-            </a>
-            <a id="fueling" className="menu-item" href="/fueling">
+            </Link>
+            <Link id="fueling" className="menu-item" to="">
                 Заправиться
-            </a>
-            <a id="shop" className="menu-item" href="/shop">
+            </Link>
+            <Link id="shop" className="menu-item" to={ROUTES.Shop}>
                 Магазин
-            </a>
-            <a id="fuel" className="menu-item" href="/fuel">
+            </Link>
+            <Link id="fuel" className="menu-item" to={ROUTES.TypeFuels}>
                 Типы топлива
-            </a>
-            <a id="contact" className="menu-item" href="/contact">
+            </Link>
+            <Link id="contact" className="menu-item" to={ROUTES.Contact}>
                 Контакты
-            </a>
+            </Link>
+            <Link id="profile" className="menu-item" to={ROUTES.Settings}>
+                Профиль
+            </Link>
         </Menu>
     );
 };

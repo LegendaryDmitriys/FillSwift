@@ -1,17 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import Sidebar from "./Sidebar";
 import HeaderBoard from "./HeaderBoard";
-
+import Cars from "../../utils/cars.json"
 
 import styles from "../../styles/dashboardcars.module.css";
 import sprite from "../../sprite.svg";
+import {isAuthenticated} from "../../utils/authUsers";
+import axios from "axios";
+import AddCarModal from "./AddCarModal";
 
 function DashboardCars(props) {
+    const [cars, setCars] = useState([]);
+    const [userData, setUserData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedModel, setSelectedModel] = useState('');
+    const [registrationNumber, setRegistrationNumber] = useState('');
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    const handleAddCar = () => {
+        setCars([...cars, { brand: selectedBrand, model: selectedModel }]);
+        setSelectedBrand('');
+        setSelectedModel('');
+        setRegistrationNumber('');
+        setShowModal(false);
+    };
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            async function fetchData() {
+                try {
+                    const userResponse = await axios.get('http://localhost:8000/api/user', {
+                        headers: {
+                            Authorization: `Token ${localStorage.getItem('token')}`
+                        }
+                    });
+                    setUserData(userResponse.data);
+
+                    const carsResponse = await Axios.get(`http://localhost:8000/cars/user/${userResponse.data.user.id}`);
+                    setCars(carsResponse.data);
+                } catch (error) {
+                    console.error('Ошибка при получении данных:', error);
+                }
+            }
+
+            fetchData();
+        }
+    }, []);
+
+
+    const userId = userData && userData.user ? userData.user.id : null;
+    console.log(userId)
+
     return (
         <div className={styles.dashboard}>
-            <div>
-                <Sidebar/>
-            </div>
             <div className={styles["main-content"]}>
                 <HeaderBoard title={"Мое авто"} description={"Здесь отображаются все ваши автомобили "}/>
                 <div className={styles["cars"]}>
@@ -24,45 +74,32 @@ function DashboardCars(props) {
                                 <input type="text" placeholder="Поиск"/>
                             </div>
                         </form>
-                        <button>
-                            <svg width={24} height={24}>
-                                <use xlinkHref={sprite + "#plus2"}/>
-                            </svg>
-                            Добавить авто
-                        </button>
+                        <button onClick={handleOpenModal}>Добавить авто</button>
                     </div>
                     <div className={styles["cars-cards"]}>
-                        <div className={styles["cars-card"]}>
-                            <img src="https://ltdfoto.ru/images/2024/02/18/car.png" alt="Car"/>
-                            <h2>Mercedes-Benz</h2>
-                            <h3>W221</h3>
-                            <p>Номер автомобиля</p>
-                            <span>А201АW 53</span>
-                        </div>
-                        <div className={styles["cars-card"]}>
-                            <img src="https://ltdfoto.ru/images/2024/02/18/car.png" alt="Car"/>
-                            <h2>Mercedes-Benz</h2>
-                            <h3>W221</h3>
-                            <p>Номер автомобиля</p>
-                            <span>А201АW 53</span>
-                        </div>
-                        <div className={styles["cars-card"]}>
-                            <img src="https://ltdfoto.ru/images/2024/02/18/car.png" alt="Car"/>
-                            <h2>Mercedes-Benz</h2>
-                            <h3>W221</h3>
-                            <p>Номер автомобиля</p>
-                            <span>А201АW 53</span>
-                        </div>
-                        <div className={styles["cars-card"]}>
-                            <img src="https://ltdfoto.ru/images/2024/02/18/car.png" alt="Car"/>
-                            <h2>Mercedes-Benz</h2>
-                            <h3>W221</h3>
-                            <p>Номер автомобиля</p>
-                            <span>А201АW 53</span>
-                        </div>
+                    {cars.map(car => (
+                            <div key={car.id} className={styles["cars-card"]}>
+                                <img src="../images/car.png" alt="Car"/>
+                                <h2>{car.brand_name}</h2>
+                                <h3>{car.model_name}</h3>
+                                <p>Номер автомобиля</p>
+                                <span>{car.registration_number}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
+            {showModal && (
+                <AddCarModal
+                    handleCloseModal={handleCloseModal}
+                    handleAddCar={handleAddCar}
+                    selectedBrand={selectedBrand}
+                    setSelectedBrand={setSelectedBrand}
+                    selectedModel={selectedModel}
+                    setSelectedModel={setSelectedModel}
+                    userId={userId}
+                />
+            )}
         </div>
     );
 }

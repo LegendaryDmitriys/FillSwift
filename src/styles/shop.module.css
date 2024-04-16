@@ -107,21 +107,26 @@
 
 .bestsellers-items{
     display: flex;
-    gap: 30px;
+    gap: 15px;
 }
 
 
 
-.item {
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-    gap: 30px;
-    /*width: 512px;*/
-    /*height: 516px;*/
-    border: 1px solid #262626;
-    border-radius: 12px;
-}
+    .item {
+        display: flex;
+        flex-direction: column;
+        padding: 50px;
+        gap: 30px;
+        width: 512px;
+        height: 440px;
+        border: 1px solid #262626;
+        border-radius: 12px;
+    }
+
+    .item img {
+        max-width: 50%;
+        height: auto;
+    }
 
 .container {
     display: flex;
@@ -149,8 +154,9 @@
 
 .products-items{
     display: flex;
-    gap: 30px;
+    gap: 15px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .sort {
@@ -172,6 +178,35 @@
 .button-sort{
     display: flex;
     gap: 30px;
+}
+
+.paginationBttns {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.paginationBttns li {
+    margin: 0 8px;
+}
+
+.previousBttn, .nextBttn {
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.paginationActive {
+    font-weight: bold;
+    color: #703BF7;
+}
+
+.paginationDisabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 951px) and (max-width: 1440px) {

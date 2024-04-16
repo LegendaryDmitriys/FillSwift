@@ -40,6 +40,7 @@
 [id^="shop"],
 [id^="fuel"],
 [id^="fueling"],
+[id^="profile"],
 [id^="contact"] {
     color: #fff;
     font-size: 22px;

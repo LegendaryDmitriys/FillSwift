@@ -1,38 +1,80 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import styles from '../../styles/auth.module.css';
+import sprite from '../../sprite.svg';
+import { ROUTES } from '../../utils/routes';
 
+const Auth = (props) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [userDetails, setUserDetails] = useState(null);
 
-import styles from "../../styles/auth.module.css"
-import sprite from "../../sprite.svg";
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post(
+                'http://localhost:8000/api/users/login/',
+                {
+                    user: {
+                        email,
+                        password
+                    }
+                },
+            );
+            const token = response.data.user.token;
+            localStorage.setItem('token', token)
+            window.location.href = '/user/settings';
+        } catch (error) {
+            console.error('Ошибка аутентификации:', error);
+        }
 
-const Auth = (props) => (
-    <div className={styles.auth}>
-        <div className={styles["auth-header"]}>
-            <svg width={42} height={51}>
-                <use xlinkHref={sprite + "#logo"}/>
-            </svg>
-            <h1>Войдите в свой аккаунт</h1>
-            <form action="">
-                <div className={styles["mail-container"]}>
-                    <label for="mail">Адрес электронной почты *</label>
-                    <input type="text" id="mail" rules={{require: "Обязательное поле!"}} required/>
-                </div>
-                <div className={styles["password-container"]}>
-                    <label for="password">Пароль *</label>
-                    <input type="password" id="password" rules={{require: "Обязательное поле!"}} required/>
-                </div>
-                <div className={styles["reset-password"]}>
-                    <a href="">Забыли пароль?</a>
-                </div>
-                <div className={styles["login-btn"]}>
-                    <button>Войти</button>
-                </div>
-                <div className={styles["transition-reg"]}>
-                    <p>У вас еще нету аккаунта? <a href="">Начните здесь</a></p>
-                </div>
-            </form>
+    };
+
+    return (
+        <div className={styles.auth}>
+            <div className={styles['auth-header']}>
+                <svg width={42} height={51}>
+                    <use xlinkHref={`${sprite}#logo`} />
+                </svg>
+                <h1>Войдите в свой аккаунт</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles['mail-container']}>
+                        <label htmlFor="mail">Адрес электронной почты *</label>
+                        <input
+                            type="text"
+                            id="email"
+                            rules={{require: 'Обязательное поле!'}}
+                            required
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles['password-container']}>
+                        <label htmlFor="password">Пароль *</label>
+                        <input
+                            type="password"
+                            id="password"
+                            rules={{require: 'Обязательное поле!'}}
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles['reset-password']}>
+                        <a href="">Забыли пароль?</a>
+                    </div>
+                    <div className={styles['login-btn']}>
+                        <button type="submit">Войти</button>
+                    </div>
+                    <div className={styles['transition-reg']}>
+                        <p>
+                            У вас еще нету аккаунта?{' '}
+                            <Link to={ROUTES.Registration}>Начните здесь</Link>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-
-);
+    );
+};
 
 export default Auth;

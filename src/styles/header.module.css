@@ -79,6 +79,9 @@ body{
     .header {
         padding: 20px 16px;
     }
+    .sign{
+        display: none;
+    }
 
 }
 

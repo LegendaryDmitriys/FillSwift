@@ -1,0 +1,122 @@
+.modalCars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContentCars{
+    background-color: #000000;
+    padding: 70px 20px;
+    border: 1px solid #383838;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+.modalContentCars > h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+
+}
+
+.registrationNumber{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.controlCar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.addCars{
+    color: #fff;
+    padding: 14px 24px;
+    background: #703BF7;
+    border: 1px solid #703BF7;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    width: 161px;
+    height: 63px;
+}
+
+.fuelTankVolume{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.fuelTankVolume > input {
+    font-size: 16px;
+    font-weight: 500;
+    height: 42px;
+    background: #1E1E1E;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.fuelTankVolume > label {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.closeModal{
+    color: #fff;
+    padding: 14px 24px;
+    background: #912727;
+    border: 1px solid #912727;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    width: 161px;
+    height: 63px;
+}
+
+.registrationNumber > input {
+    height: 42px;
+    background: #1E1E1E;
+    border: 1px solid #414141;
+    border-radius: 8px;
+    padding: 0 15px;
+}
+
+.registrationNumber > label {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+
+.select{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 8px 16px;
+
+    border-radius: 5px;
+    border: solid 1px #c7ccd1;
+
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.select > option {
+    background-color: #000000;
+    color:#fff;
+}

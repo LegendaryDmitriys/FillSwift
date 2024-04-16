@@ -1,97 +1,111 @@
-import React from 'react';
-
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 
 import styles from '../../styles/dashboardbasket.module.css'
-import Sidebar from "./Sidebar";
+
 import HeaderBoard from "./HeaderBoard";
-import sprite from "../../sprite.svg";
-import MinSideBar from "./MinSideBar";
+
+
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../utils/routes";
 
 
 function DashboardBasket(props) {
+    const [basketProducts, setBasketProducts] = useState([]);
+
+    useEffect(() => {
+        async function fetchBasketProducts() {
+            try {
+                const userResponse = await axios.get('http://localhost:8000/api/user', {
+                    headers: {
+                        Authorization: `Token ${localStorage.getItem('token')}`
+                    }
+                });
+                const userId = userResponse.data.user.id;
+                const basketResponse = await axios.get(`http://localhost:8000/carts/baskets/${userId}/`);
+                const basketId = basketResponse.data.id;
+
+                const response = await axios.get(`http://localhost:8000/carts/basket-products/${basketId}`);
+                const productsData = await Promise.all(response.data.map(async (item) => {
+                    const productResponse = await axios.get(`http://localhost:8000/products/products/${item.product}`);
+                    const totalPrice = productResponse.data.price_per_unit * item.quantity;
+                    console.log(item)
+                    return { ...item, productInfo: productResponse.data, totalPrice: totalPrice };
+                }));
+                setBasketProducts(productsData);
+            } catch (error) {
+                console.error('Ошибка при получении продуктов из корзины:', error);
+            }
+        }
+        fetchBasketProducts();
+    }, []);
+
+    const totalQuantity = basketProducts.length;
+
+    const totalPrice = basketProducts.reduce((acc, item) => acc + item.totalPrice, 0);
+
+    const discountPrice = basketProducts.reduce((acc, item) => {
+        if (item.productInfo.discount) {
+            return acc + (item.productInfo.discount * item.quantity);
+        }
+        return acc;
+    }, 0);
+
+
     return (
         <div className={styles.dashboard}>
-            <div>
-                <Sidebar/>
-            </div>
             <div className={styles["main-content"]}>
                 <HeaderBoard title={"Корзина товаров"} description={"Здесь хранятся все выбранные вами товары"}/>
                 <div className={styles.basket}>
                     <div className={styles["basket-content"]}>
-                        <div className={styles["basket-products"]}>
-                            <div className={styles["basket-product"]}>
-                                <div className={styles["basket-img"]}>
-                                    <img src="https://ltdfoto.ru/images/2024/02/18/1.png" alt="img"/>
+                        {basketProducts.length === 0 ? (
+                            <div className={styles.emptyBasket}>
+                                <img src="../images/emptyBasket.png" alt=""/>
+                                <article className={styles.emptyBasketText}>
+                                    <p className={styles.emptyBasketMessage}>Ваша корзина пуста</p>
+                                    <p className={styles.emptyBasketSuggestion}>Продолжите покупки, <Link to={ROUTES.Shop}>перейдя к каталогу товаров</Link></p>
+                                </article>
+                            </div>
+                        ) : (
+                            <div>
+                                <div className={styles["basket-products"]}>
+                                    {basketProducts.map((item, index) => (
+                                        <div key={index} className={styles['basket-product']}>
+                                            <div className={styles['basket-img']}>
+                                                <img src={item.productInfo.image} alt="Product"/>
+                                            </div>
+                                            <div className={styles['basket-info']}>
+                                                <article>
+                                                    <h2>{item.productInfo.name}</h2>
+                                                    <span>{item.quantity} шт.</span>
+                                                </article>
+                                                <button>Удалить</button>
+                                            </div>
+                                            <div className={styles['basket-price']}>
+                                                <article>
+                                                    <h3>{item.totalPrice} P</h3>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                <div className={styles["basket-info"]}>
-                                    <article>
-                                        <h2>Масло SintecS</h2>
-                                        <span>1 л</span>
+                                <div className={styles["basket-payment"]}>
+                                    <article className={styles["payment-header"]}>
+                                        <h4>Ваша корзина</h4>
+                                        <span>{totalQuantity} товара</span>
                                     </article>
-                                    <button>Удалить</button>
-                                </div>
-                                <div className={styles["basket-price"]}>
-                                    <article>
-                                        <h3>500p</h3>
-                                        <p>Cкидка 270 P <span>500 P</span></p>
+                                    <article className={styles["payment-allprice"]}>
+                                        <h4>Товары({totalQuantity})</h4>
+                                        <span>{totalPrice}P</span>
                                     </article>
+                                    <article className={styles["payment-discount"]}>
+                                    </article>
+                                    <div className={styles["payment-btn"]}>
+                                        <button>Перейти к оформлению</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={styles["basket-product"]}>
-                                <div className={styles["basket-img"]}>
-                                    <img src="https://ltdfoto.ru/images/2024/02/18/1.png" alt="img"/>
-                                </div>
-                                <div className={styles["basket-info"]}>
-                                    <article>
-                                        <h2>Масло SintecS</h2>
-                                        <span>1 л</span>
-                                    </article>
-                                    <button>Удалить</button>
-                                </div>
-                                <div className={styles["basket-price"]}>
-                                    <article>
-                                        <h3>500p</h3>
-                                        <p>Cкидка 270 P <span>500 P</span></p>
-                                    </article>
-                                </div>
-                            </div>
-                            <div className={styles["basket-product"]}>
-                                <div className={styles["basket-img"]}>
-                                    <img src="https://ltdfoto.ru/images/2024/02/18/1.png" alt="img"/>
-                                </div>
-                                <div className={styles["basket-info"]}>
-                                    <article>
-                                        <h2>Масло SintecS</h2>
-                                        <span>1 л</span>
-                                    </article>
-                                    <button>Удалить</button>
-                                </div>
-                                <div className={styles["basket-price"]}>
-                                    <article>
-                                        <h3>500p</h3>
-                                        <p>Cкидка 270 P <span>500 P</span></p>
-                                    </article>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className={styles["basket-payment"]}>
-                            <article className={styles["payment-header"]}>
-                                <h4>Ваша корзина</h4>
-                                <span>2 товара</span>
-                            </article>
-                            <article className={styles["payment-allprice"]}>
-                                <h4>Товары(2)</h4>
-                                <span>1000Р</span>
-                            </article>
-                            <article className={styles["payment-discount"]}>
-                                <h4>Скидка</h4>
-                                <span>- 275р</span>
-                            </article>
-                            <div className={styles["payment-btn"]}>
-                                <button>Перейти к оформлению</button>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

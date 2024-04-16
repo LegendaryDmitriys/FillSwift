@@ -29,8 +29,47 @@
     border: 1px solid #383838;
     padding: 50px 45px;
     width: 650px;
+    overflow-y: auto;
+    max-height: 700px;
+}
+.basket-products::-webkit-scrollbar {
+    width: 12px;
+}
+.basket-products::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
 }
 
+.basket-products::-webkit-scrollbar-thumb {
+    background-color: #703BF7;
+}
+.basket-products::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.emptyBasketText{
+    display: flex;
+    flex-direction: column;
+}
+
+.emptyBasket{
+    display: flex;
+}
+
+
+.emptyBasketMessage{
+    font-size:32px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.emptyBasketSuggestion{
+    font-size:22px;
+    font-weight: 500;
+    color: #999999;
+}
+
+.emptyBasketSuggestion > a{
+    color: #8B5CD1;
+}
 .basket-product {
     display: flex;
 }

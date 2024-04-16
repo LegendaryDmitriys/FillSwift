@@ -2,64 +2,84 @@ import React, { useState } from 'react';
 import styles from "../../styles/header.module.css"
 import sprite  from "../../sprite.svg"
 import BurgerMenu from "./Burger";
-import { Link } from 'react-router-dom'
+import {Link, useLocation} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
+import {isAuthenticated} from "../../utils/authUsers";
 
 const Header = (props) => {
     const [activeMenuItem, setActiveMenuItem] = useState('Главная');
+    const location = useLocation();
 
     const handleMenuItemClick = (menuItem) => {
         setActiveMenuItem(menuItem);
     };
 
+
+
+
     return (
         <header className={styles.header}>
             <nav className={styles.navigation}>
                 <div>
-                    <svg className='icon' width={134} height={51}>
+                    <svg className='logo' width={134} height={51}>
                         <use xlinkHref={sprite + "#logo-full"}/>
                     </svg>
                 </div>
                 <div className={styles.menu}>
                     <ul className={styles["menu-items"]}>
                         <li
-                            className={activeMenuItem === 'Главная' ? styles["menu-item-activ"] : styles["menu-item"]}
+                            key="Главная"
+                            className={location.pathname === ROUTES.Home ? styles["menu-item-activ"] : styles["menu-item"]}
                             onClick={() => handleMenuItemClick('Главная')}
                         >
                             <Link to={ROUTES.Home}>Главная</Link>
                         </li>
                         <li
-                            className={activeMenuItem === 'Заправиться' ? styles["menu-item-activ"] : styles["menu-item"]}
+                            key="Заправиться"
+                            className={location.pathname === ROUTES.Fueling ? styles["menu-item-activ"] : styles["menu-item"]}
                             onClick={() => handleMenuItemClick('Заправиться')}
                         >
-                            <Link to="#">Заправиться</Link>
+                            <Link to={ROUTES.Fueling}>Заправиться</Link>
                         </li>
                         <li
-                            className={activeMenuItem === 'Магазин' ? styles["menu-item-activ"] : styles["menu-item"]}
+                            key="Магазин"
+                            className={location.pathname === ROUTES.Shop ? styles["menu-item-activ"] : styles["menu-item"]}
                             onClick={() => handleMenuItemClick('Магазин')}
                         >
                             <Link to={ROUTES.Shop}>Магазин</Link>
                         </li>
                         <li
-                            className={activeMenuItem === 'Типы топлива' ? styles["menu-item-activ"] : styles["menu-item"]}
+                            key="Типы топлива"
+                            className={location.pathname === ROUTES.TypeFuels ? styles["menu-item-activ"] : styles["menu-item"]}
                             onClick={() => handleMenuItemClick('Типы топлива')}
                         >
-                            <Link to="#">Типы топлива</Link>
+                            <Link to={ROUTES.TypeFuels}>Типы топлива</Link>
                         </li>
                         <li
-                            className={activeMenuItem === 'Контакты' ? styles["menu-item-activ"] : styles["menu-item"]}
+                            key="Контакты"
+                            className={location.pathname === ROUTES.Contact ? styles["menu-item-activ"] : styles["menu-item"]}
                             onClick={() => handleMenuItemClick('Контакты')}
                         >
-                            Контакты
+                            <Link to={ROUTES.Contact}>Контакты</Link>
                         </li>
                     </ul>
                 </div>
                 <div>
                     <div className={styles.person}>
-
+                        <button>
+                            {isAuthenticated() ? (
+                                <Link to={ROUTES.Settings}>Личный кабинет</Link>
+                            ) : (
+                                <Link to={ROUTES.Login}>
+                                    <svg className={styles.sign} width={32} height={32}>
+                                        <use xlinkHref={sprite + "#sign"}/>
+                                    </svg>
+                                </Link>
+                            )}
+                        </button>
                     </div>
                     <div className={styles.burger}>
-                        <BurgerMenu/>
+                    <BurgerMenu/>
                     </div>
                 </div>
             </nav>

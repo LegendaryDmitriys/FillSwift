@@ -169,6 +169,40 @@
     color: #999999;
 }
 
+.quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity button {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.quantity button:hover {
+    background-color: #e0e0e0;
+}
+
+.quantity span {
+    margin: 0 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.quantity button:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.quantity button:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 @media screen and (min-width: 951px) and (max-width: 1440px) {
 
 }

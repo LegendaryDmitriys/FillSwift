@@ -3,11 +3,12 @@ import React from 'react';
 
 import styles from "../../styles/home.module.css"
 import Header from "../Header/Header";
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../utils/routes";
 
 
 const Home = (props) => (
     <section className={styles.home}>
-        <Header/>
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles["content-left"]}>
@@ -19,8 +20,8 @@ const Home = (props) => (
                         Ваш путь к идеальной заправке. Откройте для себя топливо, созданное специально для вас!
                     </h3>
                     <div className={styles.btns}>
-                        <button className={styles["btn-shop"]}>Магазин</button>
-                        <button className={styles["btn-fill"]}>Заправиться</button>
+                        <Link to={ROUTES.Shop}><button className={styles["btn-shop"]}>Магазин</button></Link>
+                        <Link to={ROUTES.Fueling}><button className={styles["btn-fill"]}>Заправиться</button></Link>
                     </div>
                     <div className={styles.blocks}>
                         <div className={styles["mobile-blocks"]}>
@@ -40,7 +41,7 @@ const Home = (props) => (
                     </div>
                 </div>
                 <div className={styles["content-right"]}>
-                    <img className={styles.img} src="/home-img.png" alt=""/>
+                    <img className={styles.img} src="https://cdn3d.iconscout.com/3d/premium/thumb/gas-station-6843928-5603514.png?f=webp" alt=""/>
                 </div>
             </div>
         </div>
