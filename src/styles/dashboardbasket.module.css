@@ -67,6 +67,11 @@
     color: #999999;
 }
 
+.basket-flex{
+    display: flex;
+    gap: 50px;
+}
+
 .emptyBasketSuggestion > a{
     color: #8B5CD1;
 }

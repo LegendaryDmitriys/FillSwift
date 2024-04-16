@@ -44,12 +44,29 @@ function DashboardBasket(props) {
 
     const totalPrice = basketProducts.reduce((acc, item) => acc + item.totalPrice, 0);
 
-    const discountPrice = basketProducts.reduce((acc, item) => {
-        if (item.productInfo.discount) {
-            return acc + (item.productInfo.discount * item.quantity);
+    const handleRemoveFromBasket = async (productId) => {
+        try {
+            const userResponse = await axios.get('http://localhost:8000/api/user', {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            });
+            const userId = userResponse.data.user.id;
+            const basketResponse = await axios.get(`http://localhost:8000/carts/baskets/${userId}/`);
+            const basketId = basketResponse.data.id;
+
+            await axios.delete(`http://localhost:8000/carts/basket-products/${basketId}/${productId}`, {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            });
+
+            setBasketProducts(prevProducts => prevProducts.filter(item => item.product !== productId));
+        } catch (error) {
+            console.error('Ошибка при удалении товара из корзины:', error);
         }
-        return acc;
-    }, 0);
+    };
+
 
 
     return (
@@ -67,7 +84,7 @@ function DashboardBasket(props) {
                                 </article>
                             </div>
                         ) : (
-                            <div>
+                            <div className={styles["basket-flex"]}>
                                 <div className={styles["basket-products"]}>
                                     {basketProducts.map((item, index) => (
                                         <div key={index} className={styles['basket-product']}>
@@ -79,7 +96,7 @@ function DashboardBasket(props) {
                                                     <h2>{item.productInfo.name}</h2>
                                                     <span>{item.quantity} шт.</span>
                                                 </article>
-                                                <button>Удалить</button>
+                                                <button onClick={() => handleRemoveFromBasket(item.product)}>Удалить</button>
                                             </div>
                                             <div className={styles['basket-price']}>
                                                 <article>

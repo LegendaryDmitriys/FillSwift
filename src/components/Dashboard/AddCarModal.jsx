@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/addcarmodal.module.css';
-import InputMask from 'react-input-mask';
 import { isAuthenticated } from "../../utils/authUsers";
 import axios from "axios";
 
@@ -9,12 +8,12 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
     const [fuelTankVolume, setFuelTankVolume] = useState('');
     const [models, setModels] = useState([]);
     const [brands, setBrands] = useState([]);
-
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:8000/cars/models/')
-            .then(response => response.json())
-            .then(data => {
+        axios.get('http://localhost:8000/cars/models/')
+            .then(response => {
+                const data = response.data;
                 const brandMap = {};
                 data.forEach(model => {
                     if (!brandMap[model.brand_id]) {
@@ -23,6 +22,9 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
                 });
                 setModels(data);
                 setBrands(Object.entries(brandMap).map(([id, name]) => ({ id, name })));
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке моделей автомобилей:', error);
             });
     }, []);
 
@@ -42,17 +44,19 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Машина успешно добавлена');
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    setError(data.errors);
                 } else {
-                    console.error('Ошибка добавления машины');
+                    console.log('Машина успешно добавлена');
                 }
             })
             .catch(error => {
                 console.error('Ошибка при отправке запроса:', error);
             });
     };
+
 
     const handleRegistrationNumberChange = (e) => {
         let value = e.target.value.toUpperCase();
@@ -93,15 +97,21 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
                             value={registrationNumber}
                             onChange={handleRegistrationNumberChange}
                             placeholder="Введите номер автомобиля, по примеру - A999AA"
+                            required
                         />
 
                     </article>
                     <article className={styles.fuelTankVolume}>
                         <label htmlFor="fuelTankVolume">Объем бака (в литрах):</label>
                         <input type="number" id="fuelTankVolume" value={fuelTankVolume}
-                               onChange={handleFuelTankVolumeChange} min="0" max="150"
-                               placeholder="Введите объем бака"/>
+                               onChange={handleFuelTankVolumeChange} min="45" max="150"
+                               placeholder="Введите объем бака"
+                               required
+                        />
                     </article>
+                    {error && error.errors && error.errors.registration_number && error.errors.registration_number[0] && (
+                        <p className={styles.error}>{error.errors.registration_number[0]}</p>
+                    )}
                 </form>
                 <div className={styles.controlCar}>
                     <button className={styles.addCars} onClick={handleAddCar}>Добавить</button>

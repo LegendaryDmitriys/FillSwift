@@ -58,7 +58,6 @@ function DashboardCars(props) {
 
 
     const userId = userData && userData.user ? userData.user.id : null;
-    console.log(userId)
 
     return (
         <div className={styles.dashboard}>
@@ -84,6 +83,8 @@ function DashboardCars(props) {
                                 <h3>{car.model_name}</h3>
                                 <p>Номер автомобиля</p>
                                 <span>{car.registration_number}</span>
+                                <h4>Объем бака</h4>
+                                <span>{car.fuel_tank_volume} Л</span>
                             </div>
                         ))}
                     </div>

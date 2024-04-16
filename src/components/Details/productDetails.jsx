@@ -6,7 +6,6 @@ import axios from "axios";
 import { isAuthenticated } from "../../utils/authUsers";
 
 const ProductDetails = (props) => {
-    const imagePath = "../../images/";
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -65,7 +64,7 @@ const ProductDetails = (props) => {
                     'http://localhost:8000/carts/basket-products/',
                     {
                         basket: basketId,
-                        product: productId,
+                        product: parseInt(productId),
                         quantity: quantity,
                     },
                     {
@@ -76,7 +75,6 @@ const ProductDetails = (props) => {
                 );
 
                 console.log('Продукт успешно добавлен в корзину:', productResponse.data);
-                // Добавьте код для обработки успешного добавления товара в корзину
             } catch (error) {
                 console.error('Ошибка при выполнении запросов:', error);
             }
