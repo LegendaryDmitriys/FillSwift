@@ -10,6 +10,7 @@ import ReactPaginate from 'react-paginate';
 const Shop = () => {
     const [products, setProducts] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
+    const [sortOption, setSortOption] = useState(null);
     const productsPerPage = 9;
 
     useEffect(() => {
@@ -20,39 +21,57 @@ const Shop = () => {
             .catch(error => {
                 console.error('Ошибка получения данных о продуктах:', error);
             });
-    }, []);
+    }, [sortOption]);
 
     const pageCount = Math.ceil(products.length / productsPerPage);
     const pagesVisited = pageNumber * productsPerPage;
 
-    const displayProducts = products
-        .slice(pagesVisited, pagesVisited + productsPerPage)
-        .map(product => (
-            <div key={product.id} className={styles.item}>
-                <Link to={`${ROUTES.ProductDetails}/${product.id}`}>
-                    {product.images.length > 0 && (
-                        <img src={product.images[0].image} alt={product.name} />
-                    )}
-                    <div className={styles.container}>
-                        <div className={styles.left}>
-                            <p>
-                                {product.name} <br />
-                                {product.price_per_unit} {product.currency}
-                            </p>
+    const displayProducts = () => {
+        const sortedProducts = sortProducts();
+        return sortedProducts
+            .slice(pagesVisited, pagesVisited + productsPerPage)
+            .map(product => (
+                <div key={product.id} className={styles.item}>
+                    <Link to={`${ROUTES.ProductDetails}/${product.id}`}>
+                        {product.images.length > 0 && (
+                            <img src={product.images[0].image} alt={product.name} />
+                        )}
+                        <div className={styles.container}>
+                            <div className={styles.left}>
+                                <p>
+                                    {product.name} <br />
+                                    {product.price_per_unit} {product.currency}
+                                </p>
+                            </div>
+                            <div className={styles.right}>
+                                <p>
+                                    {product.product_type} <br />
+                                    {product.manufacturer}
+                                </p>
+                            </div>
                         </div>
-                        <div className={styles.right}>
-                            <p>
-                                {product.product_type} <br />
-                                {product.manufacturer}
-                            </p>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-        ));
+                    </Link>
+                </div>
+            ));
+    };
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
+    };
+
+    const sortProducts = () => {
+        switch (sortOption) {
+            case 'Цена':
+                return [...products].sort((a, b) => a.price_per_unit - b.price_per_unit);
+            case 'Категория':
+                return [...products].sort((a, b) => a.product_type.localeCompare(b.product_type));
+            case 'Бренд':
+                return [...products].sort((a, b) => a.manufacturer.localeCompare(b.manufacturer));
+            case 'Количество на складе':
+                return [...products].sort((a, b) => a.stock_quantity - b.stock_quantity);
+            default:
+                return products;
+        }
     };
 
     return (
@@ -203,10 +222,10 @@ const Shop = () => {
                 <section className={styles["products-container"]}>
                     <h2>Товары</h2>
                     <div className={styles.sort}>
-                        <SortPopup/>
+                        <SortPopup setSortOption={setSortOption} />
                     </div>
                     <section className={styles["products-items"]}>
-                        {displayProducts}
+                        {displayProducts()}
                     </section>
                     <ReactPaginate
                         previousLabel={'Предыдущая'}

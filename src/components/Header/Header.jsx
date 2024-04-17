@@ -15,15 +15,15 @@ const Header = (props) => {
     };
 
 
-
-
     return (
         <header className={styles.header}>
             <nav className={styles.navigation}>
                 <div>
-                    <svg className='logo' width={134} height={51}>
-                        <use xlinkHref={sprite + "#logo-full"}/>
-                    </svg>
+                    <Link to={ROUTES.Home}>
+                        <svg className='logo' width={134} height={51}>
+                            <use xlinkHref={sprite + "#logo-full"}/>
+                        </svg>
+                    </Link>
                 </div>
                 <div className={styles.menu}>
                     <ul className={styles["menu-items"]}>

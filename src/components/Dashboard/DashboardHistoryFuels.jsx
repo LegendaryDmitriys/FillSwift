@@ -25,10 +25,10 @@ function DashboardHistoryFuels(props) {
                     });
                     setUserData(userResponse.data);
 
-                    const refuelingsResponse = await axios.get(`http://localhost:8000/refuling/refuelings/${userResponse.data.user.id}/`);
+                    const refuelingsResponse = await axios.get(`http://localhost:8000/refuling/${userResponse.data.user.id}/refuelings/`);
                     setRefuelings(refuelingsResponse.data);
                 } catch (error) {
-                    console.error('Error fetching data:', error);
+                    console.error('Ошибка при получении данных:', error);
                 }
             }
 
@@ -54,7 +54,7 @@ function DashboardHistoryFuels(props) {
                         <tbody>
                         {refuelings.map(refueling => (
                             <tr key={refueling.id}>
-                                <td>{refueling.name}</td>
+                                <td>Заправка #{refueling.id}</td>
                                 <td>{refueling.refueling_date_time}</td>
                                 <td>{refueling.fuel_quantity} л</td>
                                 <td>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/sortpopup.module.css';
 
-const SortPopup = () => {
+const SortPopup = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -11,6 +11,7 @@ const SortPopup = () => {
 
     const handleSortOptionClick = (option) => {
         setSelectedOption(option);
+        props.setSortOption(option);
         setIsOpen(false);
     };
 

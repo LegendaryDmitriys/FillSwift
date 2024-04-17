@@ -2,13 +2,13 @@
 
     import styles from '../../styles/modaltypefuels.module.css'
     import ModalFuelQuantity from "./modalFuelQuantity";
-    const ModalTypeFuels = ({ numberColumn,gasStation, onClose }) => {
+    const ModalTypeFuels = ({ numberColumn, gasStation, onClose }) => {
         const [modalOpen, setModalOpen] = useState(false);
         const [octaneNumber, setOctaneNumber] = useState(null);
         const [pricePerLiter, setPricePerLiter] = useState(null);
         const [selectedColumnNumber, setSelectedColumnNumber] = useState(null);
-        const openModal = (octaneNumber, pricePerLiter,columnNumber) => {
-            setOctaneNumber(octaneNumber);
+        const openModal = (fuelTypeId, octaneNumber, pricePerLiter,columnNumber, fuelColumnId) => {
+            setOctaneNumber({ id: fuelTypeId, number: octaneNumber });
             setPricePerLiter(pricePerLiter);
             setSelectedColumnNumber(columnNumber);
             setModalOpen(true);
@@ -28,7 +28,7 @@
                         <div className={styles['typefuels']}>
                             <table>
                                 <tbody>
-                                <tr onClick={() => openModal(selectedFuelType.octane_number, selectedColumn.price_per_liter, numberColumn)}>
+                                <tr onClick={() => openModal(selectedFuelType.id, selectedFuelType.octane_number, selectedColumn.price_per_liter, numberColumn)}>
                                     <td>{selectedFuelType.octane_number}</td>
                                     <td></td>
                                     <td>{selectedColumn.price_per_liter} ₽ <span>></span></td>
@@ -39,7 +39,7 @@
                     )}
                     <span>Выберите тип топлива</span>
                 </div>
-                {modalOpen && <ModalFuelQuantity octaneNumber={octaneNumber} pricePerLiter={pricePerLiter} numberColumn={selectedColumnNumber} onClose={() => setModalOpen(false)} />}
+                {modalOpen && <ModalFuelQuantity octaneNumberId={octaneNumber.id} octaneNumber={octaneNumber.number} pricePerLiter={pricePerLiter} numberColumn={selectedColumnNumber} fuelColumnId={selectedColumn.id} gasStation={gasStation} onClose={() => setModalOpen(false)} />}
             </div>
         );
     };

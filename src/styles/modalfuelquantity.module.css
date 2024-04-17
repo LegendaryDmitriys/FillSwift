@@ -132,6 +132,23 @@ input[type="range"] {
     margin-top: 35px;
     background: #703BF7;
     border-radius: 10px;
+}
 
+.select-cars{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 4px 8px;
 
+    border-radius: 5px;
+    border: solid 1px #c7ccd1;
+
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.select-cars > option {
+    background-color: #000000;
+    color: #fff;
 }

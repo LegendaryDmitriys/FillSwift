@@ -92,7 +92,7 @@ function TypeFuels(props) {
                             инновационного топлива!</p>
                     </article>
                     <div>
-                        <img src="../images/car.png" alt="Картинка"/>
+                        <img src="../images/car-fuel.png" alt="Картинка"/>
                     </div>
                 </div>
             </div>
