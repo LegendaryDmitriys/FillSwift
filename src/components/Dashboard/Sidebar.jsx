@@ -7,13 +7,16 @@ import {ROUTES} from "../../utils/routes";
 import {isAuthenticated} from "../../utils/authUsers";
 import axios from "axios";
 
+import AddCarModal from './AddCarModal';
+
 function Sidebar(props) {
     const [userData, setUserData] = useState(null);
+    const [showAddCarModal, setShowAddCarModal] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
         if (isAuthenticated()) {
-            axios.get('http://localhost:8000/api/user', {
+            axios.get('http://192.168.0.106:8000/api/user', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
@@ -26,6 +29,14 @@ function Sidebar(props) {
                 });
         }
     }, []);
+
+    const handleOpenAddCarModal = () => {
+        setShowAddCarModal(true);
+    };
+
+    const handleCloseAddCarModal = () => {
+        setShowAddCarModal(false);
+    };
 
     return (
         <div className={styles.sidebar}>
@@ -50,10 +61,11 @@ function Sidebar(props) {
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#car"}/>
                         </svg>
-                        <Link to={ROUTES.Cars}>Мое авто</Link>
-                        <svg className={styles["icon-plus"]} width={12} height={12}>
-                            <use xlinkHref={sprite + "#plus"}/>
-                        </svg>
+                        <Link to={ROUTES.Cars}>Мое авто
+                            <svg className={styles["icon-plus"]} width={12} height={12}>
+                                <use xlinkHref={sprite + "#plus"}/>
+                            </svg>
+                        </Link>
                     </div>
                 </div>
                 <div>
@@ -90,6 +102,9 @@ function Sidebar(props) {
                         <p className={styles["user-lastname"]}>{userData.user.lastname}</p>
                     </div>
                 </div>
+            )}
+            {showAddCarModal && (
+                <AddCarModal onClose={handleCloseAddCarModal} />
             )}
         </div>
     );

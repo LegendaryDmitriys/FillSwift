@@ -11,7 +11,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
     const [error, setError] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8000/cars/models/')
+        axios.get('http://192.168.0.106:8000/cars/models/')
             .then(response => {
                 const data = response.data;
                 const brandMap = {};
@@ -37,7 +37,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
             fuel_tank_volume: fuelTankVolume
         };
 
-        fetch('http://localhost:8000/cars/users/', {
+        fetch('http://192.168.0.106:8000/cars/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

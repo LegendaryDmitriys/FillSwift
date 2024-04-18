@@ -28,7 +28,7 @@ function DashboardSettings(props) {
             }
         };
 
-        axios.put(`http://localhost:8000/api/user`, formData, { headers })
+        axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
             })
@@ -52,7 +52,7 @@ function DashboardSettings(props) {
             }
         };
 
-        axios.put(`http://localhost:8000/api/user`, formData, { headers })
+        axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
             })

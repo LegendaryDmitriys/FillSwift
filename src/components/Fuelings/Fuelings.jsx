@@ -15,7 +15,7 @@ function Fuelings(props) {
     useEffect(() => {
         async function fetchFuelStations() {
             try {
-                const response = await axios.get('http://localhost:8000/fuelstation/list/');
+                const response = await axios.get('http://192.168.0.106:8000/fuelstation/list/');
                 setFuelStations(response.data);
             } catch (error) {
                 console.error('Ошибка при получении данных о заправках:', error);

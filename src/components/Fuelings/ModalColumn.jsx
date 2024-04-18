@@ -12,7 +12,7 @@ const ModalColumn = ({ onClose,fuelStationId, selectedFuelType}) => {
     useEffect(() => {
         async function fetchFuelColumns() {
             try {
-                const response = await axios.get(`http://localhost:8000/fuelstation/${fuelStationId}/`);
+                const response = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}/`);
                 setGasStation(response.data);
                 setFuelColumns(response.data.fuel_columns);
             } catch (error) {

@@ -14,7 +14,7 @@ const Auth = (props) => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/users/login/',
+                'http://192.168.0.106:8000/api/users/login/',
                 {
                     user: {
                         email,

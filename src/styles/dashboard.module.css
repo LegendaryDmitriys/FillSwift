@@ -34,6 +34,10 @@
     padding: 24px 20px;
 }
 
+.download-check{
+    cursor: pointer;
+}
+
 
 @media screen and (max-width: 950px) {
     .dashboard{

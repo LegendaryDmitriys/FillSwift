@@ -14,7 +14,7 @@ const Shop = () => {
     const productsPerPage = 9;
 
     useEffect(() => {
-        axios.get('http://localhost:8000/products/products/')
+        axios.get('http://192.168.0.106:8000/products/products/')
             .then(response => {
                 setProducts(response.data);
             })

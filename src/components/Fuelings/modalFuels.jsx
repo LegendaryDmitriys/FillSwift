@@ -11,7 +11,7 @@ const ModalFuels = ({ fuelStation, onClose }) => {
     useEffect(() => {
         async function fetchFuelTypes() {
             try {
-                const response = await axios.get(`http://localhost:8000/fuelstation/${fuelStation.id}/`);
+                const response = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStation.id}/`);
                 setFuelTypes(response.data.fuel_types);
             } catch (error) {
                 console.error('Ошибка при получении данных о типах топлива на заправке:', error);

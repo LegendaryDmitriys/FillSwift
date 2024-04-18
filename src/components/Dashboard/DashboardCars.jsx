@@ -17,6 +17,7 @@ function DashboardCars(props) {
     const [selectedBrand, setSelectedBrand] = useState('');
     const [selectedModel, setSelectedModel] = useState('');
     const [registrationNumber, setRegistrationNumber] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -38,14 +39,14 @@ function DashboardCars(props) {
         if (isAuthenticated()) {
             async function fetchData() {
                 try {
-                    const userResponse = await axios.get('http://localhost:8000/api/user', {
+                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     setUserData(userResponse.data);
 
-                    const carsResponse = await Axios.get(`http://localhost:8000/cars/user/${userResponse.data.user.id}`);
+                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/${userResponse.data.user.id}`);
                     setCars(carsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
@@ -56,8 +57,28 @@ function DashboardCars(props) {
         }
     }, []);
 
-
     const userId = userData && userData.user ? userData.user.id : null;
+
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredCars = cars.filter(car => {
+        return car.brand_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            car.model_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            car.registration_number.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const handleDeleteCar = async (carId) => {
+        try {
+            await axios.delete(`http://192.168.0.106:8000/cars/user/${userData.user.id}/${carId}/`);
+
+            setCars(cars.filter(car => car.id !== carId));
+        } catch (error) {
+            console.error('Ошибка при удалении машины:', error);
+        }
+    };
 
     return (
         <div className={styles.dashboard}>
@@ -70,13 +91,13 @@ function DashboardCars(props) {
                                 <svg width={24} height={24}>
                                     <use xlinkHref={sprite + "#glass"}/>
                                 </svg>
-                                <input type="text" placeholder="Поиск"/>
+                                <input type="text" placeholder="Поиск" value={searchTerm} onChange={handleSearchChange}/>
                             </div>
                         </form>
                         <button onClick={handleOpenModal}>Добавить авто</button>
                     </div>
                     <div className={styles["cars-cards"]}>
-                    {cars.map(car => (
+                        {filteredCars.map(car => (
                             <div key={car.id} className={styles["cars-card"]}>
                                 <img src="../images/car.png" alt="Car"/>
                                 <h2>{car.brand_name}</h2>
@@ -85,6 +106,7 @@ function DashboardCars(props) {
                                 <span>{car.registration_number}</span>
                                 <h4>Объем бака</h4>
                                 <span>{car.fuel_tank_volume} Л</span>
+                                <button onClick={() => handleDeleteCar(car.id)}>удалить</button>
                             </div>
                         ))}
                     </div>

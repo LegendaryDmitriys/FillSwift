@@ -15,14 +15,14 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
         if (isAuthenticated()) {
             async function fetchCarsUsers() {
                 try {
-                    const userResponse = await axios.get('http://localhost:8000/api/user', {
+                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     const userId = userResponse.data.user.id;
                     setUserId(userId)
-                    const carsResponse = await Axios.get(`http://localhost:8000/cars/user/6`);
+                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/6`);
                     setCars(carsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
@@ -33,9 +33,15 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
         }
     }, []);
 
+    const totalPrice = fuelAmount * pricePerLiter;
 
     const handlePayment = async () => {
         try {
+            if (fuelAmount <= 0) {
+                console.error('Выберите количество топлива');
+                return;
+            }
+
             if (!selectedCar) {
                 console.error('Машина не выбрана');
                 return;
@@ -52,10 +58,11 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 fuel_column: fuelColumnId,
                 fuel_type:  octaneNumberId,
                 fuel_quantity: fuelAmount,
-                refueling_id: gasStation.id
+                refueling_id: gasStation.id,
+                fuel_cost: totalPrice
             };
 
-            await axios.post('http://localhost:8000/refuling/refuelings/', refuelingData);
+            await axios.post('http://192.168.0.106:8000/refuling/refuelings/', refuelingData);
 
             setFuelAmount(0);
             onClose();
@@ -74,9 +81,10 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
         const selectedCarId = e.target.value;
         const selectedCar = cars.find(car => car.id === parseInt(selectedCarId));
         setSelectedCar(selectedCar);
-        setMaxFuelAmount(selectedCar.fuel_tank_volume);
+        setMaxFuelAmount(selectedCar ? selectedCar.fuel_tank_volume : 0);
         setFuelAmount(0);
     };
+
 
     return (
         <div className={styles.modalBackground}>
@@ -86,21 +94,26 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 <p>Колонка {numberColumn}</p>
                 <div className={styles["fuel-quantity"]}>
                     <div>
-                        <select onChange={handleCarChange} className={styles['select-cars']}>
-                            <option value="">Выберите машину</option>
-                            {cars.map(car => (
-                                <option key={car.id}
-                                        value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
-                            ))}
-                        </select>
                         <input
                             type="range"
                             onChange={handleChange}
                             min="0" max={maxFuelAmount} step="0.5"
                             value={fuelAmount}
                         />
-                        <p>Выбрано топлива: {fuelAmount} л</p>
                     </div>
+                </div>
+                <div className={styles["filled-fuels"]}>
+                    <select onChange={handleCarChange} className={styles['select-cars']}>
+                        <option value="">Выберите машину</option>
+                        {cars.map(car => (
+                            <option key={car.id}
+                                    value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
+                        ))}
+                    </select>
+                    <article>
+                        <p>Выбрано топлива: {fuelAmount} л</p>
+                        <p>Общая стоимость: {fuelAmount * pricePerLiter} ₽</p>
+                    </article>
                 </div>
                 <button className={styles["btn-pay"]} onClick={handlePayment}>Оплатить</button>
                 <span>Выберите количество топлива</span>

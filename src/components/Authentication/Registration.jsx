@@ -18,7 +18,7 @@ const Registration = (props) => {
         try {
             const csrfToken = getCSRFToken();
             const response = await axios.post(
-                'http://localhost:8000/api/users/',
+                'http://192.168.0.106:8000/api/users/',
                 {
                     user: {
                         lastname,

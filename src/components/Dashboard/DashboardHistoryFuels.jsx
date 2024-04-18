@@ -4,9 +4,7 @@ import axios from 'axios';
 import styles from "../../styles/dashboard.module.css";
 import sprite from "../../sprite.svg";
 
-import Sidebar from "./Sidebar";
 import HeaderBoard from "./HeaderBoard";
-import BurgerMenu from "../Header/Burger";
 import MinSideBar from "./MinSideBar";
 import {isAuthenticated} from "../../utils/authUsers";
 
@@ -18,14 +16,14 @@ function DashboardHistoryFuels(props) {
         if (isAuthenticated()) {
             async function fetchData() {
                 try {
-                    const userResponse = await axios.get('http://localhost:8000/api/user', {
+                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     setUserData(userResponse.data);
 
-                    const refuelingsResponse = await axios.get(`http://localhost:8000/refuling/${userResponse.data.user.id}/refuelings/`);
+                    const refuelingsResponse = await axios.get(`http://192.168.0.106:8000/refuling/${userResponse.data.user.id}/refuelings/`);
                     setRefuelings(refuelingsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
@@ -35,6 +33,26 @@ function DashboardHistoryFuels(props) {
             fetchData();
         }
     }, []);
+
+    const downloadReceipt = async (refuelingId) => {
+        try {
+            const response = await axios.get(`http://192.168.0.106:8000/refuling/download/receipt/${refuelingId}`, {
+                responseType: 'blob',
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            });
+
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `receipt_${refuelingId}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Ошибка при скачивании чека:', error);
+        }
+    };
 
 
     return (
@@ -58,7 +76,7 @@ function DashboardHistoryFuels(props) {
                                 <td>{refueling.refueling_date_time}</td>
                                 <td>{refueling.fuel_quantity} л</td>
                                 <td>
-                                    <svg className={styles["nav-icon"]} width={22} height={26}>
+                                    <svg className={styles["download-check"]} width={22} height={26} onClick={() => downloadReceipt(refueling.id)}>
                                         <use xlinkHref={sprite + "#check"}/>
                                     </svg>
                                 </td>
