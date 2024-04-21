@@ -26,7 +26,7 @@ const ProductDetails = (props) => {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/products/products/${productId}`)
+        axios.get(`http://192.168.0.106:8000/products/products/${productId}`)
             .then(response => {
                 setProduct(response.data);
                 setTotalPrice(response.data.price_per_unit * quantity);
@@ -51,17 +51,17 @@ const ProductDetails = (props) => {
     const handleBuyProduct = async () => {
         if (isAuthenticated()) {
             try {
-                const userResponse = await axios.get('http://localhost:8000/api/user', {
+                const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`
                     }
                 });
                 const userId = userResponse.data.user.id;
-                const basketResponse = await axios.get(`http://localhost:8000/carts/baskets/${userId}/`);
+                const basketResponse = await axios.get(`http://192.168.0.106:8000/carts/baskets/${userId}/`);
                 const basketId = basketResponse.data.id;
 
                 const productResponse = await axios.post(
-                    'http://localhost:8000/carts/basket-products/',
+                    'http://192.168.0.106:8000/carts/basket-products/',
                     {
                         basket: basketId,
                         product: parseInt(productId),

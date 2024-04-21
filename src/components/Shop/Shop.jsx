@@ -34,18 +34,22 @@ const Shop = () => {
                 <div key={product.id} className={styles.item}>
                     <Link to={`${ROUTES.ProductDetails}/${product.id}`}>
                         {product.images.length > 0 && (
-                            <img src={product.images[0].image} alt={product.name} />
+                            <img src={product.images[0].image} alt={product.name} className={styles.image} />
                         )}
-                        <div className={styles.container}>
+                        <div className={styles.infoContainer}>
                             <div className={styles.left}>
-                                <p>
-                                    {product.name} <br />
+                                <p className={styles.name}>
+                                    {product.name}
+                                </p>
+                                <p className={styles.price}>
                                     {product.price_per_unit} {product.currency}
                                 </p>
                             </div>
                             <div className={styles.right}>
-                                <p>
-                                    {product.product_type} <br />
+                                <p className={styles.type}>
+                                    {product.product_type}
+                                </p>
+                                <p className={styles.manufacturer}>
                                     {product.manufacturer}
                                 </p>
                             </div>
@@ -109,7 +113,8 @@ const Shop = () => {
                                     </svg>
                                     <h3>Продукты питания</h3>
                                 </article>
-                                <p>Энергия для Дороги: Разнообразие Продуктов Питания на АЗС для Ваших Вкусовых Предпочтений
+                                <p>Энергия для Дороги: Разнообразие Продуктов Питания на АЗС для Ваших Вкусовых
+                                    Предпочтений
                                     и Загруженного Образа Жизни</p>
                             </div>
                             <div className={styles.card}>
@@ -119,7 +124,8 @@ const Shop = () => {
                                     </svg>
                                     <h3>Товары для ухода за автомобилем</h3>
                                 </article>
-                                <p>Берегите свой автомобиль, как заслуживает: Найдите все необходимые средства для ухода и
+                                <p>Берегите свой автомобиль, как заслуживает: Найдите все необходимые средства для ухода
+                                    и
                                     поддержания великолепного состояния вашего транспортного средства.</p>
                             </div>
                         </div>
@@ -141,7 +147,8 @@ const Shop = () => {
                                     </svg>
                                     <h3>Фаст-фуд и напитки</h3>
                                 </article>
-                                <p>Быстрый перекус в пути: Насладитесь разнообразием фаст-фуда и напитков на наших АЗС для
+                                <p>Быстрый перекус в пути: Насладитесь разнообразием фаст-фуда и напитков на наших АЗС
+                                    для
                                     зарядки энергией и удовлетворения ваших вкусовых предпочтений.</p>
                             </div>
                             <div className={styles.card}>
@@ -151,8 +158,11 @@ const Shop = () => {
                                     </svg>
                                     <h3>Мелкая техника и гаджеты</h3>
                                 </article>
-                                <p>Современные технологии в вашем автомобиле: Исследуйте удивительный мир мелкой техники и
-                                    гаджетов на наших АЗС для удобства и разнообразия в вашем путешествии.</p>
+                                <p>
+                                    Современные технологии в вашем автомобиле: Исследуйте удивительный мир мелкой техники
+                                    и
+                                    гаджетов на наших АЗС для удобства и разнообразия в вашем путешествии.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -164,54 +174,66 @@ const Shop = () => {
                     <h2>Хиты продаж</h2>
                     <section className={styles["bestsellers-items"]}>
                         <div className={styles.item}>
-                            <img src="https://www.tutu.ru/file/4/b024c1aad77e42d424c96720b4d60712/" alt=""/>
-                            <div className={styles.container}>
+                            <img src="" alt=""
+                                 className={styles.image}/>
+                            <div className={styles.infoContainer}>
                                 <div className={styles.left}>
-                                    <p>
-                                        Масло Sintec <br/>
-                                        600
-                                        P
+                                    <p className={styles.name}>
+                                        Масло Sintec
+                                    </p>
+                                    <p className={styles.price}>
+                                        600 P
                                     </p>
                                 </div>
                                 <div className={styles.right}>
-                                    <p>
-                                        Уход за авто <br/>
+                                    <p className={styles.type}>
+                                        Уход за авто
+                                    </p>
+                                    <p className={styles.manufacturer}>
                                         SintecS
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.item}>
-                            <img src="https://www.tutu.ru/file/4/b024c1aad77e42d424c96720b4d60712/" alt=""/>
-                            <div className={styles.container}>
+                            <img src="" alt=""
+                                 className={styles.image}/>
+                            <div className={styles.infoContainer}>
                                 <div className={styles.left}>
-                                    <p>
-                                        Масло Sintec <br/>
-                                        600
-                                        P
+                                    <p className={styles.name}>
+                                        Масло Sintec
+                                    </p>
+                                    <p className={styles.price}>
+                                        600 P
                                     </p>
                                 </div>
                                 <div className={styles.right}>
-                                    <p>
-                                        Уход за авто <br/>
+                                    <p className={styles.type}>
+                                        Уход за авто
+                                    </p>
+                                    <p className={styles.manufacturer}>
                                         SintecS
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.item}>
-                            <img src="https://www.tutu.ru/file/4/b024c1aad77e42d424c96720b4d60712/" alt=""/>
-                            <div className={styles.container}>
+                            <img src="" alt=""
+                                 className={styles.image}/>
+                            <div className={styles.infoContainer}>
                                 <div className={styles.left}>
-                                    <p>
-                                        Масло Sintec <br/>
-                                        600
-                                        P
+                                    <p className={styles.name}>
+                                        Масло Sintec
+                                    </p>
+                                    <p className={styles.price}>
+                                        600 P
                                     </p>
                                 </div>
                                 <div className={styles.right}>
-                                    <p>
-                                        Уход за авто <br/>
+                                    <p className={styles.type}>
+                                        Уход за авто
+                                    </p>
+                                    <p className={styles.manufacturer}>
                                         SintecS
                                     </p>
                                 </div>
@@ -220,9 +242,12 @@ const Shop = () => {
                     </section>
                 </section>
                 <section className={styles["products-container"]}>
+                    <svg width={69} height={30}>
+                        <use xlinkHref={sprite + "#stars"}/>
+                    </svg>
                     <h2>Товары</h2>
                     <div className={styles.sort}>
-                        <SortPopup setSortOption={setSortOption} />
+                        <SortPopup setSortOption={setSortOption}/>
                     </div>
                     <section className={styles["products-items"]}>
                         {displayProducts()}

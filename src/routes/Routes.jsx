@@ -27,18 +27,19 @@ const AppRoutes = () => {
                         ROUTES.Cars,
                         ROUTES.Basket,
                         ROUTES.Settings,
+
                 ].includes(location.pathname);
         };
 
         const shouldDisplayHeader = () => {
-                return [
-                        ROUTES.Shop,
-                        ROUTES.ProductDetails,
-                        ROUTES.Contact,
-                        ROUTES.Fueling,
-                        ROUTES.TypeFuels,
-                        ROUTES.Home
-                ].includes(location.pathname);
+                return location.pathname.startsWith(ROUTES.ProductDetails) ||
+                    [
+                            ROUTES.Shop,
+                            ROUTES.Contact,
+                            ROUTES.Fueling,
+                            ROUTES.TypeFuels,
+                            ROUTES.Home
+                    ].includes(location.pathname);
         };
 
         return (

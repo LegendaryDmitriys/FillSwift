@@ -105,7 +105,7 @@ function DashboardCars(props) {
                                 <p>Номер автомобиля</p>
                                 <span>{car.registration_number}</span>
                                 <h4>Объем бака</h4>
-                                <span>{car.fuel_tank_volume} Л</span>
+                                <span className={styles.fuels}>{car.fuel_tank_volume} Л</span>
                                 <button onClick={() => handleDeleteCar(car.id)}>удалить</button>
                             </div>
                         ))}
@@ -121,6 +121,7 @@ function DashboardCars(props) {
                     selectedModel={selectedModel}
                     setSelectedModel={setSelectedModel}
                     userId={userId}
+                    updateCars={setCars}
                 />
             )}
         </div>

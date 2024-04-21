@@ -12,6 +12,7 @@ import {ROUTES} from "../../utils/routes";
 
 function DashboardBasket(props) {
     const [basketProducts, setBasketProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function fetchBasketProducts() {
@@ -33,16 +34,23 @@ function DashboardBasket(props) {
                     return { ...item, productInfo: productResponse.data, totalPrice: totalPrice };
                 }));
                 setBasketProducts(productsData);
+                setIsLoading(false);
             } catch (error) {
+                setIsLoading(false);
                 console.error('Ошибка при получении продуктов из корзины:', error);
             }
         }
         fetchBasketProducts();
     }, []);
 
-    const totalQuantity = basketProducts.length;
+    const totalQuantity = basketProducts.reduce((acc, item) => acc + item.quantity, 0);
 
-    const totalPrice = basketProducts.reduce((acc, item) => acc + item.totalPrice, 0);
+
+    const totalPrice = basketProducts.reduce((acc, item) => acc + (item.productInfo.price_per_unit * item.quantity), 0);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     const handleRemoveFromBasket = async (productId) => {
         try {
@@ -67,7 +75,7 @@ function DashboardBasket(props) {
         }
     };
 
-
+    console.log(basketProducts)
 
     return (
         <div className={styles.dashboard}>
@@ -100,7 +108,7 @@ function DashboardBasket(props) {
                                             </div>
                                             <div className={styles['basket-price']}>
                                                 <article>
-                                                    <h3>{item.totalPrice} P</h3>
+                                                    <h3>{item.productInfo.price_per_unit} P</h3>
                                                 </article>
                                             </div>
                                         </div>

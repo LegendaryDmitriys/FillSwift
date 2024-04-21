@@ -3,7 +3,7 @@ import styles from '../../styles/addcarmodal.module.css';
 import { isAuthenticated } from "../../utils/authUsers";
 import axios from "axios";
 
-function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand, selectedModel, setSelectedModel }) {
+function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand, selectedModel, setSelectedModel,updateCars }) {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [fuelTankVolume, setFuelTankVolume] = useState('');
     const [models, setModels] = useState([]);
@@ -50,6 +50,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
                     setError(data.errors);
                 } else {
                     console.log('Машина успешно добавлена');
+                    updateCars(cars => [...cars, data]);
                 }
             })
             .catch(error => {
