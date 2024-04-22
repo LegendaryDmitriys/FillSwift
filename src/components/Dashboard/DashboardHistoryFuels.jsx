@@ -7,6 +7,7 @@ import sprite from "../../sprite.svg";
 import HeaderBoard from "./HeaderBoard";
 import MinSideBar from "./MinSideBar";
 import {isAuthenticated} from "../../utils/authUsers";
+import {formatDate} from "../../utils/formateDate";
 
 function DashboardHistoryFuels(props) {
     const [refuelings, setRefuelings] = useState([]);
@@ -25,6 +26,10 @@ function DashboardHistoryFuels(props) {
 
                     const refuelingsResponse = await axios.get(`http://192.168.0.106:8000/refuling/${userResponse.data.user.id}/refuelings/`);
                     setRefuelings(refuelingsResponse.data);
+                    setRefuelings(refuelingsResponse.data.map(refueling => ({
+                        ...refueling,
+                        refueling_date_time: formatDate(refueling.refueling_date_time)
+                    })));
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
                 }
@@ -53,7 +58,6 @@ function DashboardHistoryFuels(props) {
             console.error('Ошибка при скачивании чека:', error);
         }
     };
-
 
     return (
         <div className={styles.dashboard}>

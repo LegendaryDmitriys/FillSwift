@@ -22,7 +22,7 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                     });
                     const userId = userResponse.data.user.id;
                     setUserId(userId)
-                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/6`);
+                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/${userId}`);
                     setCars(carsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);

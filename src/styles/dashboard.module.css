@@ -20,14 +20,24 @@
     border-collapse: collapse;
     overflow: hidden;
     border-radius: .5rem;
+
 }
+.history-fuels > table > tbody {
+    overflow-y: auto;
+    max-height: 700px;
+}
+
+
+
 
 
 .history-fuels > table > thead {
     background-color: #272727;
     height: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
-
 
 .history-fuels > table > th,td{
     text-align: center;

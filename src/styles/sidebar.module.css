@@ -6,6 +6,8 @@
     flex-direction: column;
     border-right: 1px solid #383838;
     height: 100vh;
+    position: sticky;
+    top: 0;
 }
 
 .logo{
