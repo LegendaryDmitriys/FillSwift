@@ -4,14 +4,12 @@ import styles from "../../styles/sidebar.module.css"
 import sprite from "../../sprite.svg";
 import {Link, useLocation} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
-import {isAuthenticated} from "../../utils/authUsers";
+import {isAuthenticated, logout} from "../../utils/authUsers";
 import axios from "axios";
-
-import AddCarModal from './AddCarModal';
 
 function Sidebar(props) {
     const [userData, setUserData] = useState(null);
-    const [showAddCarModal, setShowAddCarModal] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -30,12 +28,14 @@ function Sidebar(props) {
         }
     }, []);
 
-    const handleOpenAddCarModal = () => {
-        setShowAddCarModal(true);
+
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
     };
 
-    const handleCloseAddCarModal = () => {
-        setShowAddCarModal(false);
+    // Функция для выхода из аккаунта
+    const handleLogout = () => {
+        logout();
     };
 
     return (
@@ -95,7 +95,7 @@ function Sidebar(props) {
                 </div>
             </div>
             {userData && (
-                <div className={styles["profile"]}>
+                <div className={styles["profile"]} onClick={toggleMenu}>
                     <div className={styles["avatar"]}></div>
                     <div className={styles["user-bio"]}>
                         <p className={styles["user-firstname"]}>{userData.user.firstname}</p>
@@ -103,8 +103,12 @@ function Sidebar(props) {
                     </div>
                 </div>
             )}
-            {showAddCarModal && (
-                <AddCarModal onClose={handleCloseAddCarModal} />
+            {showMenu && (
+                <div className={`${styles.menu} ${showMenu && styles.active}`}>
+                    <ul>
+                        <button onClick={handleLogout}>Выход</button>
+                    </ul>
+                </div>
             )}
         </div>
     );

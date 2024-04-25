@@ -8,6 +8,7 @@
     height: 100vh;
     position: sticky;
     top: 0;
+
 }
 
 .logo{
@@ -78,12 +79,14 @@
     margin-right: 10px;
 }
 .nav-menu {
-    margin-bottom: 420px;
+    margin-bottom: 400px;
 }
 
 .profile {
     display: flex;
     align-items: center;
+    position: relative;
+    cursor: pointer;
 
 }
 
@@ -98,6 +101,31 @@
 .user-bio {
     display: flex;
     gap: 5px;
+}
+
+
+profile-reduced {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: calc(80% + 20px);
+    left: 0;
+    background-color: #2B2B2B;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.menu.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 

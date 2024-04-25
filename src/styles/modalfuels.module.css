@@ -45,7 +45,6 @@
     cursor: pointer;
 }
 
-
 .modalBackground {
     position: fixed;
     top: 0;
@@ -77,19 +76,6 @@
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 60px;
-}
-
-
-
-.closeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
 }
 
 .button-container {

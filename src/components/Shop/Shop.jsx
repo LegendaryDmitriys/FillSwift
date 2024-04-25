@@ -9,17 +9,22 @@ import ReactPaginate from 'react-paginate';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
+    const [popularProducts, setPopularProducts] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [sortOption, setSortOption] = useState(null);
     const productsPerPage = 9;
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/products/products/')
-            .then(response => {
-                setProducts(response.data);
+        Promise.all([
+            axios.get('http://192.168.0.106:8000/products/products/'),
+            axios.get('http://192.168.0.106:8000/products/popular-products/')
+        ])
+            .then(([productsResponse, popularProductsResponse]) => {
+                setProducts(productsResponse.data);
+                setPopularProducts(popularProductsResponse.data);
             })
             .catch(error => {
-                console.error('Ошибка получения данных о продуктах:', error);
+                console.error('Ошибка получения данных:', error);
             });
     }, [sortOption]);
 
@@ -173,72 +178,33 @@ const Shop = () => {
                     </svg>
                     <h2>Хиты продаж</h2>
                     <section className={styles["bestsellers-items"]}>
-                        <div className={styles.item}>
-                            <img src="" alt=""
-                                 className={styles.image}/>
-                            <div className={styles.infoContainer}>
-                                <div className={styles.left}>
-                                    <p className={styles.name}>
-                                        Масло Sintec
-                                    </p>
-                                    <p className={styles.price}>
-                                        600 P
-                                    </p>
-                                </div>
-                                <div className={styles.right}>
-                                    <p className={styles.type}>
-                                        Уход за авто
-                                    </p>
-                                    <p className={styles.manufacturer}>
-                                        SintecS
-                                    </p>
-                                </div>
+                        {popularProducts.map(product => (
+                            <div key={product.id} className={styles.item}>
+                                <Link to={`${ROUTES.ProductDetails}/${product.id}`}>
+                                    {product.images.length > 0 && (
+                                        <img src={product.images[0].image} alt={product.name} className={styles.image} />
+                                    )}
+                                    <div className={styles.infoContainer}>
+                                        <div className={styles.left}>
+                                            <p className={styles.name}>
+                                                {product.name}
+                                            </p>
+                                            <p className={styles.price}>
+                                                {product.price_per_unit} {product.currency}
+                                            </p>
+                                        </div>
+                                        <div className={styles.right}>
+                                            <p className={styles.type}>
+                                                {product.product_type}
+                                            </p>
+                                            <p className={styles.manufacturer}>
+                                                {product.manufacturer}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-                        <div className={styles.item}>
-                            <img src="" alt=""
-                                 className={styles.image}/>
-                            <div className={styles.infoContainer}>
-                                <div className={styles.left}>
-                                    <p className={styles.name}>
-                                        Масло Sintec
-                                    </p>
-                                    <p className={styles.price}>
-                                        600 P
-                                    </p>
-                                </div>
-                                <div className={styles.right}>
-                                    <p className={styles.type}>
-                                        Уход за авто
-                                    </p>
-                                    <p className={styles.manufacturer}>
-                                        SintecS
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.item}>
-                            <img src="" alt=""
-                                 className={styles.image}/>
-                            <div className={styles.infoContainer}>
-                                <div className={styles.left}>
-                                    <p className={styles.name}>
-                                        Масло Sintec
-                                    </p>
-                                    <p className={styles.price}>
-                                        600 P
-                                    </p>
-                                </div>
-                                <div className={styles.right}>
-                                    <p className={styles.type}>
-                                        Уход за авто
-                                    </p>
-                                    <p className={styles.manufacturer}>
-                                        SintecS
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </section>
                 </section>
                 <section className={styles["products-container"]}>
