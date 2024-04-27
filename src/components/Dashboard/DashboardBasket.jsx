@@ -75,7 +75,32 @@ function DashboardBasket(props) {
         }
     };
 
-    console.log(basketProducts)
+    const productIds = basketProducts.map(item => item.id);
+
+    const handleCheckout = async () => {
+        try {
+            const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            });
+            const userId = userResponse.data.user.id;
+
+
+            const quantities = basketProducts.map(item => item.quantity);
+
+            const response = await axios.post(`http://192.168.0.106:8000/carts/purchases/ `, {
+                user: userId,
+                total_price: totalPrice,
+                productIds: productIds,
+                quantities: quantities
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Ошибка при оформлении покупки:', error);
+        }
+    };
+
 
     return (
         <div className={styles.dashboard}>
@@ -97,7 +122,11 @@ function DashboardBasket(props) {
                                     {basketProducts.map((item, index) => (
                                         <div key={index} className={styles['basket-product']}>
                                             <div className={styles['basket-img']}>
-                                                <img src={item.productInfo.image} alt="Product"/>
+                                                {item.productInfo.images.length > 0 ? (
+                                                    <img src={item.productInfo.images[0].image} alt="Product"/>
+                                                ) : (
+                                                    <img src="../images/defaultProduct.png" alt="Default"/>
+                                                )}
                                             </div>
                                             <div className={styles['basket-info']}>
                                                 <article>
@@ -126,7 +155,7 @@ function DashboardBasket(props) {
                                     <article className={styles["payment-discount"]}>
                                     </article>
                                     <div className={styles["payment-btn"]}>
-                                        <button>Перейти к оформлению</button>
+                                        <button onClick={handleCheckout}>Перейти к оформлению</button>
                                     </div>
                                 </div>
                             </div>

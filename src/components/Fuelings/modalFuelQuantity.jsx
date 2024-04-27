@@ -11,8 +11,9 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
     const [cars, setCars] = useState([]);
     const [userId, setUserId] = useState([]);
 
+    const authenticated = isAuthenticated();
     useEffect(() => {
-        if (isAuthenticated()) {
+        if (authenticated) {
             async function fetchCarsUsers() {
                 try {
                     const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
@@ -85,6 +86,8 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
         setFuelAmount(0);
     };
 
+    const isPaymentDisabled = !authenticated || !selectedCar;
+
 
     return (
         <div className={styles.modalBackground}>
@@ -103,19 +106,23 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                     </div>
                 </div>
                 <div className={styles["filled-fuels"]}>
-                    <select onChange={handleCarChange} className={styles['select-cars']}>
-                        <option value="">Выберите машину</option>
-                        {cars.map(car => (
-                            <option key={car.id}
-                                    value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
-                        ))}
-                    </select>
+                    {authenticated ? (
+                        <select onChange={handleCarChange} className={styles['select-cars']}>
+                            <option value="">Выберите машину</option>
+                            {cars.map(car => (
+                                <option key={car.id}
+                                        value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
+                            ))}
+                        </select>
+                    ) : (
+                        <p>Для заправки вам необходимо авторизоваться.</p>
+                    )}
                     <article>
                         <p>Выбрано топлива: {fuelAmount} л</p>
                         <p>Общая стоимость: {fuelAmount * pricePerLiter} ₽</p>
                     </article>
                 </div>
-                <button className={styles["btn-pay"]} onClick={handlePayment}>Оплатить</button>
+                <button className={styles["btn-pay"]} onClick={handlePayment} disabled={isPaymentDisabled}>Оплатить</button>
                 <span>Выберите количество топлива</span>
             </div>
         </div>
