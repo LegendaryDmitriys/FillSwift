@@ -9,7 +9,6 @@ import axios from "axios";
 
 function Sidebar(props) {
     const [userData, setUserData] = useState(null);
-    const [showMenu, setShowMenu] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -29,11 +28,6 @@ function Sidebar(props) {
     }, []);
 
 
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);
-    };
-
-    // Функция для выхода из аккаунта
     const handleLogout = () => {
         logout();
     };
@@ -78,36 +72,31 @@ function Sidebar(props) {
                     </div>
                 </div>
                 <div>
-                    <div className={styles["item-container"]}>
-                        <svg className={styles["nav-icon"]} width={24} height={24}>
-                            <use xlinkHref={sprite + "#bonus"}/>
-                        </svg>
-                        <Link to={ROUTES.Settings}>Бонусная программа</Link>
-                    </div>
-                </div>
-                <div>
-                    <div className={location.pathname === ROUTES.Settings ? styles["item-container__activ"] : styles["item-container__setting"]}>
+                    <div
+                        className={location.pathname === ROUTES.Settings ? styles["item-container__activ"] : styles["item-container__setting"]}>
                         <svg className={styles["nav-icon"]} width={25} height={25}>
                             <use xlinkHref={sprite + "#setting"}/>
                         </svg>
                         <Link to={ROUTES.Settings}>Настройки</Link>
                     </div>
                 </div>
+                <div>
+                    <div className={styles["item-container"]}>
+                        <svg className={styles["nav-icon"]} width={24} height={24}>
+                            <use xlinkHref={sprite + "#logaut"}/>
+                        </svg>
+                        <button onClick={handleLogout}>Выход</button>
+                    </div>
+                </div>
+
             </div>
             {userData && (
-                <div className={styles["profile"]} onClick={toggleMenu}>
+                <div className={styles["profile"]}>
                     <div className={styles["avatar"]}></div>
                     <div className={styles["user-bio"]}>
                         <p className={styles["user-firstname"]}>{userData.user.firstname}</p>
                         <p className={styles["user-lastname"]}>{userData.user.lastname}</p>
                     </div>
-                </div>
-            )}
-            {showMenu && (
-                <div className={`${styles.menu} ${showMenu && styles.active}`}>
-                    <ul>
-                        <button onClick={handleLogout}>Выход</button>
-                    </ul>
                 </div>
             )}
         </div>
