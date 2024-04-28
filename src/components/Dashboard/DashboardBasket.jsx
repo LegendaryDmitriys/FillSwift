@@ -8,11 +8,15 @@ import HeaderBoard from "./HeaderBoard";
 
 import {Link} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
+import ModalPurchaseHistory from "./modalPurchaseHistory";
+import sprite from "../../sprite.svg";
 
 
 function DashboardBasket(props) {
     const [basketProducts, setBasketProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [purchaseHistory, setPurchaseHistory] = useState([]);
+    const [showHistoryModal, setShowHistoryModal] = useState(false);
 
     useEffect(() => {
         async function fetchBasketProducts() {
@@ -75,7 +79,7 @@ function DashboardBasket(props) {
         }
     };
 
-    const productIds = basketProducts.map(item => item.id);
+    const productIds = basketProducts.map(item => item.product);
 
     const handleCheckout = async () => {
         try {
@@ -95,9 +99,27 @@ function DashboardBasket(props) {
                 productIds: productIds,
                 quantities: quantities
             });
-            console.log(response.data);
+
+            setBasketProducts([]);
         } catch (error) {
             console.error('Ошибка при оформлении покупки:', error);
+        }
+    };
+
+    const fetchPurchaseHistory = async () => {
+        try {
+            const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            });
+            const userId = userResponse.data.user.id;
+            const response = await axios.get(`http://192.168.0.106:8000/carts/purchase/${userId}/`);
+            setPurchaseHistory(response.data);
+            console.log(response.data);
+            setShowHistoryModal(true);
+        } catch (error) {
+            console.error('Ошибка при получении истории покупок:', error);
         }
     };
 
@@ -107,13 +129,18 @@ function DashboardBasket(props) {
             <div className={styles["main-content"]}>
                 <HeaderBoard title={"Корзина товаров"} description={"Здесь хранятся все выбранные вами товары"}/>
                 <div className={styles.basket}>
+                    <button onClick={fetchPurchaseHistory} className={styles['purchase-history__btn']}>
+                        <svg className={styles["purchase-icon"]} width={25} height={25}>
+                            <use xlinkHref={sprite + "#purchase-history"}/>
+                        </svg>История покупок</button>
                     <div className={styles["basket-content"]}>
-                        {basketProducts.length === 0 ? (
+                    {basketProducts.length === 0 ? (
                             <div className={styles.emptyBasket}>
                                 <img src="../images/emptyBasket.png" alt=""/>
                                 <article className={styles.emptyBasketText}>
                                     <p className={styles.emptyBasketMessage}>Ваша корзина пуста</p>
-                                    <p className={styles.emptyBasketSuggestion}>Продолжите покупки, <Link to={ROUTES.Shop}>перейдя к каталогу товаров</Link></p>
+                                    <p className={styles.emptyBasketSuggestion}>Продолжите покупки, <Link
+                                        to={ROUTES.Shop}>перейдя к каталогу товаров</Link></p>
                                 </article>
                             </div>
                         ) : (
@@ -133,7 +160,8 @@ function DashboardBasket(props) {
                                                     <h2>{item.productInfo.name}</h2>
                                                     <span>{item.quantity} шт.</span>
                                                 </article>
-                                                <button onClick={() => handleRemoveFromBasket(item.product)}>Удалить</button>
+                                                <button onClick={() => handleRemoveFromBasket(item.product)}>Удалить
+                                                </button>
                                             </div>
                                             <div className={styles['basket-price']}>
                                                 <article>
@@ -143,6 +171,7 @@ function DashboardBasket(props) {
                                         </div>
                                     ))}
                                 </div>
+
                                 <div className={styles["basket-payment"]}>
                                     <article className={styles["payment-header"]}>
                                         <h4>Ваша корзина</h4>
@@ -163,6 +192,11 @@ function DashboardBasket(props) {
                     </div>
                 </div>
             </div>
+            <ModalPurchaseHistory
+                show={showHistoryModal}
+                handleClose={() => setShowHistoryModal(false)}
+                purchaseHistory={purchaseHistory}
+            />
         </div>
     );
 }
