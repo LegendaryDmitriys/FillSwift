@@ -10,5 +10,6 @@ export const ROUTES = {
     Settings: "/user/settings",
     Cars: "/user/cars",
     Basket: "/user/basket",
-    Fueling: "/fueling"
+    Fueling: "/fueling",
+    ResetPassword: "/reset-password"
 }

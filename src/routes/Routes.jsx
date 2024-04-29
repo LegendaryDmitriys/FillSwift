@@ -17,6 +17,7 @@ import Fuelings from "../components/Fuelings/Fuelings";
 import Sidebar from "../components/Dashboard/Sidebar";
 import styles from "../styles/dashboardcontainer.module.css"
 import Header from "../components/Header/Header";
+import ResetPassword from "../components/Authentication/ResetPassword";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -60,6 +61,7 @@ const AppRoutes = () => {
                                     <Route path={ROUTES.Fueling} element={<Fuelings />} />
                                     <Route path={ROUTES.Shop} element={<Shop />} />
                                     <Route path={`${ROUTES.ProductDetails}/:productId`} element={<ProductDetails />} />
+                                    <Route path={ROUTES.ResetPassword} element={<ResetPassword/>} />
                             </Routes>
                     </div>
             </div>

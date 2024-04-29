@@ -60,7 +60,7 @@ const Auth = (props) => {
                         />
                     </div>
                     <div className={styles['reset-password']}>
-                        <a href="">Забыли пароль?</a>
+                        <Link to={ROUTES.ResetPassword}>Забыли пароль?</Link>
                     </div>
                     <div className={styles['login-btn']}>
                         <button type="submit">Войти</button>
