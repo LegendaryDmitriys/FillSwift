@@ -7,16 +7,22 @@ body{
 }
 
 .container{
-    padding: 0 0 0 165px;
+    padding: 0 165px 0 165px;
 }
 
 .content{
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .content-left{
     padding-top: 100px;
+}
+.content-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .img{
