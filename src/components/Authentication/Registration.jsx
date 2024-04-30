@@ -5,6 +5,8 @@ import sprite from "../../sprite.svg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
+import { toast } from 'react-toastify';
+
 
 const Registration = (props) => {
     const [email, setEmail] = useState('');
@@ -12,6 +14,9 @@ const Registration = (props) => {
     const [password, setPassword] = useState('');
     const [lastname, setLastname] = useState('');
     const [firstname, setFirstname] = useState('');
+
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -35,9 +40,17 @@ const Registration = (props) => {
                 }
             );
             console.log(response.data);
-            // Обработка успешной регистрации, например, перенаправление на другую страницу
+            toast.success("Успешная регистрация")
+            window.location.href = '/login';
         } catch (error) {
-            console.error('Ошибка регистрации:', error);
+            if (error.response && error.response.data && error.response.data.errors) {
+                const serverErrors = error.response.data.errors;
+                const errorMessages = Object.values(serverErrors).flatMap((errors) => errors);
+                toast.error(`Ошибка регистрации: ${errorMessages.join(', ')}`);
+            } else {
+                console.error('Ошибка регистрации:', error);
+                toast.error('Ошибка регистрации: Произошла ошибка на сервере');
+            }
         }
     };
 

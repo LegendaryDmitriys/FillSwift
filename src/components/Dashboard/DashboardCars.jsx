@@ -9,6 +9,7 @@ import sprite from "../../sprite.svg";
 import {isAuthenticated} from "../../utils/authUsers";
 import axios from "axios";
 import AddCarModal from "./AddCarModal";
+import {toast} from "react-toastify";
 
 function DashboardCars(props) {
     const [cars, setCars] = useState([]);
@@ -75,6 +76,7 @@ function DashboardCars(props) {
             await axios.delete(`http://192.168.0.106:8000/cars/user/${userData.user.id}/${carId}/`);
 
             setCars(cars.filter(car => car.id !== carId));
+            toast.success("Машина успешно удалена!")
         } catch (error) {
             console.error('Ошибка при удалении машины:', error);
         }

@@ -3,6 +3,7 @@ import styles from "../../styles/dashboardsetting.module.css";
 import Sidebar from "./Sidebar";
 import HeaderBoard from "./HeaderBoard";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 
 function DashboardSettings(props) {
@@ -31,6 +32,7 @@ function DashboardSettings(props) {
         axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
+                toast.success("Данные успешно поменяны!")
             })
             .catch(error => {
                 console.error('Ошибка при отправке запроса:', error);
@@ -55,6 +57,7 @@ function DashboardSettings(props) {
         axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
+                toast.success('Пароль успешно поменян!')
             })
             .catch(error => {
                 console.error('Ошибка при отправке запроса:', error);

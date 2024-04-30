@@ -4,6 +4,7 @@ import sprite from "../../sprite.svg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticated } from "../../utils/authUsers";
+import {toast} from "react-toastify";
 
 const ProductDetails = (props) => {
     const { productId } = useParams();
@@ -74,12 +75,12 @@ const ProductDetails = (props) => {
                     }
                 );
 
-                console.log('Продукт успешно добавлен в корзину:', productResponse.data);
+                toast.success('Продукт успешно добавлен в корзину')
             } catch (error) {
                 console.error('Ошибка при выполнении запросов:', error);
             }
         } else {
-            console.log('Пользователь не авторизован.');
+            toast.error('Пользователь не авторизован.');
         }
     };
 

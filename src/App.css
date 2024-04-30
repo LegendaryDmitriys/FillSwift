@@ -23,3 +23,35 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+/* styles.css */
+
+/* Стили для контейнера уведомлений */
+.toast-container-custom {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Стили для уведомлений */
+.toast-custom {
+    font-family: "Urbanist", sans-serif;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный черный цвет */
+    border-radius: 8px; /* Закругленные углы */
+    padding: 16px; /* Внутренний отступ */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень */
+}
+
+/* Стили для заголовка уведомлений */
+.toast-custom .Toastify__toast-body {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Стили для текста уведомлений */
+.toast-custom .Toastify__toast-content {
+    font-size: 14px;
+    margin-top: 8px; /* Отступ сверху */
+}

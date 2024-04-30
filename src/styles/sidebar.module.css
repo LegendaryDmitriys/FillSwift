@@ -1,4 +1,7 @@
 
+a{
+    color: #fff;
+}
 
 .sidebar{
     padding: 30px 75px 30px 30px;
@@ -33,6 +36,7 @@
 }
 .item-container__activ > a {
     padding: 0;
+    color: #fff;
 }
 
 .item-container__activ {
@@ -101,6 +105,7 @@
 .user-bio {
     display: flex;
     gap: 5px;
+    color: #fff;
 }
 
 

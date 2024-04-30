@@ -3,6 +3,7 @@ import styles from '../../styles/modalfuelquantity.module.css';
 import { isAuthenticated } from "../../utils/authUsers";
 import axios from "axios";
 import Axios from "axios";
+import {toast} from "react-toastify";
 
 const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasStation, numberColumn, fuelColumnId, onClose }) => {
     const [fuelAmount, setFuelAmount] = useState(0);
@@ -39,17 +40,17 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
     const handlePayment = async () => {
         try {
             if (fuelAmount <= 0) {
-                console.error('Выберите количество топлива');
+                toast.error('Выберите количество топлива');
                 return;
             }
 
             if (!selectedCar) {
-                console.error('Машина не выбрана');
+                toast.error('Машина не выбрана');
                 return;
             }
 
             if (!fuelColumnId || !octaneNumberId) {
-                console.error('Не выбрана колонка или тип топлива');
+                toast.error('Не выбрана колонка или тип топлива')
                 return;
             }
 
@@ -57,7 +58,7 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 user: userId,
                 car: selectedCar.id,
                 fuel_column: fuelColumnId,
-                fuel_type:  octaneNumberId,
+                fuel_type: octaneNumberId,
                 fuel_quantity: fuelAmount,
                 refueling_id: gasStation.id,
                 fuel_cost: totalPrice
@@ -67,6 +68,7 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
 
             setFuelAmount(0);
             onClose();
+            toast.success('Оплата прошла успешно')
         } catch (error) {
             console.error('Ошибка при оплате:', error);
         }
@@ -107,13 +109,17 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 </div>
                 <div className={styles["filled-fuels"]}>
                     {authenticated ? (
-                        <select onChange={handleCarChange} className={styles['select-cars']}>
-                            <option value="">Выберите машину</option>
-                            {cars.map(car => (
-                                <option key={car.id}
-                                        value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
-                            ))}
-                        </select>
+                        cars.length > 0 ? (
+                            <select onChange={handleCarChange} className={styles['select-cars']}>
+                                <option value="">Выберите машину</option>
+                                {cars.map(car => (
+                                    <option key={car.id}
+                                            value={car.id}>{car.model_name} {car.brand_name} - {car.registration_number}</option>
+                                ))}
+                            </select>
+                        ) : (
+                            <p>У вас нет зарегистрированных автомобилей.</p>
+                        )
                     ) : (
                         <p>Для заправки вам необходимо авторизоваться.</p>
                     )}
@@ -122,7 +128,8 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                         <p>Общая стоимость: {fuelAmount * pricePerLiter} ₽</p>
                     </article>
                 </div>
-                <button className={styles["btn-pay"]} onClick={handlePayment} disabled={isPaymentDisabled}>Оплатить</button>
+                <button className={styles["btn-pay"]} onClick={handlePayment} disabled={isPaymentDisabled}>Оплатить
+                </button>
                 <span>Выберите количество топлива</span>
             </div>
         </div>

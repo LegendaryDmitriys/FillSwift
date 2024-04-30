@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
 import ModalPurchaseHistory from "./modalPurchaseHistory";
 import sprite from "../../sprite.svg";
-
+import { toast } from 'react-toastify'
 
 function DashboardBasket(props) {
     const [basketProducts, setBasketProducts] = useState([]);
@@ -72,7 +72,7 @@ function DashboardBasket(props) {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
             });
-
+            toast.success("Продукт успешно удален из корзины!")
             setBasketProducts(prevProducts => prevProducts.filter(item => item.product !== productId));
         } catch (error) {
             console.error('Ошибка при удалении товара из корзины:', error);
@@ -101,6 +101,7 @@ function DashboardBasket(props) {
             });
 
             setBasketProducts([]);
+            toast.success('Покупка прошла успешно!')
         } catch (error) {
             console.error('Ошибка при оформлении покупки:', error);
         }

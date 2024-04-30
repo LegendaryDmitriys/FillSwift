@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/addcarmodal.module.css';
-import { isAuthenticated } from "../../utils/authUsers";
 import axios from "axios";
-
+import { toast } from 'react-toastify'
+    ;
 function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand, selectedModel, setSelectedModel,updateCars }) {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [fuelTankVolume, setFuelTankVolume] = useState('');
@@ -25,6 +25,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
             })
             .catch(error => {
                 console.error('Ошибка при загрузке моделей автомобилей:', error);
+                toast.error('Ошибка при загрузке моделей автомобилей:', error)
             });
     }, []);
 
@@ -49,12 +50,13 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
                 if (data.errors) {
                     setError(data.errors);
                 } else {
-                    console.log('Машина успешно добавлена');
+                    toast.success('Машина успешно добавлена')
                     updateCars(cars => [...cars, data]);
                 }
             })
             .catch(error => {
                 console.error('Ошибка при отправке запроса:', error);
+                toast.error('Ошибка при отправке запроса:', error)
             });
     };
 
