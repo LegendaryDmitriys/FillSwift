@@ -1,0 +1,15 @@
+.customers {
+    padding: 75px 115px 0 115px;
+}
+
+.customer-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.customer-item:hover {
+    background-color: #f0f0f0;
+}

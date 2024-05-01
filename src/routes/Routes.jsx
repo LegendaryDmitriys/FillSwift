@@ -18,6 +18,12 @@ import Sidebar from "../components/Dashboard/Sidebar";
 import styles from "../styles/dashboardcontainer.module.css"
 import Header from "../components/Header/Header";
 import ResetPassword from "../components/Authentication/ResetPassword";
+import AdminAuth from "../components/Authentication/Admin/AdminAuth";
+import Customers from "../components/Dashboard/Admin/Customers";
+import AdminSidebar from "../components/Dashboard/Admin/AdminSidebar";
+import CustomersDetail from "../components/Details/Admin/CustomersDetail";
+import Сars from "../components/Dashboard/Admin/Сars";
+import CarsDetail from "../components/Details/Admin/CarsDetail";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -31,6 +37,14 @@ const AppRoutes = () => {
 
                 ].includes(location.pathname);
         };
+
+    const shouldAdminDisplaySidebar = () => {
+        return [
+            ROUTES.CustomersDashboard,
+            ROUTES.CarsDashboard
+
+        ].includes(location.pathname);
+    };
 
         const shouldDisplayHeader = () => {
                 return location.pathname.startsWith(ROUTES.ProductDetails) ||
@@ -46,6 +60,7 @@ const AppRoutes = () => {
         return (
             <div className={styles['dashboard-container']}>
                     {shouldDisplaySidebar() && <Sidebar />}
+                    {shouldAdminDisplaySidebar()  && <AdminSidebar/>}
                     <div className={styles.content}>
                             {shouldDisplayHeader() && <Header />}
                             <Routes>
@@ -62,6 +77,11 @@ const AppRoutes = () => {
                                     <Route path={ROUTES.Shop} element={<Shop />} />
                                     <Route path={`${ROUTES.ProductDetails}/:productId`} element={<ProductDetails />} />
                                     <Route path={ROUTES.ResetPassword} element={<ResetPassword/>} />
+                                    <Route path={ROUTES.AdminLogin} element={<AdminAuth/>} />
+                                    <Route path={ROUTES.CustomersDashboard} element={<Customers/>} />
+                                    <Route path={`${ROUTES.CustomersDetails}/:userId`} element={<CustomersDetail/>} />
+                                    <Route path={ROUTES.CarsDashboard} element={<Сars/>} />
+                                    <Route path={`${ROUTES.CarsDetails}/:carId`} element={<CarsDetail/>}/>
                             </Routes>
                     </div>
             </div>
