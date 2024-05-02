@@ -54,11 +54,7 @@ function AdminSidebar(props) {
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#car"}/>
                         </svg>
-                        <Link to={ROUTES.CarsDashboard}>Автомобили
-                            <svg className={styles["icon-plus"]} width={12} height={12}>
-                                <use xlinkHref={sprite + "#plus"}/>
-                            </svg>
-                        </Link>
+                        <Link to={ROUTES.CarsDashboard}>Автомобили</Link>
                     </div>
                 </div>
                 <div>
@@ -77,7 +73,6 @@ function AdminSidebar(props) {
                             <use xlinkHref={sprite + "#setting"}/>
                         </svg>
                         <Link to={ROUTES.Settings}>Настройки</Link>
-                        Cоси хуй
                     </div>
                 </div>
                 <div>

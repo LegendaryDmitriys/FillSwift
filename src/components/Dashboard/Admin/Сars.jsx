@@ -21,7 +21,6 @@ function Cars(props) {
         fetchCars();
     }, []);
 
-    console.log(cars);
 
     return (
         <div>
