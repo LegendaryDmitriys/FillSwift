@@ -61,14 +61,15 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 fuel_type: octaneNumberId,
                 fuel_quantity: fuelAmount,
                 refueling_id: gasStation.id,
-                fuel_cost: totalPrice
+                fuel_cost: totalPrice,
+                status: 'pending',
             };
 
             await axios.post('http://192.168.0.106:8000/refuling/refuelings/', refuelingData);
 
             setFuelAmount(0);
             onClose();
-            toast.success('Оплата прошла успешно')
+            toast.success('Оплата прошла успешно. Ожидайте подтверждения заправки.')
         } catch (error) {
             console.error('Ошибка при оплате:', error);
         }

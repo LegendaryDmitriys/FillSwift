@@ -24,6 +24,9 @@ import AdminSidebar from "../components/Dashboard/Admin/AdminSidebar";
 import CustomersDetail from "../components/Details/Admin/CustomersDetail";
 import Сars from "../components/Dashboard/Admin/Сars";
 import CarsDetail from "../components/Details/Admin/CarsDetail";
+import Products from "../components/Dashboard/Admin/Products";
+import AdminProductsDetail from "../components/Details/Admin/AdminProductsDetail";
+import AdminRefuelingRequests from "../components/Dashboard/Admin/AdminRefuelingRequests";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -41,7 +44,10 @@ const AppRoutes = () => {
     const shouldAdminDisplaySidebar = () => {
         return [
             ROUTES.CustomersDashboard,
-            ROUTES.CarsDashboard
+            ROUTES.CarsDashboard,
+            ROUTES.ProductsDashboard,
+            ROUTES.AdminRefuelingRequests
+
 
         ].includes(location.pathname);
     };
@@ -82,6 +88,9 @@ const AppRoutes = () => {
                                     <Route path={`${ROUTES.CustomersDetails}/:userId`} element={<CustomersDetail/>} />
                                     <Route path={ROUTES.CarsDashboard} element={<Сars/>} />
                                     <Route path={`${ROUTES.CarsDetails}/:carId`} element={<CarsDetail/>}/>
+                                    <Route path={ROUTES.ProductsDashboard} element={<Products/>} />
+                                    <Route path={`${ROUTES.AdminProductsDetails}/:productId`} element={<AdminProductsDetail/>} />
+                                    <Route path={ROUTES.AdminRefuelingRequests} element={<AdminRefuelingRequests/>} />
                             </Routes>
                     </div>
             </div>

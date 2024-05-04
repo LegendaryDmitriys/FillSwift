@@ -58,21 +58,20 @@ function AdminSidebar(props) {
                     </div>
                 </div>
                 <div>
-                    <div className={location.pathname === ROUTES.Basket ? styles["item-container__activ"] : styles["item-container"]}>
+                    <div className={location.pathname === ROUTES.ProductsDashboard? styles["item-container__activ"] : styles["item-container"]}>
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#cards"}/>
                         </svg>
-                        <Link to={ROUTES.Basket}>Моя корзина</Link>
-
+                        <Link to={ROUTES.ProductsDashboard}>Товары</Link>
                     </div>
                 </div>
                 <div>
                     <div
-                        className={location.pathname === ROUTES.Settings ? styles["item-container__activ"] : styles["item-container__setting"]}>
+                        className={location.pathname === ROUTES.AdminRefuelingRequests ? styles["item-container__activ"] : styles["item-container__setting"]}>
                         <svg className={styles["nav-icon"]} width={25} height={25}>
                             <use xlinkHref={sprite + "#setting"}/>
                         </svg>
-                        <Link to={ROUTES.Settings}>Настройки</Link>
+                        <Link to={ROUTES.AdminRefuelingRequests}>Запросы</Link>
                     </div>
                 </div>
                 <div>

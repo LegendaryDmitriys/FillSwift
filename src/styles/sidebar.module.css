@@ -94,11 +94,10 @@ a{
 
 }
 
-.avatar{
+.avatar > img{
     height: 64px;
     width: 64px;
     border-radius: 50%;
-    background-color: white;
     margin-right: 15px;
 }
 

@@ -28,10 +28,11 @@ function Customers(props) {
                 <ul>
                     {users.map(user => (
                         <Link to={`${ROUTES.CustomersDetails}/${user.id}`}>
-                        <li key={user.id}
-                            className={styles['customer-item']}>
-                            {user.email} - {user.firstname} {user.lastname}
-                        </li>
+                            <li key={user.id}
+                                className={styles['customer-item']}>
+                                <img src={user.avatar ? user.avatar : '../images/avatar.jpeg'} alt=""/>
+                                {user.email} - {user.firstname} {user.lastname}
+                            </li>
                         </Link>
                     ))}
                 </ul>
