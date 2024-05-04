@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../../styles/dashboardsetting.module.css";
-import Sidebar from "./Sidebar";
 import HeaderBoard from "./HeaderBoard";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {isAuthenticated} from "../../utils/authUsers";
 
 
 function DashboardSettings(props) {
+    const [userData, setUserData] = useState([])
     const [selectedCategory, setSelectedCategory] = useState("settings");
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [oldPassword, setOldPassword] = useState('');
+    const [totalSpentData, setTotalSpentData] = useState([]);
+    const [totalRefueledData, setTotalRefueledData] = useState([]);
+
+    useEffect(() => {
+        if (isAuthenticated()) {
+            axios.get('http://192.168.0.106:8000/api/user', {
+                headers: {
+                    Authorization: `Token ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => {
+                    setUserData(response.data);
+                    setTotalSpentData(response.data.user.total_spent)
+                    setTotalRefueledData(response.data.user.total_refueled)
+                })
+                .catch(error => {
+                    console.error('Ошибка получения данных пользователя:', error);
+                });
+        }
+    }, []);
 
     const handleSubmitFirstNameLastName = (e) => {
         e.preventDefault();
@@ -118,30 +139,25 @@ function DashboardSettings(props) {
                 {selectedCategory === "statistics" && (
                     <div className={styles.statistics}>
                         <div className={styles["statistics-graphics"]}>
-
                         </div>
                         <div className={styles["statistics-text"]}>
                             <h2>Информация</h2>
+                        {userData && (
                             <div className={styles["statistics-text__container"]}>
                                 <div className={styles["statistics-text__item"]}>
                                     <article>
                                         <p>Потрачено Р</p>
-                                        <span>10 000</span>
+                                        <span>{userData.user.total_spent}</span>
                                     </article>
                                 </div>
                                 <div className={styles["statistics-text__item"]}>
                                     <article>
                                         <p>Залито топлива</p>
-                                        <span>500</span>
-                                    </article>
-                                </div>
-                                <div className={styles["statistics-text__item"]}>
-                                    <article>
-                                        <p>Cэкономлено</p>
-                                        <span>200</span>
+                                        <span>{userData.user.total_refueled}</span>
                                     </article>
                                 </div>
                             </div>
+                            )}
                         </div>
                     </div>
                 )}

@@ -32,6 +32,9 @@ function Sidebar(props) {
         logout();
     };
 
+
+    console.log(userData)
+
     return (
         <div className={styles.sidebar}>
             <div className={styles['logo']}>
@@ -92,7 +95,9 @@ function Sidebar(props) {
             </div>
             {userData && (
                 <div className={styles["profile"]}>
-                    <div className={styles["avatar"]}></div>
+                    <div className={styles["avatar"]}>
+                        <img src={userData.user.avatar} alt=""/>
+                    </div>
                     <div className={styles["user-bio"]}>
                         <p className={styles["user-firstname"]}>{userData.user.firstname}</p>
                         <p className={styles["user-lastname"]}>{userData.user.lastname}</p>
