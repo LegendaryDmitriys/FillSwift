@@ -21,5 +21,5 @@ export const ROUTES = {
     CarsDetails: '/cars',
     ProductsDashboard: '/admin/products',
     AdminProductsDetails: '/products/details',
-    AdminRefuelingRequests: 'admin/requests'
+    AdminRequests: 'admin/requests'
 }

@@ -27,6 +27,7 @@ import CarsDetail from "../components/Details/Admin/CarsDetail";
 import Products from "../components/Dashboard/Admin/Products";
 import AdminProductsDetail from "../components/Details/Admin/AdminProductsDetail";
 import AdminRefuelingRequests from "../components/Dashboard/Admin/AdminRefuelingRequests";
+import AdminRequests from "../components/Dashboard/Admin/AdminRequests";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -46,7 +47,7 @@ const AppRoutes = () => {
             ROUTES.CustomersDashboard,
             ROUTES.CarsDashboard,
             ROUTES.ProductsDashboard,
-            ROUTES.AdminRefuelingRequests
+            ROUTES.AdminRequests
 
 
         ].includes(location.pathname);
@@ -90,7 +91,7 @@ const AppRoutes = () => {
                                     <Route path={`${ROUTES.CarsDetails}/:carId`} element={<CarsDetail/>}/>
                                     <Route path={ROUTES.ProductsDashboard} element={<Products/>} />
                                     <Route path={`${ROUTES.AdminProductsDetails}/:productId`} element={<AdminProductsDetail/>} />
-                                    <Route path={ROUTES.AdminRefuelingRequests} element={<AdminRefuelingRequests/>} />
+                                    <Route path={ROUTES.AdminRequests} element={<AdminRequests/>} />
                             </Routes>
                     </div>
             </div>
