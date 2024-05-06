@@ -38,7 +38,6 @@ function Customers(props) {
                 </ul>
             </div>
         </div>
-
     );
 }
 

@@ -13,19 +13,28 @@ const Shop = () => {
     const [pageNumber, setPageNumber] = useState(0);
     const [sortOption, setSortOption] = useState(null);
     const productsPerPage = 9;
+    const popularProductsDisplayCount = 3;
+    const popularProductsRotationInterval = 5000;
 
     useEffect(() => {
-        Promise.all([
-            axios.get('http://192.168.0.106:8000/products/products/'),
-            axios.get('http://192.168.0.106:8000/products/popular-products/')
-        ])
-            .then(([productsResponse, popularProductsResponse]) => {
+        const fetchProducts = async () => {
+            try {
+                const [productsResponse, popularProductsResponse] = await Promise.all([
+                    axios.get('http://192.168.0.106:8000/products/products/'),
+                    axios.get('http://192.168.0.106:8000/products/popular-products/')
+                ]);
                 setProducts(productsResponse.data);
                 setPopularProducts(popularProductsResponse.data);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Ошибка получения данных:', error);
-            });
+            }
+        };
+
+        fetchProducts();
+
+        const popularProductsInterval = setInterval(fetchProducts, popularProductsRotationInterval);
+
+        return () => clearInterval(popularProductsInterval);
     }, [sortOption]);
 
     const pageCount = Math.ceil(products.length / productsPerPage);
@@ -82,6 +91,8 @@ const Shop = () => {
                 return products;
         }
     };
+
+    const shuffledPopularProducts = popularProducts.sort(() => Math.random() - 0.5);
 
     return (
         <section>
@@ -178,11 +189,11 @@ const Shop = () => {
                     </svg>
                     <h2>Хиты продаж</h2>
                     <section className={styles["bestsellers-items"]}>
-                        {popularProducts.map(product => (
-                            <div key={product.id} className={styles.item}>
+                        {shuffledPopularProducts.slice(0, popularProductsDisplayCount).map(product => (
+                            <div key={product.id} className={`${styles.item} ${styles["bestsellers-item"]}`}>
                                 <Link to={`${ROUTES.ProductDetails}/${product.id}`}>
                                     {product.images.length > 0 && (
-                                        <img src={product.images[0].image} alt={product.name} className={styles.image} />
+                                        <img src={product.images[0].image} alt={product.name} className={styles.image}/>
                                     )}
                                     <div className={styles.infoContainer}>
                                         <div className={styles.left}>

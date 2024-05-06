@@ -1,5 +1,3 @@
-import AdminRefuelingRequests from "../components/Dashboard/Admin/AdminRefuelingRequests";
-
 export const ROUTES = {
     Home: "/",
     Shop: "/shop",
@@ -21,5 +19,8 @@ export const ROUTES = {
     CarsDetails: '/cars',
     ProductsDashboard: '/admin/products',
     AdminProductsDetails: '/products/details',
-    AdminRequests: 'admin/requests'
+    AdminRequests: 'admin/requests',
+    AdminFuelStation: 'admin/fuelstations',
+    AdminFuelStationDetail: '/fuelstation',
+    AdminFuelType: "admin/fueltype"
 }

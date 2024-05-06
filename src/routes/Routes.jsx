@@ -28,6 +28,9 @@ import Products from "../components/Dashboard/Admin/Products";
 import AdminProductsDetail from "../components/Details/Admin/AdminProductsDetail";
 import AdminRefuelingRequests from "../components/Dashboard/Admin/AdminRefuelingRequests";
 import AdminRequests from "../components/Dashboard/Admin/AdminRequests";
+import AdminFuelStation from "../components/Dashboard/Admin/AdminFuelStation";
+import FuelStationDetail from "../components/Details/Admin/FuelStationDetail";
+import AdminFuelType from "../components/Dashboard/Admin/AdminFuelType";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -47,9 +50,9 @@ const AppRoutes = () => {
             ROUTES.CustomersDashboard,
             ROUTES.CarsDashboard,
             ROUTES.ProductsDashboard,
-            ROUTES.AdminRequests
-
-
+            ROUTES.AdminRequests,
+            ROUTES.AdminFuelStation,
+            ROUTES.AdminFuelType
         ].includes(location.pathname);
     };
 
@@ -92,6 +95,9 @@ const AppRoutes = () => {
                                     <Route path={ROUTES.ProductsDashboard} element={<Products/>} />
                                     <Route path={`${ROUTES.AdminProductsDetails}/:productId`} element={<AdminProductsDetail/>} />
                                     <Route path={ROUTES.AdminRequests} element={<AdminRequests/>} />
+                                    <Route path={ROUTES.AdminFuelStation} element={<AdminFuelStation/>} />
+                                    <Route path={`${ROUTES.AdminFuelStationDetail}/:fuelStationId`} element={<FuelStationDetail/>}/>
+                                    <Route path={ROUTES.AdminFuelType} element={<AdminFuelType/>} />
                             </Routes>
                     </div>
             </div>

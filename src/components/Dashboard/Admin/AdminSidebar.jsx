@@ -42,7 +42,8 @@ function AdminSidebar(props) {
             </div>
             <div className={styles["nav-menu"]}>
                 <div className={styles["nav-item"]}>
-                    <div className={location.pathname === ROUTES.CustomersDashboard ? styles["item-container__activ"] : styles["item-container"]}>
+                    <div
+                        className={location.pathname === ROUTES.CustomersDashboard ? styles["item-container__activ"] : styles["item-container"]}>
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#history-fuel"}/>
                         </svg>
@@ -50,7 +51,8 @@ function AdminSidebar(props) {
                     </div>
                 </div>
                 <div>
-                    <div className={location.pathname === ROUTES.CarsDashboard ? styles["item-container__activ"] : styles["item-container"]}>
+                    <div
+                        className={location.pathname === ROUTES.CarsDashboard ? styles["item-container__activ"] : styles["item-container"]}>
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#car"}/>
                         </svg>
@@ -58,7 +60,8 @@ function AdminSidebar(props) {
                     </div>
                 </div>
                 <div>
-                    <div className={location.pathname === ROUTES.ProductsDashboard? styles["item-container__activ"] : styles["item-container"]}>
+                    <div
+                        className={location.pathname === ROUTES.ProductsDashboard ? styles["item-container__activ"] : styles["item-container"]}>
                         <svg className={styles["nav-icon"]} width={24} height={24}>
                             <use xlinkHref={sprite + "#cards"}/>
                         </svg>
@@ -67,11 +70,29 @@ function AdminSidebar(props) {
                 </div>
                 <div>
                     <div
-                        className={location.pathname === ROUTES.AdminRefuelingRequests ? styles["item-container__activ"] : styles["item-container__setting"]}>
+                        className={location.pathname === ROUTES.AdminRequests ? styles["item-container__activ"] : styles["item-container__setting"]}>
                         <svg className={styles["nav-icon"]} width={25} height={25}>
                             <use xlinkHref={sprite + "#setting"}/>
                         </svg>
-                        <Link to={ROUTES.AdminRefuelingRequests}>Запросы</Link>
+                        <Link to={ROUTES.AdminRequests}>Запросы</Link>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={location.pathname === ROUTES.AdminFuelStation ? styles["item-container__activ"] : styles["item-container__setting"]}>
+                        <svg className={styles["nav-icon"]} width={25} height={25}>
+                            <use xlinkHref={sprite + "#setting"}/>
+                        </svg>
+                        <Link to={ROUTES.AdminFuelStation}>Заправки</Link>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={location.pathname === ROUTES.AdminFuelType ? styles["item-container__activ"] : styles["item-container__setting"]}>
+                        <svg className={styles["nav-icon"]} width={25} height={25}>
+                            <use xlinkHref={sprite + "#setting"}/>
+                        </svg>
+                        <Link to={ROUTES.AdminFuelType}>Типы топлива</Link>
                     </div>
                 </div>
                 <div>
