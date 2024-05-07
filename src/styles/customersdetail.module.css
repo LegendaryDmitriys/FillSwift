@@ -1,9 +1,6 @@
 .container {
     margin: 20px;
     padding: 16px 20px;
-    border: 1px solid #ccc;
-    background-color: #1B1B1B;
-    border-radius: 8px;
 }
 
 .title {
@@ -41,13 +38,13 @@
 
 
 .right-container > article > h2{
-    font-size: 34px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 500;
 }
 
 
 .right-container > article > p{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
 }
 
@@ -81,7 +78,6 @@
 
 .base-bio label {
     display: block;
-    margin-bottom: 5px;
     color: #fff;
 }
 
@@ -92,7 +88,6 @@
     border: 1px solid transparent;
     background-color: transparent;
     color: #fff;
-    margin-bottom: 15px;
 }
 
 .base-bio input:focus {
@@ -123,13 +118,19 @@
 }
 
 .car-list-container {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .car-list-container p {
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     margin-bottom: 10px;
+}
+
+.car-list-container h4 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 5px;
 }
 
 .car-list {
@@ -147,12 +148,11 @@
 }
 
 .action-block {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
 
-.action-block h2 {
+.action-block h4, h5 {
     font-size: 24px;
     color: #fff;
     margin-bottom: 10px;
@@ -237,3 +237,17 @@
     border: 1px solid green;
 }
 
+
+.user-avatar{
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+}
+
+.rows {
+    display: flex;
+}
+.rows-left, .rows-right{
+    display: flex;
+    flex-direction: column;
+}

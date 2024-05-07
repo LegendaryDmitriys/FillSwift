@@ -17,3 +17,139 @@
 .formContainer {
     margin-bottom: 20px;
 }
+
+.products {
+    padding: 75px 115px 0 115px;
+}
+
+.products table {
+    width: 100%;
+}
+
+.products th,
+.products td {
+    padding: 10px;
+}
+
+.products th:first-child,
+.products td:first-child{
+    text-align: left;
+}
+
+.products th {
+
+}
+
+.products .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.products .user-bio {
+    display: flex;
+    align-items: center;
+}
+
+.products .user-bio_text {
+    margin-left: 10px;
+}
+
+.products .icon-action {
+    cursor: pointer;
+}
+
+.products-base {
+    display: flex;
+    align-items: center;
+}
+
+.product-img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 15px;
+}
+
+.products-name{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.products-name span {
+    color:#999999;
+}
+
+
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.paginationText {
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.paginationBttns {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.paginationBttns li {
+    margin-right: 10px;
+}
+
+.paginationBttns li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #703BF7;
+    border-radius: 5px;
+}
+
+.paginationBttns li a:hover {
+    background-color: #703BF7;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.form-input {
+    padding: 0 10px 0 40px;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #3F3F3F;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.iteraction{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.icon-search{
+    position: absolute;
+    left: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+
+.addButton {
+    color: #fff;
+    padding: 10px 24px;
+    background: #703BF7;
+    border: 1px solid #703BF7;
+    border-radius: 10px;
+}

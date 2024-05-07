@@ -115,9 +115,7 @@ function CustomersDetail(props) {
         <div className={styles.container}>
             <div className={styles["header-bio"]}>
                 <div className={styles['right-container']}>
-                    <svg className='logo' width={60} height={60}>
-                        <use xlinkHref={sprite + "#customer-icon"}/>
-                    </svg>
+                    <img className={styles["user-avatar"]} src={user.avatar} alt=""/>
                     <article>
                         <h2>{user.email}</h2>
                         <p>user_id <strong>{user.id}</strong></p>
@@ -130,52 +128,58 @@ function CustomersDetail(props) {
                                 <use xlinkHref={sprite + "#pencil-icon"}/>
                             </svg>
                         </button>
-                        <button className={styles['actions-customers']}>Действия</button>
                     </div>
                 </div>
             </div>
-            <h2 className={styles.title}>Детали пользователя</h2>
-            <h3 className={styles.subtitle}>Основные детали</h3>
-            <form onSubmit={handleSubmit} className={styles['base-bio']}>
-                <label>Email:</label>
-                <input type="text" name="email" value={formData.email} onChange={handleInputChange}
-                       readOnly={!isEditing}/>
-                <label>Имя:</label>
-                <input type="text" name="firstname" value={formData.firstname} onChange={handleInputChange}
-                       readOnly={!isEditing}/>
-                <label>Фамилия:</label>
-                <input type="text" name="lastname" value={formData.lastname} onChange={handleInputChange}
-                       readOnly={!isEditing}/>
-                <label>Ник:</label>
-                <input type="text" name="username" value={formData.username} onChange={handleInputChange}
-                       readOnly={!isEditing}/>
-                {isEditing && (
-                    <>
-                        <button type="button" onClick={handleCancelEditButtonClick}>Отменить</button>
-                        <button type="submit">Сохранить</button>
-                    </>
-                )}
-            </form>
-            <div className={styles['car-list-container']}>
-                <p>Автомобили во владении:</p>
-                <ul className={styles['car-list']}>
-                    {cars.map(car => (
-                        <li key={car.id}>
-                            <p>Регистрационный номер: {car.registration_number}</p>
-                            <p>Марка: {car.brand_name}</p>
-                            <p>Модель: {car.model_name}</p>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <button onClick={handleResetPassword} className={styles['reset-password_btn']}>Восстановить пароль</button>
-            <div className={styles['action-block']}>
-                <h2>Почта</h2>
-                <a href={`mailto:${user.email}`}>Отправить письмо</a>
-            </div>
-            <div className={styles['delete-block']}>
-                <h2>Управление данными</h2>
-                <button onClick={handleDeleteAccount}>Удалить аккаунт</button>
+            <div className={styles.rows}>
+                <div className={styles['rows-left']}>
+                    <h2 className={styles.title}>Детали пользователя</h2>
+                    <h3 className={styles.subtitle}>Основные детали</h3>
+                    <form onSubmit={handleSubmit} className={styles['base-bio']}>
+                        <label>Email:</label>
+                        <input type="text" name="email" value={formData.email} onChange={handleInputChange}
+                               readOnly={!isEditing}/>
+                        <label>Имя:</label>
+                        <input type="text" name="firstname" value={formData.firstname} onChange={handleInputChange}
+                               readOnly={!isEditing}/>
+                        <label>Фамилия:</label>
+                        <input type="text" name="lastname" value={formData.lastname} onChange={handleInputChange}
+                               readOnly={!isEditing}/>
+                        <label>Ник:</label>
+                        <input type="text" name="username" value={formData.username} onChange={handleInputChange}
+                               readOnly={!isEditing}/>
+                        {isEditing && (
+                            <>
+                                <button type="button" onClick={handleCancelEditButtonClick}>Отменить</button>
+                                <button type="submit">Сохранить</button>
+                            </>
+                        )}
+                    </form>
+                    <div className={styles['car-list-container']}>
+                        <h4>Автомобили во владении:</h4>
+                        <ul className={styles['car-list']}>
+                            {cars.map(car => (
+                                <li key={car.id}>
+                                    <p>Регистрационный номер: {car.registration_number}</p>
+                                    <p>Марка: {car.brand_name}</p>
+                                    <p>Модель: {car.model_name}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <button onClick={handleResetPassword} className={styles['reset-password_btn']}>Восстановить пароль
+                    </button>
+                </div>
+                <div className={styles["rows-right"]}>
+                    <div className={styles['action-block']}>
+                        <h4>Почта</h4>
+                        <a href={`mailto:${user.email}`}>Отправить письмо</a>
+                    </div>
+                    <div className={styles['delete-block']}>
+                        <h5>Управление данными</h5>
+                        <button onClick={handleDeleteAccount}>Удалить аккаунт</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
