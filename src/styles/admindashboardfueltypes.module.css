@@ -1,86 +1,23 @@
-.item {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    width: calc(33.33% - 30px);
-    max-width: 516px;
-    height: 360px;
-    border: 1px solid #262626;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+.fueltypes {
+    padding: 75px 115px 0 115px;
 }
 
-.addButton {
-    margin-bottom: 10px;
-}
-.formContainer {
-    margin-bottom: 20px;
-}
-
-.products {
-    padding: 25px 115px 0 115px;
-}
-
-.products table {
+.fueltypes table {
     width: 100%;
 }
 
-.products th,
-.products td {
+.fueltypes th,
+.fueltypes td {
     padding: 10px;
 }
 
-.products th:first-child,
-.products td:first-child{
+.fueltypes th:first-child,
+.fueltypes td:first-child{
     text-align: left;
 }
 
-.products th {
+.fueltypes th {
 
-}
-
-.products .user-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.products .user-bio {
-    display: flex;
-    align-items: center;
-}
-
-.products .user-bio_text {
-    margin-left: 10px;
-}
-
-.products .icon-action {
-    cursor: pointer;
-}
-
-.products-base {
-    display: flex;
-    align-items: center;
-}
-
-.product-img{
-    height: 100px;
-    width: 100px;
-    object-fit: cover;
-    object-position: center;
-    margin-right: 15px;
-}
-
-.products-name{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-}
-
-.products-name span {
-    color:#999999;
 }
 
 
@@ -119,8 +56,6 @@
     color: #fff;
     cursor: pointer;
 }
-
-
 .form-input {
     padding: 0 10px 0 40px;
     height: 38px;

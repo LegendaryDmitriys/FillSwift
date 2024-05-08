@@ -6,10 +6,11 @@ import styles from '../../../styles/dashboardproducts.module.css';
 import HeaderBoard from '../HeaderBoard';
 import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
+import AddProductModal from './AddProductModal';
 
 function Products(props) {
     const [products, setProducts] = useState([]);
-    const [showForm, setShowForm] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [newProduct, setNewProduct] = useState({
         name: '',
@@ -22,7 +23,7 @@ function Products(props) {
     });
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const productsPerPage = 5; // Количество продуктов на странице
+    const productsPerPage = 5;
 
     useEffect(() => {
         axios
@@ -80,7 +81,7 @@ function Products(props) {
     };
 
     const handleAddProductClick = () => {
-        setShowForm(true);
+        setShowModal(true);
     };
 
     const handleInputChange = (e) => {
@@ -115,7 +116,7 @@ function Products(props) {
             );
 
             setProducts([...products, response.data]);
-            setShowForm(false);
+            setShowModal(false);
             setNewProduct({
                 name: '',
                 description: '',
@@ -181,60 +182,14 @@ function Products(props) {
                     </thead>
                     <tbody>{displayProducts()}</tbody>
                 </table>
-                {showForm && (
-                    <div className={styles.formContainer}>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                placeholder="Название"
-                                name="name"
-                                value={newProduct.name}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Описание"
-                                name="description"
-                                value={newProduct.description}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Количество"
-                                name="quantity"
-                                value={newProduct.quantity}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Тип продукта"
-                                name="product_type"
-                                value={newProduct.product_type}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Цена за единицу"
-                                name="price_per_unit"
-                                value={newProduct.price_per_unit}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Производитель"
-                                name="manufacturer"
-                                value={newProduct.manufacturer}
-                                onChange={handleInputChange}
-                            />
-                            <button type="submit">Сохранить</button>
-                        </form>
-                    </div>
-                )}
+                <AddProductModal
+                    showModal={showModal}
+                    closeModal={() => setShowModal(false)}
+                    handleSubmit={handleSubmit}
+                    handleInputChange={handleInputChange}
+                    newProduct={newProduct}
+                    handleFileChange={handleFileChange}
+                />
                 <div className={styles.paginationContainer}>
                     <div className={styles.paginationText}>
                         Строк на

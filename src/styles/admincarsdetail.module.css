@@ -1,0 +1,45 @@
+.carDetail {
+    margin: 20px;
+    padding: 16px 20px;
+}
+
+.carDetail > h2 {
+   font-size: 24px;
+}
+
+.edit-cars{
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 10px 24px;
+    background: #703BF7;
+    border: 1px solid #703BF7;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.delete-car {
+    background-color: transparent;
+    color: #ff2d2d;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid red;
+}
+
+
+.cars-detail_text{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+}
+
+
+.cars-detail_text > p {
+    font-size: 18px;
+}

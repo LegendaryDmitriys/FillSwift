@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import styles from '../../../styles/editproductform.module.css'
 function EditProductForm({ product, toggleEdit }) {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -38,9 +39,9 @@ function EditProductForm({ product, toggleEdit }) {
     };
 
     return (
-        <div>
-            <h2>Редактирование продукта</h2>
-            <form>
+        <div className={styles.container}>
+            <h2 className={styles.title}>Редактирование продукта</h2>
+            <form className={styles["edit-product-form"]}>
                 <label>Наименование:</label>
                 <input
                     type="text"
@@ -84,8 +85,8 @@ function EditProductForm({ product, toggleEdit }) {
                     required
                 />
                 {error && <p>{error}</p>}
-                <button type="button" onClick={handleEditProduct}>Сохранить</button>
-                <button type="button" onClick={handleCancel}>Отменить</button>
+                <button type="button" onClick={handleEditProduct} className={styles["btn-save"]}>Сохранить</button>
+                <button type="button" onClick={handleCancel} className={styles['btn-cancel']}>Отменить</button>
             </form>
         </div>
     );

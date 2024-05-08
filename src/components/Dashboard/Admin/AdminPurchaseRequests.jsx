@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../styles/purchaserequests.module.css';
+import sprite from "../../../sprite.svg";
+import { formatDate } from "../../../utils/formateDate";
 
 function AdminPurchaseRequests() {
     const [purchaseRequests, setPurchaseRequests] = useState([]);
@@ -49,9 +51,6 @@ function AdminPurchaseRequests() {
         separateRequests();
     }, [purchaseRequests]);
 
-    console.log(purchaseRequests)
-
-
     const handleChangePurchaseRequestStatus = async (requestId, newStatus) => {
         try {
             await axios.patch(`http://192.168.0.106:8000/carts/purchase/${requestId}/change_status/`, { status: newStatus });
@@ -67,68 +66,149 @@ function AdminPurchaseRequests() {
         }
     };
 
+    const handleStatusClick = (requestId, newStatus) => {
+        setPurchaseRequests(prevRequests =>
+            prevRequests.map(request => {
+                if (request.id === requestId) {
+                    return { ...request, isDropdownOpen: !request.isDropdownOpen };
+                }
+                return request;
+            })
+        );
+    };
+
+    const handleDropdownClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div>
-            <h2>Принятые запросы на покупку</h2>
-            <ul>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Cчета</h1>
+            <div className={styles["allInvoices-stats"]}>
+                <div className={styles["invoices-block"]}>
+                    <svg width={49} height={49} className={styles['icon-invoice']}>
+                        <use xlinkHref={sprite + "#invoice-total"}/>
+                    </svg>
+                    <article className={styles['invoice-info_text']}>
+                        <h2>В общем</h2>
+                        <p>{purchaseRequests.length > 0 ? purchaseRequests.reduce((total, request) => total + parseFloat(request.total_price), 0).toFixed(2) : '0.00'} р</p>
+                        <span>за {purchaseRequests.length} заказов</span>
+                    </article>
+                </div>
+                <div className={styles["invoices-block"]}>
+                    <svg width={49} height={49} className={styles['icon-invoice']}>
+                        <use xlinkHref={sprite + "#invoice-paid"}/>
+                    </svg>
+                    <article className={styles['invoice-info_text']}>
+                        <h2>Принятые</h2>
+                        <p>{confirmedPurchaseRequests.length > 0 ? confirmedPurchaseRequests.reduce((total, request) => total + parseFloat(request.total_price), 0).toFixed(2) : '0.00'}</p>
+                        <span>за {confirmedPurchaseRequests.length} заказов</span>
+                    </article>
+                </div>
+                <div className={styles["invoices-block"]}>
+                    <svg width={49} height={49} className={styles['icon-invoice']}>
+                        <use xlinkHref={sprite + "#invoice-pending"}/>
+                    </svg>
+                    <article className={styles['invoice-info_text']}>
+                        <h2>В ожидании</h2>
+                        <p>{pendingPurchaseRequests.length > 0 ? pendingPurchaseRequests.reduce((total, request) => total + parseFloat(request.total_price), 0).toFixed(2) : '0.00'} р</p>
+                        <span>за {pendingPurchaseRequests.length} заказов</span>
+                    </article>
+                </div>
+            </div>
+
+            <h2 className={styles.subtitle}>Принятые ({confirmedPurchaseRequests.length})</h2>
+            <div className={styles.gridContainer}>
                 {confirmedPurchaseRequests.map(request => (
-                    <li key={request.id} className={styles.requestItem}>
-                        <p>{request.id}</p>
-                        <p>{request.purchase_date}</p>
-                        <p>{request.status}</p>
-                        <p>{request.total_price}</p>
-
-                    </li>
-                ))}
-            </ul>
-
-            <h2>Отклонённые запросы на покупку</h2>
-            <ul>
-                {rejectedPurchaseRequests.map(request => (
-                    <li key={request.id} className={styles.requestItem}>
-                        <p>{request.id}</p>
-                        <p>{request.purchase_date}</p>
-                        <p>{request.status}</p>
-                        <p>{request.total_price}</p>
-                    </li>
-                ))}
-            </ul>
-
-            <h2>Запросы на покупку в ожидании</h2>
-            <ul>
-                {pendingPurchaseRequests.map(request => (
-                    <li key={request.id} className={styles.requestItem}>
+                    <div key={request.id} className={styles.gridItem}>
                         <p>{request.user.firstname} {request.user.lastname}</p>
                         <p>{request.user.email}</p>
-                        <p>{request.purchase_date}</p>
-                        <p>{request.status}</p>
+                        <p>{formatDate(request.purchase_date)}</p>
                         <p>{request.total_price}</p>
-                        <p>Продукты:</p>
-                        <ul>
-                            {request.products.map(product => (
-                                <li key={product.id}>
-                                    <p>Наименование продукта:</p>
-                                    <p>{product.name}</p>
-                                    <p>Описание:</p>
-                                    <p>{product.description}</p>
-                                    <p>Производитель:</p>
-                                    <p>{product.manufacturer}</p>
-                                    <p>Цена за единицу:</p>
-                                    <p>{product.price_per_unit}</p>
-                                    <p>Количество:</p>
-                                    <p>{product.quantity}</p>
-                                </li>
-                            ))}
-                        </ul>
-                        <button className={styles.statusButton}
-                                onClick={() => handleChangePurchaseRequestStatus(request.id, 'rejected')}>Отклонить
-                        </button>
-                        <button className={styles.statusButton}
-                                onClick={() => handleChangePurchaseRequestStatus(request.id, 'confirmed')}>Принять
-                        </button>
-                    </li>
+                        <div
+                            className={styles.status}
+                            onClick={() => handleStatusClick(request.id)}
+                        >
+                            <span
+                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
+                            {request.isDropdownOpen && (
+                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                    <select
+                                        value={request.status}
+                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                    >
+                                        <option value="confirmed">Принят</option>
+                                        <option value="rejected">Отклонен</option>
+                                        <option value="pending">В ожидании</option>
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
+
+            <h2 className={styles.subtitle}>Отмененные ({rejectedPurchaseRequests.length})</h2>
+            <div className={styles.gridContainer}>
+                {rejectedPurchaseRequests.map(request => (
+                    <div key={request.id} className={styles.gridItem}>
+                        <p>{request.user.firstname} {request.user.lastname}</p>
+                        <p>{request.user.email}</p>
+                        <p>{formatDate(request.purchase_date)}</p>
+                        <p>{request.total_price}</p>
+                        <div
+                            className={styles.status}
+                            onClick={() => handleStatusClick(request.id)}
+                        >
+                            <span
+                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
+                            {request.isDropdownOpen && (
+                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                    <select
+                                        value={request.status}
+                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                    >
+                                        <option value="confirmed">Принят</option>
+                                        <option value="rejected">Отклонен</option>
+                                        <option value="pending">В ожидании</option>
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <h2 className={styles.subtitle}>В ожидании ({pendingPurchaseRequests.length})</h2>
+            <div className={styles.gridContainer}>
+                {pendingPurchaseRequests.map(request => (
+                    <div key={request.id} className={styles.gridItem}>
+                        <p>{request.user.firstname} {request.user.lastname}</p>
+                        <p>{request.user.email}</p>
+                        <p>{formatDate(request.purchase_date)}</p>
+                        <p>{request.total_price}</p>
+                        <div
+                            className={styles.status}
+                            onClick={() => handleStatusClick(request.id)}
+                        >
+                            <span
+                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
+                            {request.isDropdownOpen && (
+                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                    <select
+                                        value={request.status}
+                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                    >
+                                        <option value="confirmed">Принят</option>
+                                        <option value="rejected">Отклонен</option>
+                                        <option value="pending">В ожидании</option>
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

@@ -1,0 +1,80 @@
+.fuelstation {
+    padding: 75px 115px 0 115px;
+}
+
+.fuelstation table {
+    width: 100%;
+}
+
+.fuelstation th,
+.fuelstation td {
+    padding: 10px;
+    text-align: left;
+}
+
+.fuelstation th:first-child,
+.fuelstation td:first-child{
+    text-align: left;
+}
+
+.fuelstation th {
+
+}
+
+
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.paginationText {
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.paginationBttns {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.paginationBttns li {
+    margin-right: 10px;
+}
+
+.paginationBttns li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #703BF7;
+    border-radius: 5px;
+}
+
+.paginationBttns li a:hover {
+    background-color: #703BF7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form-input {
+    padding: 0 10px 0 40px;
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #3F3F3F;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.iteraction{
+    position: relative;
+}
+
+.icon-search{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}

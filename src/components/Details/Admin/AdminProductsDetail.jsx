@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import EditProductForm from "../../Dashboard/Admin/EditProductForm";
 
+import styles from '../../../styles/adminproductsdetail.module.css'
+import sprite from "../../../sprite.svg";
+
 
 function AdminProductsDetail(props) {
     const { productId } = useParams();
@@ -49,22 +52,28 @@ function AdminProductsDetail(props) {
 
 
     return (
-        <div>
+        <div className={styles.container}>
             {product ? (
-                <div>
+                <div className={styles.product}>
                     {!editMode ? (
-                        <ul>
-                            <li>{product.name}</li>
-                            <li>{product.description}</li>
-                            <li>{product.quantity}</li>
-                            <li>{product.product_type}</li>
-                            <li>{product.price_per_unit}</li>
-                            <li>{product.manufacturer}</li>
-                            <button onClick={handleEditClick}>Редактировать</button>
-                            <button onClick={handleDeleteClick}>Удалить</button>
+                        <ul className={styles["product-details"]}>
+                            <li><span>Название:</span> {product.name}</li>
+                            <li><span>Описание:</span> {product.description}</li>
+                            <li><span>Количество:</span> {product.quantity}</li>
+                            <li><span>Тип продукта:</span> {product.product_type}</li>
+                            <li><span>Цена за единицу:</span> {product.price_per_unit}</li>
+                            <li><span>Производитель:</span> {product.manufacturer}</li>
+                            <div className={styles['btn-container']}>
+                                <button onClick={handleEditClick} className={styles['btn-edit']}> Редактировать
+                                    <svg className='logo' width={24} height={24}>
+                                        <use xlinkHref={sprite + "#pencil-icon"}/>
+                                    </svg></button>
+                                <button onClick={handleDeleteClick} className={styles['btn-delete']}>Удалить</button>
+                            </div>
                         </ul>
                     ) : (
-                        <EditProductForm product={product} toggleEdit={handleCancelClick} />
+                        <EditProductForm product={product} toggleEdit={handleCancelClick}
+                                         className="edit-product-form"/>
                     )}
                 </div>
             ) : (
@@ -72,6 +81,7 @@ function AdminProductsDetail(props) {
             )}
         </div>
     );
+
 }
 
 export default AdminProductsDetail;

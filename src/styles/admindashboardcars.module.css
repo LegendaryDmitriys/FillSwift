@@ -1,0 +1,99 @@
+.cars {
+    padding: 75px 115px 0 115px;
+}
+
+.cars table {
+    width: 100%;
+}
+
+.cars th,
+.cars td {
+    padding: 10px;
+}
+
+.cars th:first-child,
+.cars td:first-child{
+    text-align: left;
+}
+
+.cars th {
+
+}
+
+.cars .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.cars .user-bio {
+    display: flex;
+    align-items: center;
+}
+
+.cars .user-bio_text {
+    margin-left: 10px;
+}
+
+.cars .icon-action {
+    cursor: pointer;
+}
+
+
+
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.paginationText {
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.paginationBttns {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.paginationBttns li {
+    margin-right: 10px;
+}
+
+.paginationBttns li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #703BF7;
+    border-radius: 5px;
+}
+
+.paginationBttns li a:hover {
+    background-color: #703BF7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form-input {
+    padding: 0 10px 0 40px;
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: 1px solid #3F3F3F;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.iteraction{
+    position: relative;
+}
+
+.icon-search{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}

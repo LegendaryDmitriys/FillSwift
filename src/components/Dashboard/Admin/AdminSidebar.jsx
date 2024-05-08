@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import {isAuthenticated, logout} from "../../../utils/authUsers";
 import axios from "axios";
-import styles from "../../../styles/sidebar.module.css";
+import styles from "../../../styles/adminsidebar.module.css";
 import {ROUTES} from "../../../utils/routes";
 import sprite from "../../../sprite.svg";
 
@@ -41,6 +41,15 @@ function AdminSidebar(props) {
                 </Link>
             </div>
             <div className={styles["nav-menu"]}>
+                <div className={styles["nav-item"]}>
+                    <div
+                        className={location.pathname === ROUTES.AdminDashboard ? styles["item-container__activ"] : styles["item-container"]}>
+                        <svg className={styles["nav-icon"]} width={24} height={24}>
+                            <use xlinkHref={sprite + "#history-fuel"}/>
+                        </svg>
+                        <Link to={ROUTES.AdminDashboard}>Главная</Link>
+                    </div>
+                </div>
                 <div className={styles["nav-item"]}>
                     <div
                         className={location.pathname === ROUTES.CustomersDashboard ? styles["item-container__activ"] : styles["item-container"]}>

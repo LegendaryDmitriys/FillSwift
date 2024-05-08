@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { ROUTES } from "../../../utils/routes";
-import styles from "../../../styles/dashboardcustomers.module.css";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+
 import EditCarForm from "../../Dashboard/Admin/EditCarForm";
+import styles from "../../../styles/admincarsdetail.module.css";
+import sprite from "../../../sprite.svg";
+import axios from "axios";
 
 function CarsDetail(props) {
     const { carId } = useParams();
@@ -14,7 +15,7 @@ function CarsDetail(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const carResponse  = await axios.get(`http://192.168.0.106:8000/cars/cars/${carId}`, {
+                const carResponse = await axios.get(`http://192.168.0.106:8000/cars/cars/${carId}`, {
                     headers: {
                         Authorization: `Token ${token}`
                     }
@@ -51,18 +52,29 @@ function CarsDetail(props) {
                 <EditCarForm car={car} toggleEdit={toggleEdit} userId={car ? car.user : null} />
             ) : (
                 <>
-                    <button onClick={toggleEdit}>Редактировать</button>
-                    {car === null ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <ul>
-                            <li>Бренд автомобиля: {car.brand_name}</li>
-                            <li>Модель автомобиля: {car.model_name}</li>
-                            <li>Топливный бак: {car.fuel_tank_volume}</li>
-                            <li>Регистрационный номер: {car.registration_number}</li>
-                        </ul>
-                    )}
-                    <button onClick={handleDeleteAccount}>Удалить</button>
+                    <div className={styles.carDetail}>
+                        <button onClick={toggleEdit} className={styles['edit-cars']}>
+                            Редактировать
+                            <svg className='logo' width={24} height={24}>
+                                <use xlinkHref={sprite + "#pencil-icon"}/>
+                            </svg>
+                        </button>
+                        {car === null ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <>
+                                <h2>Основные детали автомобиля:</h2>
+                                <div className={styles["cars-detail_text"]}>
+                                    <p>Бренд автомобиля: {car.brand_name}</p>
+                                    <p>Модель автомобиля: {car.model_name}</p>
+                                    <p>Топливный бак: {car.fuel_tank_volume}</p>
+                                    <p>Регистрационный номер: {car.registration_number}</p>
+                                </div>
+
+                            </>
+                        )}
+                        <button onClick={handleDeleteAccount} className={styles["delete-car"]}>Удалить</button>
+                    </div>
                 </>
             )}
         </div>

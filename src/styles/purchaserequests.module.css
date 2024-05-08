@@ -20,3 +20,174 @@
 .statusButton:hover {
     background-color: #0056b3;
 }
+
+.gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+
+.gridItem {
+    display: grid;
+    grid-template-columns: 500px 100px 200px 200px 200px;
+    gap: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.gridActions {
+    display: flex;
+    gap: 5px;
+}
+
+.statusDropdown select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.statusDropdown select option {
+    background-color: white;
+}
+
+.statusConfirmed {
+    width: 45px;
+    height: 25px;
+    background: rgba(16, 185, 129, 0.12);
+    border-radius: 12px;
+    padding: 8px;
+    color: green;
+}
+
+.statusRejected {
+    color: red;
+    width: 45px;
+    height: 25px;
+    background: rgb(40, 16, 17);
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.statusPending {
+    color: orange;
+    width: 45px;
+    height: 25px;
+    background: rgba(247, 144, 9, 0.12);
+    border-radius: 12px;
+    padding: 8px;
+}
+
+
+.allInvoices-stats{
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.invoices-block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:15px;
+    padding: 25px 40px;
+}
+
+.invoice-info_text{
+
+}
+
+.gridContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    flex-direction: column;
+}
+
+
+.gridItem {
+    display: grid;
+    grid-template-columns: 500px auto auto auto auto;
+    gap: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.gridActions {
+    display: flex;
+    gap: 5px;
+}
+
+.statusDropdown select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.statusDropdown select option {
+    background-color: white;
+}
+
+.statusConfirmed {
+    width: 45px;
+    height: 25px;
+    background: rgba(16, 185, 129, 0.12);
+    border-radius: 12px;
+    padding: 8px;
+    color: green;
+}
+
+.statusRejected {
+    color: red;
+    width: 45px;
+    height: 25px;
+    background: rgb(40, 16, 17);
+    border-radius: 12px;
+    padding: 8px;
+}
+
+.statusPending {
+    color: orange;
+    width: 45px;
+    height: 25px;
+    background: rgba(247, 144, 9, 0.12);
+    border-radius: 12px;
+    padding: 8px;
+}
+
+
+
+.statusDropdown {
+    position: absolute;
+    z-index: 1;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.statusDropdown select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #000;
+}
+
+.title {
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+.subtitle {
+    font-size: 18px;
+}
+
+.container{
+    padding: 25px 75px;
+}

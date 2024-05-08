@@ -1,0 +1,140 @@
+
+a{
+    color: #fff;
+}
+
+.sidebar{
+    padding: 30px 75px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #383838;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+
+}
+
+.logo{
+    margin-bottom: 55px;
+}
+
+.item-container {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+    width: 285px;
+    height: 50px;
+    padding: 0 0 0 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.item-container__activ {
+    background: #242424;
+}
+.item-container__activ > a {
+    padding: 0;
+    color: #fff;
+}
+
+.item-container__activ {
+    background: #242424;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    padding: 15px 10px;
+    margin-bottom: 15px;
+}
+
+
+.icon-plus{
+    margin-left: 138px;
+}
+
+
+.item-container__base{
+    display: flex;
+    align-items: center;
+
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 35px;
+    padding: 0 0 0 10px;
+}
+
+.item-container__setting {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFF;
+    width: 285px;
+    height: 50px;
+    padding: 0 0 0 10px;
+    margin-bottom: 15px;
+}
+
+
+.nav-icon {
+    margin-right: 10px;
+}
+.nav-menu {
+    margin-bottom: 250px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.avatar > img{
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-bio {
+    display: flex;
+    gap: 5px;
+    color: #fff;
+}
+
+
+profile-reduced {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: calc(80% + 20px);
+    left: 0;
+    background-color: #2B2B2B;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+@media screen and (max-width: 950px) {
+    .sidebar{
+        display: none;
+    }
+}

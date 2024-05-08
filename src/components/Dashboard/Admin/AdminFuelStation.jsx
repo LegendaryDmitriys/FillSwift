@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import HeaderBoard from "../HeaderBoard";
-import styles from "../../../styles/dashboardcustomers.module.css";
+import styles from "../../../styles/admindashboardfuelstation.module.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes";
+import ReactPaginate from 'react-paginate';
+import sprite from "../../../sprite.svg";
 
 function AdminFuelStation(props) {
     const [fuelStations, setFuelStations] = useState([]);
-    const [addingFuelStation, setAddingFuelStation] = useState(false);
-    const [newFuelStation, setNewFuelStation] = useState({
-        name: '',
-        location: '',
-        latitude: '',
-        longitude: '',
-        fuel_quantity: ''
-    });
+    const [pageNumber, setPageNumber] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const fuelStationsPerPage = 5;
 
     useEffect(() => {
         const fetchFuelStations = async () => {
@@ -29,97 +26,88 @@ function AdminFuelStation(props) {
         fetchFuelStations();
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewFuelStation({
-            ...newFuelStation,
-            [name]: value
-        });
+    const pageCount = Math.ceil(fuelStations.length / fuelStationsPerPage);
+    const pagesVisited = pageNumber * fuelStationsPerPage;
+
+    const displayFuelStations = () => {
+        return fuelStations
+            .filter(fuelStation =>
+                fuelStation.name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
+                fuelStation.location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+            )
+            .slice(pagesVisited, pagesVisited + fuelStationsPerPage)
+            .map(fuelStation => (
+                <tr key={fuelStation.id}>
+                    <td>{fuelStation.name}</td>
+                    <td>{fuelStation.location}</td>
+                    <td>{fuelStation.fuel_quantity}</td>
+                    <td>
+                        <Link to={`${ROUTES.AdminFuelStationDetail}/${fuelStation.id}`}>
+                            <svg width={24} height={19} className={styles['icon-action']}>
+                                <use xlinkHref={sprite + "#arrow-left"}/>
+                            </svg>
+                        </Link>
+                    </td>
+                </tr>
+            ));
     };
 
-    const addFuelStation = async () => {
-        try {
-            const response = await axios.post('http://192.168.0.106:8000/fuelstation/list/', newFuelStation);
-            setFuelStations([...fuelStations, response.data]);
-            setAddingFuelStation(false);
-            setNewFuelStation({
-                name: '',
-                location: '',
-                latitude: '',
-                longitude: '',
-                fuel_quantity: ''
-            });
-            console.log('Заправочная станция успешно добавлена:', response.data);
-        } catch (error) {
-            console.error('Ошибка при добавлении заправочной станции:', error);
-        }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        setPageNumber(0);
+    };
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected);
     };
 
     return (
         <div>
             <HeaderBoard title={"Заправочные станции"} description={"Здесь отображаются все заправочные станции"}/>
-            <div className={styles.customers}>
-                <button onClick={() => setAddingFuelStation(true)}>Добавить</button>
-                {addingFuelStation && (
-                    <div>
-                        <h3>Добавить новую заправочную станцию</h3>
-                        <label>
-                            Название:
-                            <input
-                                type="text"
-                                name="name"
-                                value={newFuelStation.name}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <label>
-                            Местоположение:
-                            <input
-                                type="text"
-                                name="location"
-                                value={newFuelStation.location}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <label>
-                            Широта:
-                            <input
-                                type="text"
-                                name="latitude"
-                                value={newFuelStation.latitude}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <label>
-                            Долгота:
-                            <input
-                                type="text"
-                                name="longitude"
-                                value={newFuelStation.longitude}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <label>
-                            Количество топлива:
-                            <input
-                                type="text"
-                                name="fuel_quantity"
-                                value={newFuelStation.fuel_quantity}
-                                onChange={handleInputChange}
-                            />
-                        </label>
-                        <button onClick={addFuelStation}>Добавить</button>
+            <div className={styles.fuelstation}>
+                <div className={styles['iteraction']}>
+                    <form action="">
+                        <div className={styles["form-input"]}>
+                            <svg width={24} height={24} className={styles["icon-search"]}>
+                                <use xlinkHref={sprite + "#glass"}/>
+                            </svg>
+                            <input type="text" placeholder="Поиск" value={searchTerm} onChange={handleSearchChange}/>
+                        </div>
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Местоположение</th>
+                        <th>Количество топлива</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {displayFuelStations()}
+                    </tbody>
+                </table>
+                <div className={styles.paginationContainer}>
+                    <div className={styles.paginationText}>
+                        Строк на
+                        странице: {pageNumber * fuelStationsPerPage + 1}–{(pageNumber + 1) * fuelStationsPerPage} из {fuelStations.length}
                     </div>
-                )}
-                <ul>
-                    {fuelStations.map(fuelStation => (
-                        <Link to={`${ROUTES.AdminFuelStationDetail}/${fuelStation.id}`} key={fuelStation.id}>
-                            <li className={styles['customer-item']}>
-                                {fuelStation.name} - {fuelStation.location} {fuelStation.fuel_quantity}
-                            </li>
-                        </Link>
-                    ))}
-                </ul>
+                    <ReactPaginate
+                        previousLabel={'Предыдущая'}
+                        nextLabel={'Следующая'}
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={styles.paginationBttns}
+                        previousLinkClassName={styles.previousBttn}
+                        nextLinkClassName={styles.nextBttn}
+                        disabledClassName={styles.paginationDisabled}
+                        activeClassName={styles.paginationActive}
+                    />
+                    <div className={styles.paginationText}>
+                        Cтраница: {pageNumber + 1}
+                    </div>
+                </div>
             </div>
         </div>
     );

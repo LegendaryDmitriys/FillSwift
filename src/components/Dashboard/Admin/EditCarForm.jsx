@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { toast } from 'react-toastify';
 
+import styles from '../../../styles/editcarform.module.css'
+
 function EditCarForm({ car, toggleEdit, userId, }) {
     const [selectedBrand, setSelectedBrand] = useState(car.brand);
     const [selectedModel, setSelectedModel] = useState(car.model);
@@ -87,9 +89,9 @@ function EditCarForm({ car, toggleEdit, userId, }) {
     };
 
     return (
-        <div>
-            <h2>Редактировать данные об автомобиле</h2>
-            <form>
+        <div className={styles.container}>
+            <h2 className={styles.title}>Редактирование данныех об автомобиле</h2>
+            <form className={styles['edit-car_form']}>
                 <label htmlFor="user">Выберите пользователя:</label>
                 <select
                     id="user"
@@ -155,8 +157,8 @@ function EditCarForm({ car, toggleEdit, userId, }) {
 
                 {error && <p>{error}</p>}
 
-                <button type="button" onClick={handleEditCar}>Сохранить изменения</button>
-                <button type="button" onClick={handleCancel}>Отменить</button>
+                <button type="button" onClick={handleEditCar} className={styles['btn-save']}>Сохранить изменения</button>
+                <button type="button" onClick={handleCancel} className={styles['btn-cancel']}>Отменить</button>
             </form>
         </div>
     );

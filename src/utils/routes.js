@@ -19,8 +19,9 @@ export const ROUTES = {
     CarsDetails: '/cars',
     ProductsDashboard: '/admin/products',
     AdminProductsDetails: '/products/details',
-    AdminRequests: 'admin/requests',
-    AdminFuelStation: 'admin/fuelstations',
+    AdminRequests: '/admin/requests',
+    AdminFuelStation: '/admin/fuelstations',
     AdminFuelStationDetail: '/fuelstation',
-    AdminFuelType: "admin/fueltype"
+    AdminFuelType: '/admin/fueltype',
+    AdminDashboard: '/admin'
 }

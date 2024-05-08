@@ -1,0 +1,69 @@
+.container {
+    margin: 20px;
+    padding: 16px 20px;
+}
+
+.product {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999999;
+}
+
+.product-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+}
+
+.product-details li span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+
+
+.btn-edit:hover {
+    background-color: #48269b;
+}
+
+.edit-product-form {
+    margin-top: 20px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btn-edit {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 10px 24px;
+    background: #703BF7;
+    border: 1px solid #703BF7;
+    border-radius: 10px;
+}
+
+.btn-delete {
+    background-color: transparent;
+    color: #ff2d2d;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid red;
+}

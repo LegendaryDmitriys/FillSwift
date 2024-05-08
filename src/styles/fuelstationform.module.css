@@ -1,0 +1,59 @@
+.container {
+    margin: 20px;
+    padding: 16px 20px;
+}
+
+.editfuel {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #999999;
+}
+
+.label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.label input,
+.label select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #777777;
+    border-radius: 5px;
+    background-color: #292929;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.label select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 14l-4-4h8l-4 4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.btn-save,
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #703BF7;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save:hover,
+.btn-cancel:hover {
+    background-color: #48269b;
+}

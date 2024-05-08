@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import styles from '../../../styles/adminfuelstaiondetail.module.css';
+import EditFuelStationForm from "../../Dashboard/Admin/EditFuelStationForm";
+import FillFuelForm from "../../Dashboard/Admin/FillFuelForm";
+import AddFuelColumnForm from "../../Dashboard/Admin/AddFuelColumnForm";
 
 function FuelStationDetail(props) {
     const [fuelStation, setFuelStation] = useState(null);
@@ -17,7 +21,7 @@ function FuelStationDetail(props) {
         fuel_type: ''
     });
     const [fuelTypes, setFuelTypes] = useState([]);
-    const [showAddColumnForm, setShowAddColumnForm] = useState(false); // Состояние для отображения формы добавления колонки
+    const [showAddColumnForm, setShowAddColumnForm] = useState(false);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -171,7 +175,6 @@ function FuelStationDetail(props) {
         }
     };
 
-
     const cancelEdit = () => {
         setEditing(false);
         setEditedFuelStation(fuelStation);
@@ -190,11 +193,11 @@ function FuelStationDetail(props) {
 
 
     return (
-        <div>
+        <div className={styles.container}>
             {fuelStation && (
-                <div>
+                <div className={styles.fuelstation}>
                     {!editing ? (
-                        <div>
+                        <div className={styles["fuelstation-details"]}>
                             <h2>{fuelStation.name}</h2>
                             <p>Местоположение: {fuelStation.location}</p>
                             <p>Широта: {fuelStation.latitude}</p>
@@ -224,130 +227,30 @@ function FuelStationDetail(props) {
                             <button onClick={() => setShowAddColumnForm(true)}>Добавить колонку</button>
                         </div>
                     ) : (
-                        <div>
-                            <h2>Редактирование заправочной станции</h2>
-                            <label>
-                                Название:
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={editedFuelStation.name}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label>
-                                Местоположение:
-                                <input
-                                    type="text"
-                                    name="location"
-                                    value={editedFuelStation.location}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label>
-                                Широта:
-                                <input
-                                    type="text"
-                                    name="latitude"
-                                    value={editedFuelStation.latitude}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label>
-                                Долгота:
-                                <input
-                                    type="text"
-                                    name="longitude"
-                                    value={editedFuelStation.longitude}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label>
-                                Количество топлива:
-                                <input
-                                    type="text"
-                                    name="fuel_quantity"
-                                    value={editedFuelStation.fuel_quantity}
-                                    onChange={handleInputChange}
-                                />
-                            </label>
-                            <label>
-                                Тип топлива:
-                                <select
-                                    name="fuel_type"
-                                    value={newColumn.fuel_type}
-                                    onChange={handleNewColumnChange}
-                                >
-                                    <option value="">Выберите тип топлива</option>
-                                    {fuelTypes.map((fuelType, index) => (
-                                        <option key={index} value={fuelType.id}>{fuelType.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            <button onClick={updateFuelStation}>Сохранить изменения</button>
-                            <button onClick={cancelEdit}>Отмена</button>
-                        </div>
+                        <EditFuelStationForm
+                            editedFuelStation={editedFuelStation}
+                            handleInputChange={handleInputChange}
+                            handleNewColumnChange={handleNewColumnChange}
+                            fuelTypes={fuelTypes}
+                            updateFuelStation={updateFuelStation}
+                            cancelEdit={cancelEdit}
+                        />
                     )}
                     {fillingFuel && (
-                        <div>
-                            <h2>Заливка топлива</h2>
-                            <label>
-                                Количество топлива:
-                                <input
-                                    type="text"
-                                    value={fuelAmount}
-                                    onChange={handleFuelAmountChange}
-                                />
-                            </label>
-                            <button onClick={fillFuel}>Залить топливо</button>
-                        </div>
+                        <FillFuelForm
+                            fuelAmount={fuelAmount}
+                            handleFuelAmountChange={handleFuelAmountChange}
+                            fillFuel={fillFuel}
+                        />
                     )}
                     {showAddColumnForm && (
-                        <div>
-                            <h2>Добавить колонку</h2>
-                            <label>
-                                Номер:
-                                <input
-                                    type="text"
-                                    name="number"
-                                    value={newColumn.number}
-                                    onChange={handleNewColumnChange}
-                                />
-                            </label>
-                            <label>
-                                Количество топлива:
-                                <input
-                                    type="text"
-                                    name="fuel_quantity"
-                                    value={newColumn.fuel_quantity}
-                                    onChange={handleNewColumnChange}
-                                />
-                            </label>
-                            <label>
-                                Цена за литр:
-                                <input
-                                    type="text"
-                                    name="price_per_liter"
-                                    value={newColumn.price_per_liter}
-                                    onChange={handleNewColumnChange}
-                                />
-                            </label>
-                            <label>
-                                Тип топлива:
-                                <select
-                                    name="fuel_type"
-                                    value={newColumn.fuel_type}
-                                    onChange={handleNewColumnChange}
-                                >
-                                    <option value="">Выберите тип топлива</option>
-                                    {fuelTypes.map((fuelType, index) => (
-                                        <option key={index} value={fuelType.id}>{fuelType.name} {fuelType.octane_number}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            <button onClick={addColumn}>Добавить колонку</button>
-                            <button onClick={cancelAddColumn}>Отмена</button>
-                        </div>
+                        <AddFuelColumnForm
+                            newColumn={newColumn}
+                            handleNewColumnChange={handleNewColumnChange}
+                            fuelTypes={fuelTypes}
+                            addColumn={addColumn}
+                            cancelAddColumn={cancelAddColumn}
+                        />
                     )}
                 </div>
             )}

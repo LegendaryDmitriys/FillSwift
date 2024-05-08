@@ -31,6 +31,7 @@ import AdminRequests from "../components/Dashboard/Admin/AdminRequests";
 import AdminFuelStation from "../components/Dashboard/Admin/AdminFuelStation";
 import FuelStationDetail from "../components/Details/Admin/FuelStationDetail";
 import AdminFuelType from "../components/Dashboard/Admin/AdminFuelType";
+import AdminDashboard from "../components/Dashboard/Admin/AdminDashboard";
 
 const AppRoutes = () => {
         const location = useLocation();
@@ -52,7 +53,8 @@ const AppRoutes = () => {
             ROUTES.ProductsDashboard,
             ROUTES.AdminRequests,
             ROUTES.AdminFuelStation,
-            ROUTES.AdminFuelType
+            ROUTES.AdminFuelType,
+            ROUTES.AdminDashboard
         ].includes(location.pathname);
     };
 
@@ -63,7 +65,8 @@ const AppRoutes = () => {
                             ROUTES.Contact,
                             ROUTES.Fueling,
                             ROUTES.TypeFuels,
-                            ROUTES.Home
+                            ROUTES.Home,
+                            ROUTES.CustomersDetails
                     ].includes(location.pathname);
         };
 
@@ -98,6 +101,7 @@ const AppRoutes = () => {
                                     <Route path={ROUTES.AdminFuelStation} element={<AdminFuelStation/>} />
                                     <Route path={`${ROUTES.AdminFuelStationDetail}/:fuelStationId`} element={<FuelStationDetail/>}/>
                                     <Route path={ROUTES.AdminFuelType} element={<AdminFuelType/>} />
+                                    <Route path={ROUTES.AdminDashboard} element={<AdminDashboard/>} />
                             </Routes>
                     </div>
             </div>
