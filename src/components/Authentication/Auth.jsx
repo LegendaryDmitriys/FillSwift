@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../styles/auth.module.css';
 import sprite from '../../sprite.svg';
-import { ROUTES } from '../../utils/routes';
+import { ROUTES } from '../../utils/routes.js';
 import { toast } from 'react-toastify';
 import '../../styles/toastify.css'
 

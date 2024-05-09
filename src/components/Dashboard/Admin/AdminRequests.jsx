@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import AdminRefuelingRequests from "./AdminRefuelingRequests";
-import AdminPurchaseRequests from "./AdminPurchaseRequests";
+import AdminRefuelingRequests from "./AdminRefuelingRequests.jsx";
+import AdminPurchaseRequests from "./AdminPurchaseRequests.jsx";
 
 
 import styles from '../../../styles/request.module.css'
-import HeaderBoard from "../HeaderBoard";
+import HeaderBoard from "../HeaderBoard.jsx";
 
 function AdminRequests(props) {
     const [showRefuelingRequests, setShowRefuelingRequests] = useState(true);

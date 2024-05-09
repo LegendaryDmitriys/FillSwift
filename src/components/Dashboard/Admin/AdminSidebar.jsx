@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
-import {isAuthenticated, logout} from "../../../utils/authUsers";
+import {isAuthenticated, logout} from "../../../utils/authUsers.js";
 import axios from "axios";
 import styles from "../../../styles/adminsidebar.module.css";
-import {ROUTES} from "../../../utils/routes";
+import {ROUTES} from "../../../utils/routes.js";
 import sprite from "../../../sprite.svg";
 
 function AdminSidebar(props) {

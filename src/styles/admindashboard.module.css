@@ -1,3 +1,88 @@
 .container {
     padding: 75px 115px 0 115px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.profit-block {
+    background: #d6faea;
+    border-radius: 20px;
+    padding: 24px 32px;
+    width: 250px;
+    display: flex;
+    gap:15px;
+    margin-bottom: 30px;
+}
+
+.profit-text {
+    flex-grow: 1;
+}
+
+.profit-text p {
+    color: #999999;
+    font-size: 18px;
+}
+
+.profit-text span {
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.name-product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.name-product p {
+    max-width: 150px;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.name-product span {
+   color:#999999;
+}
+
+
+.sales-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.sales-product > span {
+    color: #10B981;
+}
+
+.product-img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 15px;
+}
+
+.sales-number {
+    width: 30px;
+    height: 30px;
+    background: #E5E7EB;
+    border-radius: 12px;
+    color: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
 }

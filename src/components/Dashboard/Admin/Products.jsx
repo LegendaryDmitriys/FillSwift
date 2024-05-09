@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../utils/routes';
+import { ROUTES } from '../../../utils/routes.js';
 import styles from '../../../styles/dashboardproducts.module.css';
-import HeaderBoard from '../HeaderBoard';
+import HeaderBoard from '../HeaderBoard.jsx';
 import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
-import AddProductModal from './AddProductModal';
+import AddProductModal from './AddProductModal.jsx';
 
 function Products(props) {
     const [products, setProducts] = useState([]);

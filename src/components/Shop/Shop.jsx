@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../utils/routes';
-import SortPopup from './SortPopup';
+import { ROUTES } from '../../utils/routes.js';
+import SortPopup from './SortPopup.jsx';
 import styles from '../../styles/shop.module.css';
 import sprite from '../../sprite.svg';
 import ReactPaginate from 'react-paginate';

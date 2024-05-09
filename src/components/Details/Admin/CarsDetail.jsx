@@ -1,7 +1,9 @@
+import React from 'react';
 import {useParams} from "react-router-dom";
+
 import {useEffect, useState} from "react";
 
-import EditCarForm from "../../Dashboard/Admin/EditCarForm";
+import EditCarForm from "../../Dashboard/Admin/EditCarForm.jsx";
 import styles from "../../../styles/admincarsdetail.module.css";
 import sprite from "../../../sprite.svg";
 import axios from "axios";

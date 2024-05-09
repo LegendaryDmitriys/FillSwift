@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Scatter } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {formatDate} from "../../../utils/formateDate";
 
 const Stats = () => {
     const [combinedData, setCombinedData] = useState([]);
@@ -21,28 +22,27 @@ const Stats = () => {
         if (active && payload && payload.length) {
             const data = payload[0].payload;
             return (
-                <div style={{ backgroundColor: 'black', padding: '10px', border: '1px solid black' }}>
-                    <p>{data.day}</p>
-                    <p>{data.category}</p>
-                    <p>{data.count}</p>
+                <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: '10px', border: '1px solid black' }}>
+                    <p style={{ color: '#fff' }}>{formatDate(data.day)}</p>
+                    <p style={{ color: '#fff' }}>{data.category}: {data.count}</p>
                 </div>
             );
         }
         return null;
     };
 
+    const styles = {
+        marginTop: '50px'
+    };
+
     return (
-        <div>
-            <h2>Статистика</h2>
-            <ResponsiveContainer width="100%" height={300}>
+        <div style={styles}>
+            <ResponsiveContainer width={700} height={300}>
                 <LineChart data={combinedData}>
-                    <CartesianGrid stroke="#ccc" />
                     <XAxis dataKey="day" />
                     <YAxis />
                     <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                    <Line type="monotone" dataKey="count" stroke="rgb(75, 192, 192)" dot={{ stroke: 'rgb(75, 192, 192)', fill: 'white', strokeWidth: 2 }} />
-                    <Scatter dataKey="category" fill="rgb(75, 192, 192)" />
+                    <Line type="monotone" dataKey="count" stroke="#8884d8" dot={{ stroke: '#8884d8', fill: '#fff', r: 5 }} />
                 </LineChart>
             </ResponsiveContainer>
         </div>

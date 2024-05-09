@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
-import Header from "../Header/Header";
-import ModalFuels from "./modalFuels";
+import ModalFuels from "./modalFuels.jsx";
 import axios from "axios";
 
 

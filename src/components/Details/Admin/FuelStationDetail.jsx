@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styles from '../../../styles/adminfuelstaiondetail.module.css';
-import EditFuelStationForm from "../../Dashboard/Admin/EditFuelStationForm";
-import FillFuelForm from "../../Dashboard/Admin/FillFuelForm";
-import AddFuelColumnForm from "../../Dashboard/Admin/AddFuelColumnForm";
+import EditFuelStationForm from "../../Dashboard/Admin/EditFuelStationForm.jsx";
+import FillFuelForm from "../../Dashboard/Admin/FillFuelForm.jsx";
+import AddFuelColumnForm from "../../Dashboard/Admin/AddFuelColumnForm.jsx";
+import FillColumnForm from "./FillColumnForm";
 
 function FuelStationDetail(props) {
     const [fuelStation, setFuelStation] = useState(null);
@@ -23,6 +24,8 @@ function FuelStationDetail(props) {
     const [fuelTypes, setFuelTypes] = useState([]);
     const [showAddColumnForm, setShowAddColumnForm] = useState(false);
     const token = localStorage.getItem('token');
+    const [selectedColumnId, setSelectedColumnId] = useState(null);
+    const [fillingColumn, setFillingColumn] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -191,6 +194,48 @@ function FuelStationDetail(props) {
         setShowAddColumnForm(false);
     };
 
+    const openFillColumnForm = (columnId) => {
+        setSelectedColumnId(columnId);
+        setFillingColumn(true);
+    };
+
+    const fillColumn = async () => {
+        try {
+            const currentFuelQuantity = parseFloat(fuelStation.fuel_columns.find(col => col.id === selectedColumnId).fuel_quantity);
+            const additionalFuelAmount = parseFloat(fuelAmount);
+            const updatedFuelQuantity = currentFuelQuantity + additionalFuelAmount;
+
+            const response = await axios.patch(
+                `http://192.168.0.106:8000/fuelstation/${fuelStationId}/fuelcolumn/${selectedColumnId}/`,
+                { fuel_quantity: updatedFuelQuantity },
+                {
+                    headers: {
+                        Authorization: `Token ${token}`
+                    }
+                }
+            );
+
+            const updatedResponse = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}`, {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            });
+            setFuelStation(updatedResponse.data);
+            console.log('Топливо успешно добавлено в колонку:', response.data);
+            setFillingColumn(false);
+            setSelectedColumnId(null);
+            setFuelAmount('');
+        } catch (error) {
+            console.error('Ошибка при добавлении топлива в колонку:', error);
+        }
+    };
+
+    const cancelFillColumn = () => {
+        setFillingColumn(false);
+        setSelectedColumnId(null);
+        setFuelAmount('');
+    };
+
 
     return (
         <div className={styles.container}>
@@ -202,7 +247,7 @@ function FuelStationDetail(props) {
                             <p>Местоположение: {fuelStation.location}</p>
                             <p>Широта: {fuelStation.latitude}</p>
                             <p>Долгота: {fuelStation.longitude}</p>
-                            <p>Количество топлива: {fuelStation.fuel_quantity}</p>
+                            <p>Общее количество топлива: {fuelStation.fuel_columns.reduce((acc, column) => acc + parseFloat(column.fuel_quantity), 0)}</p>
                             <h3>Типы топлива:</h3>
                             <ul>
                                 {fuelStation.fuel_types.map((fuelType, index) => (
@@ -218,13 +263,24 @@ function FuelStationDetail(props) {
                                         Колонка {fuelColumn.number}: Количество топлива: {fuelColumn.fuel_quantity},
                                         Цена за литр: {fuelColumn.price_per_liter}
                                         <button onClick={() => deleteFuelColumn(fuelColumn.id)}>Удалить</button>
+                                        <button onClick={() => openFillColumnForm(fuelColumn.id)}>Залить</button>
                                     </li>
                                 ))}
+                                {fillingColumn && selectedColumnId && (
+                                    <FillColumnForm
+                                        columnId={selectedColumnId}
+                                        fuelAmount={fuelAmount}
+                                        handleFuelAmountChange={handleFuelAmountChange}
+                                        fillColumn={fillColumn}
+                                        cancelFillColumn={cancelFillColumn}
+                                    />
+                                )}
                             </ul>
                             <button onClick={() => setEditing(true)}>Редактировать</button>
                             <button onClick={() => setFillingFuel(true)}>Залить топливо</button>
                             <button onClick={deleteFuelStation}>Удалить</button>
                             <button onClick={() => setShowAddColumnForm(true)}>Добавить колонку</button>
+
                         </div>
                     ) : (
                         <EditFuelStationForm

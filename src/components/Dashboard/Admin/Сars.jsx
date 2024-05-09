@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import HeaderBoard from '../HeaderBoard';
+import HeaderBoard from '../HeaderBoard.jsx';
 import styles from '../../../styles/admindashboardcars.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../utils/routes';
+import { ROUTES } from '../../../utils/routes.js';
 import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
 

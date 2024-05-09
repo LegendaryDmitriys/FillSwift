@@ -4,10 +4,10 @@ import axios from 'axios';
 import styles from "../../styles/dashboard.module.css";
 import sprite from "../../sprite.svg";
 
-import HeaderBoard from "./HeaderBoard";
-import MinSideBar from "./MinSideBar";
-import {isAuthenticated} from "../../utils/authUsers";
-import {formatDate} from "../../utils/formateDate";
+import HeaderBoard from "./HeaderBoard.jsx";
+import MinSideBar from "./MinSideBar.jsx";
+import {isAuthenticated} from "../../utils/authUsers.js";
+import {formatDate} from "../../utils/formateDate.js";
 
 function DashboardHistoryFuels(props) {
     const [refuelings, setRefuelings] = useState([]);

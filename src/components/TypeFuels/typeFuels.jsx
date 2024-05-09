@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '../../styles/typefuels.module.css'
-import Header from "../Header/Header";
+
 function TypeFuels(props) {
     return (
     <div>

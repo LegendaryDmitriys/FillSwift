@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import styles from '../../styles/modal.module.css'
-import ModalTypeFuels from "./modalTypeFuels";
+import ModalTypeFuels from "./modalTypeFuels.jsx";
 import axios from "axios";
 const ModalColumn = ({ onClose,fuelStationId, selectedFuelType}) => {
     const [modalOpen, setModalOpen] = useState(false);

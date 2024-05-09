@@ -5,7 +5,7 @@ import sprite from "../../sprite.svg";
 import "../../styles/minsidebar.css"
 import styles from "../../styles/sidebar.module.css";
 import {Link} from "react-router-dom";
-import {ROUTES} from "../../utils/routes";
+import {ROUTES} from "../../utils/routes.js";
 
 
 const MinSideBar = () => {

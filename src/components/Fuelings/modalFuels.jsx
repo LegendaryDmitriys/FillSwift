@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/modalfuels.module.css';
-import ModalColumn from './ModalColumn';
+import ModalColumn from './ModalColumn.jsx';
 import axios from 'axios';
 
 const ModalFuels = ({ fuelStation, onClose }) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import EditProductForm from "../../Dashboard/Admin/EditProductForm";
+import EditProductForm from "../../Dashboard/Admin/EditProductForm.jsx";
 
 import styles from '../../../styles/adminproductsdetail.module.css'
 import sprite from "../../../sprite.svg";

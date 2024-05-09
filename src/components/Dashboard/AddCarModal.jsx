@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/addcarmodal.module.css';
 import axios from "axios";
-import { toast } from 'react-toastify'
-    ;
+import { toast } from 'react-toastify';
 function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand, selectedModel, setSelectedModel,updateCars }) {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [fuelTankVolume, setFuelTankVolume] = useState('');

@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import styles from "../../styles/sidebar.module.css"
 import sprite from "../../sprite.svg";
 import {Link, useLocation} from "react-router-dom";
-import {ROUTES} from "../../utils/routes";
-import {isAuthenticated, logout} from "../../utils/authUsers";
+import {ROUTES} from "../../utils/routes.js";
+import {isAuthenticated, logout} from "../../utils/authUsers.js";
 import axios from "axios";
 
 function Sidebar(props) {

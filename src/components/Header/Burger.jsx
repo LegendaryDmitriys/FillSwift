@@ -3,8 +3,7 @@ import { bubble as Menu } from 'react-burger-menu';
 import sprite from "../../sprite.svg";
 import "../../styles/burger.css"
 import {Link} from "react-router-dom";
-import {ROUTES} from "../../utils/routes";
-import styles from "../../styles/header.module.css";
+import {ROUTES} from "../../utils/routes.js";
 
 
 const BurgerMenu = () => {

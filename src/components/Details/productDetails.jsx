@@ -3,7 +3,7 @@ import styles from "../../styles/detailsproduct.module.css"
 import sprite from "../../sprite.svg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { isAuthenticated } from "../../utils/authUsers";
+import { isAuthenticated } from "../../utils/authUsers.js";
 import {toast} from "react-toastify";
 
 const ProductDetails = (props) => {
@@ -45,8 +45,12 @@ const ProductDetails = (props) => {
     };
 
     const handleIncreaseQuantity = () => {
-        setQuantity(quantity + 1);
-        setTotalPrice(product.price_per_unit * (quantity + 1));
+        if (quantity < product.quantity) {
+            setQuantity(quantity + 1);
+            setTotalPrice(product.price_per_unit * (quantity + 1));
+        } else {
+            toast.error('Вы достигли максимального количества товара.');
+        }
     };
 
     const handleBuyProduct = async () => {

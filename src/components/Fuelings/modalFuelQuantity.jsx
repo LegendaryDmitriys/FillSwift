@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/modalfuelquantity.module.css';
-import { isAuthenticated } from "../../utils/authUsers";
+import { isAuthenticated } from "../../utils/authUsers.js";
 import axios from "axios";
 import Axios from "axios";
 import {toast} from "react-toastify";

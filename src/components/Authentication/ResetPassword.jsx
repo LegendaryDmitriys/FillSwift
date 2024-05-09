@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/resetpassword.module.css';
-import { ROUTES } from "../../utils/routes";
+import { ROUTES } from "../../utils/routes.js";
 import { Link } from "react-router-dom";
 
 const ResetPassword = () => {

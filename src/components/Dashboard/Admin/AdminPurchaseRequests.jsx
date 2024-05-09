@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../styles/purchaserequests.module.css';
 import sprite from "../../../sprite.svg";
-import { formatDate } from "../../../utils/formateDate";
+import { formatDate } from "../../../utils/formateDate.js";
 
 function AdminPurchaseRequests() {
     const [purchaseRequests, setPurchaseRequests] = useState([]);

@@ -3,12 +3,12 @@ import axios from "axios";
 
 import styles from '../../styles/dashboardbasket.module.css'
 
-import HeaderBoard from "./HeaderBoard";
+import HeaderBoard from "./HeaderBoard.jsx";
 
 
 import {Link} from "react-router-dom";
-import {ROUTES} from "../../utils/routes";
-import ModalPurchaseHistory from "./modalPurchaseHistory";
+import {ROUTES} from "../../utils/routes.js";
+import ModalPurchaseHistory from "./modalPurchaseHistory.jsx";
 import sprite from "../../sprite.svg";
 import { toast } from 'react-toastify'
 

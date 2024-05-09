@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/modalPurchaseHistory.module.css';
-import { formatDate } from "../../utils/formateDate";
+import { formatDate } from "../../utils/formateDate.js";
 
 function ModalPurchaseHistory({ show, handleClose, purchaseHistory }) {
     const showHideClassName = show ? styles.displayBlock : styles.displayNone;

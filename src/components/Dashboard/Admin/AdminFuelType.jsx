@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import HeaderBoard from "../HeaderBoard";
+import HeaderBoard from "../HeaderBoard.jsx";
 import styles from "../../../styles/admindashboardfueltypes.module.css";
 import ReactPaginate from 'react-paginate';
 import sprite from "../../../sprite.svg";
-import AddFuelTypesModal from "./AddFuelTypesModal";
+import AddFuelTypesModal from "./AddFuelTypesModal.jsx";
 
 function AdminFuelType(props) {
     const [fuelTypes, setFuelTypes] = useState([]);

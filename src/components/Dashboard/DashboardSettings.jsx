@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styles from "../../styles/dashboardsetting.module.css";
-import HeaderBoard from "./HeaderBoard";
+import HeaderBoard from "./HeaderBoard.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
-import {isAuthenticated} from "../../utils/authUsers";
+import {isAuthenticated} from "../../utils/authUsers.js";
 
 
 function DashboardSettings(props) {

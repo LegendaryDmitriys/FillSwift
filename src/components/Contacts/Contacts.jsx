@@ -1,10 +1,9 @@
 import React from 'react';
-import Header from "../Header/Header";
 
 import styles from "../../styles/contact.module.css"
 import sprite from "../../sprite.svg";
 import {Map, YMaps, Placemark} from "@pbe/react-yandex-maps";
-import BlockSocial from "./BlockSocial";
+import BlockSocial from "./BlockSocial.jsx";
 
 
 function Contacts(props) {

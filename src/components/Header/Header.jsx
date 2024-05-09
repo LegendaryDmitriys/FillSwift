@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from "../../styles/header.module.css"
 import sprite  from "../../sprite.svg"
-import BurgerMenu from "./Burger";
+import BurgerMenu from "./Burger.jsx";
 import {Link, useLocation} from "react-router-dom";
-import {ROUTES} from "../../utils/routes";
-import {isAuthenticated} from "../../utils/authUsers";
+import {ROUTES} from "../../utils/routes.js";
+import {isAuthenticated} from "../../utils/authUsers.js";
 
 const Header = (props) => {
     const [activeMenuItem, setActiveMenuItem] = useState('Главная');

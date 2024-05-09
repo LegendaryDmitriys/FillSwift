@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import Sidebar from "./Sidebar";
-import HeaderBoard from "./HeaderBoard";
-import Cars from "../../utils/cars.json"
-
+import HeaderBoard from "./HeaderBoard.jsx";
 import styles from "../../styles/dashboardcars.module.css";
 import sprite from "../../sprite.svg";
-import {isAuthenticated} from "../../utils/authUsers";
+import {isAuthenticated} from "../../utils/authUsers.js";
 import axios from "axios";
-import AddCarModal from "./AddCarModal";
+import AddCarModal from "./AddCarModal.jsx";
 import {toast} from "react-toastify";
 
 function DashboardCars(props) {
