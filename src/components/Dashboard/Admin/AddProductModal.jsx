@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../../styles/addproductmodal.module.css';
 
-const AddProductModal = ({ showModal, closeModal, handleSubmit, handleInputChange, newProduct, handleFileChange }) => {
+const AddProductModal = ({ showModal, closeModal, handleSubmit, handleInputChange, newProduct, handleFileChange, selectedFile  }) => {
     return (
         showModal && (
             <div className={styles.modal}>
@@ -98,11 +98,13 @@ const AddProductModal = ({ showModal, closeModal, handleSubmit, handleInputChang
                                 <p>Картинка</p>
                             </div>
                             <div className={styles["product-settings-right"]}>
+                                <label>Изображение:</label>
                                 <input
                                     type="file"
                                     accept="image/*"
                                     onChange={handleFileChange}
                                 />
+                                {selectedFile && <p>Выбранный файл: {selectedFile.name}</p>}
                             </div>
                         </div>
                         <button type="submit">Сохранить</button>

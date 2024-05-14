@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {PieChart, Pie, Tooltip, Legend, ResponsiveContainer, Cell} from 'recharts';
+import {API} from "../../../utils/APi";
 
 const CarStatsChart = () => {
     const [carStats, setCarStats] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/statistic/car-brand-model-stats/')
+        axios.get(`${API}/statistic/car-brand-model-stats/`)
             .then(response => {
                 setCarStats(response.data);
             })

@@ -127,12 +127,15 @@ function Products(props) {
                 manufacturer: '',
             });
             setSelectedFile(null);
+
+            await uploadImage(response.data.id);
         } catch (error) {
             console.error('Ошибка при создании продукта:', error);
         }
     };
 
     const handleFileChange = (e) => {
+        console.log(e.target.files[0]);
         setSelectedFile(e.target.files[0]);
     };
 
@@ -143,6 +146,29 @@ function Products(props) {
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
+    };
+
+    const uploadImage = async (productId) => {
+        const formData = new FormData();
+        formData.append('image', selectedFile);
+
+        try {
+            await axios.post(
+                `${API}/products/upload-image/`,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    params: {
+                        product_id: productId,
+                    }
+                }
+            );
+
+        } catch (error) {
+            console.error('Ошибка при загрузке изображения:', error);
+        }
     };
 
     return (
@@ -190,6 +216,7 @@ function Products(props) {
                     handleInputChange={handleInputChange}
                     newProduct={newProduct}
                     handleFileChange={handleFileChange}
+                    selectedFile={selectedFile}
                 />
                 <div className={styles.paginationContainer}>
                     <div className={styles.paginationText}>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {API} from "../../../utils/APi";
 
 const TotalFuelRefueledChart = () => {
     const [fuelRefueledData, setFuelRefueledData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/statistic/total-fuel-refueled-stats/')
+        axios.get(`${API}/statistic/total-fuel-refueled-stats/`)
             .then(response => {
                 setFuelRefueledData(response.data);
             })

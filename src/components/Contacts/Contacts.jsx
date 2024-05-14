@@ -38,10 +38,10 @@ function Contacts(props) {
                     <div className={styles["our-location__main"]}>
                         <div className={styles["our-location__map"]}>
                             <YMaps query={{ apikey: process.env.REACT_APP_YANDEX_MAPS_API_KEY }}>
-                                <div>
+                                <div className={styles['map']}>
                                     <Map
                                         defaultState={{ center: [58.536413, 31.259857], zoom: 12 }}
-                                        width="50vw"
+                                        width="80vh"
                                         height="70vh"
                                     >
                                         <Placemark geometry={Headquarters} options={imagesPlacemark}/>

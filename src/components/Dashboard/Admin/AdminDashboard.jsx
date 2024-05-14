@@ -46,7 +46,6 @@ function AdminDashboard(props) {
                 </div>
                 <div className={styles["salescharts-block"]}>
                     <h3 className={styles.subtitle}>Cтатистика покупок и продаж за месяц</h3>
-
                     <Stats/>
                 </div>
             </div>

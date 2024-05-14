@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import styles from '../../../styles/editproductform.module.css'
-import {API} from "../../../utils/APi";
+import { API } from "../../../utils/APi";
+
 function EditProductForm({ product, toggleEdit }) {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -12,19 +13,27 @@ function EditProductForm({ product, toggleEdit }) {
     const [pricePerUnit, setPricePerUnit] = useState(product.price_per_unit);
     const [manufacturer, setManufacturer] = useState(product.manufacturer);
     const [error, setError] = useState('');
-
+    const [image, setImage] = useState(null);
 
     const handleEditProduct = () => {
         const data = {
-            name: name,
-            description: description,
-            quantity: quantity,
+            name,
+            description,
+            quantity,
             product_type: productType,
             price_per_unit: pricePerUnit,
-            manufacturer: manufacturer
+            manufacturer
         };
 
-        axios.put(`${API}/products/products/${product.id}/`, data)
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('data', JSON.stringify(data));
+
+        axios.put(`${API}/products/products/${product.id}/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then(response => {
                 toast.success('Product updated successfully');
                 toggleEdit();
@@ -35,9 +44,15 @@ function EditProductForm({ product, toggleEdit }) {
             });
     };
 
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
+
     const handleCancel = () => {
         toggleEdit();
     };
+
+    console.log(image); // Проверяем, что изображение корректно передается
 
     return (
         <div className={styles.container}>
@@ -71,7 +86,7 @@ function EditProductForm({ product, toggleEdit }) {
                     onChange={(e) => setProductType(e.target.value)}
                     required
                 />
-                <label>Цена за еденицу:</label>
+                <label>Цена за единицу:</label>
                 <input
                     type="number"
                     value={pricePerUnit}
@@ -84,6 +99,12 @@ function EditProductForm({ product, toggleEdit }) {
                     value={manufacturer}
                     onChange={(e) => setManufacturer(e.target.value)}
                     required
+                />
+                <label>Изображение:</label>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
                 />
                 {error && <p>{error}</p>}
                 <button type="button" onClick={handleEditProduct} className={styles["btn-save"]}>Сохранить</button>
