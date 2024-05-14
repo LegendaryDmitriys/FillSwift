@@ -11,6 +11,7 @@ import {ROUTES} from "../../utils/routes.js";
 import ModalPurchaseHistory from "./modalPurchaseHistory.jsx";
 import sprite from "../../sprite.svg";
 import { toast } from 'react-toastify'
+import {API} from "../../utils/APi";
 
 function DashboardBasket(props) {
     const [basketProducts, setBasketProducts] = useState([]);
@@ -21,18 +22,18 @@ function DashboardBasket(props) {
     useEffect(() => {
         async function fetchBasketProducts() {
             try {
-                const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                const userResponse = await axios.get(`${API}/api/user`, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`
                     }
                 });
                 const userId = userResponse.data.user.id;
-                const basketResponse = await axios.get(`http://192.168.0.106:8000/carts/baskets/${userId}/`);
+                const basketResponse = await axios.get(`${API}/carts/baskets/${userId}/`);
                 const basketId = basketResponse.data.id;
 
-                const response = await axios.get(`http://192.168.0.106:8000/carts/basket-products/${basketId}`);
+                const response = await axios.get(`${API}/carts/basket-products/${basketId}`);
                 const productsData = await Promise.all(response.data.map(async (item) => {
-                    const productResponse = await axios.get(`http://192.168.0.106:8000/products/products/${item.product}`);
+                    const productResponse = await axios.get(`${API}/products/products/${item.product}`);
                     const totalPrice = productResponse.data.price_per_unit * item.quantity;
                     console.log(item)
                     return { ...item, productInfo: productResponse.data, totalPrice: totalPrice };
@@ -58,16 +59,16 @@ function DashboardBasket(props) {
 
     const handleRemoveFromBasket = async (productId) => {
         try {
-            const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+            const userResponse = await axios.get(`${API}/api/user`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
             });
             const userId = userResponse.data.user.id;
-            const basketResponse = await axios.get(`http://192.168.0.106:8000/carts/baskets/${userId}/`);
+            const basketResponse = await axios.get(`${API}/carts/baskets/${userId}/`);
             const basketId = basketResponse.data.id;
 
-            await axios.delete(`http://192.168.0.106:8000/carts/basket-products/${basketId}/${productId}`, {
+            await axios.delete(`${API}/carts/basket-products/${basketId}/${productId}`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
@@ -83,7 +84,7 @@ function DashboardBasket(props) {
 
     const handleCheckout = async () => {
         try {
-            const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+            const userResponse = await axios.get(`${API}/api/user`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
@@ -93,7 +94,7 @@ function DashboardBasket(props) {
 
             const quantities = basketProducts.map(item => item.quantity);
 
-            const response = await axios.post(`http://192.168.0.106:8000/carts/purchases/ `, {
+            const response = await axios.post(`${API}/carts/purchases/ `, {
                 user: userId,
                 total_price: totalPrice,
                 productIds: productIds,
@@ -109,13 +110,13 @@ function DashboardBasket(props) {
 
     const fetchPurchaseHistory = async () => {
         try {
-            const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+            const userResponse = await axios.get(`${API}/api/user`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
             });
             const userId = userResponse.data.user.id;
-            const response = await axios.get(`http://192.168.0.106:8000/carts/purchase/${userId}/`);
+            const response = await axios.get(`${API}/carts/purchase/${userId}/`);
             setPurchaseHistory(response.data);
             console.log(response.data);
             setShowHistoryModal(true);

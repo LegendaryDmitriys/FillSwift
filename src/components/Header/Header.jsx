@@ -16,8 +16,8 @@ const Header = (props) => {
 
 
     return (
-        <header className={styles.header}>
-            <nav className={styles.navigation}>
+        <header className={styles["header"]}>
+            <nav className={styles["navigation"]}>
                 <div>
                     <Link to={ROUTES.Home}>
                         <svg className='logo' width={134} height={51}>
@@ -25,7 +25,7 @@ const Header = (props) => {
                         </svg>
                     </Link>
                 </div>
-                <div className={styles.menu}>
+                <div className={styles["menu"]}>
                     <ul className={styles["menu-items"]}>
                         <li
                             key="Главная"
@@ -78,7 +78,7 @@ const Header = (props) => {
                             )}
                         </button>
                     </div>
-                    <div className={styles.burger}>
+                    <div className={styles['burger']}>
                     <BurgerMenu/>
                     </div>
                 </div>

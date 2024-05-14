@@ -4,6 +4,7 @@ import { isAuthenticated } from "../../utils/authUsers.js";
 import axios from "axios";
 import Axios from "axios";
 import {toast} from "react-toastify";
+import {API} from "../../utils/APi";
 
 const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasStation, numberColumn, fuelColumnId, onClose }) => {
     const [fuelAmount, setFuelAmount] = useState(0);
@@ -17,14 +18,14 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
         if (authenticated) {
             async function fetchCarsUsers() {
                 try {
-                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                    const userResponse = await axios.get(`${API}/api/user`, {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     const userId = userResponse.data.user.id;
                     setUserId(userId)
-                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/${userId}`);
+                    const carsResponse = await Axios.get(`${API}/cars/user/${userId}`);
                     setCars(carsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
@@ -65,7 +66,7 @@ const ModalFuelQuantity = ({ octaneNumberId, octaneNumber, pricePerLiter, gasSta
                 status: 'pending',
             };
 
-            await axios.post('http://192.168.0.106:8000/refuling/refuelings/', refuelingData);
+            await axios.post(`${API}/refuling/refuelings/`, refuelingData);
 
             setFuelAmount(0);
             onClose();

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import styles from '../../styles/modal.module.css'
 import ModalTypeFuels from "./modalTypeFuels.jsx";
 import axios from "axios";
+import {API} from "../../utils/APi";
 const ModalColumn = ({ onClose,fuelStationId, selectedFuelType}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedFuelColumn, setSelectedFuelColumn] = useState(null);
@@ -12,7 +13,7 @@ const ModalColumn = ({ onClose,fuelStationId, selectedFuelType}) => {
     useEffect(() => {
         async function fetchFuelColumns() {
             try {
-                const response = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}/`);
+                const response = await axios.get(`${API}/fuelstation/${fuelStationId}/`);
                 setGasStation(response.data);
                 setFuelColumns(response.data.fuel_columns);
             } catch (error) {

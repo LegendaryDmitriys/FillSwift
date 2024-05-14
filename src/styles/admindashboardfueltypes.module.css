@@ -9,6 +9,8 @@
 .fueltypes th,
 .fueltypes td {
     padding: 10px;
+    text-align: center;
+    width: 300px;
 }
 
 .fueltypes th:first-child,
@@ -18,6 +20,17 @@
 
 .fueltypes th {
 
+}
+
+.iteraction-s{
+    position: relative;
+}
+
+.icon-search-o{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 

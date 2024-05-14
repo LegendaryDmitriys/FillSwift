@@ -2,21 +2,23 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../styles/resetpassword.module.css';
 import { ROUTES } from "../../utils/routes.js";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {API} from "../../utils/APi";
 
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [showCodeInput, setShowCodeInput] = useState(false); // Состояние для отслеживания показа модального окна ввода кода
-    const [showNewPasswordInput, setShowNewPasswordInput] = useState(false); // Состояние для отслеживания показа формы ввода нового пароля
+    const [showCodeInput, setShowCodeInput] = useState(false);
+    const [showNewPasswordInput, setShowNewPasswordInput] = useState(false);
+    const navigate = useNavigate();
 
     const handleGenerateCode = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://192.168.0.106:8000/api/reset-password/generate-code/',
+                `${API}/api/reset-password/generate-code/`,
                 { email: email }
             );
             setMessage(response.data.message);
@@ -30,7 +32,7 @@ const ResetPassword = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://192.168.0.106:8000/api/reset-password/verify-code/',
+                `${API}/api/reset-password/verify-code/`,
                 { email: email, code: code, new_password: newPassword }
             );
             setMessage(response.data.message);
@@ -45,12 +47,12 @@ const ResetPassword = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://192.168.0.106:8000/api/reset-password/reset/',
+                `${API}/api/reset-password/reset/`,
                 { email: email, new_password: newPassword }
             );
             setMessage(response.data.message);
             setShowNewPasswordInput(false);
-            window.location.href = '/login'
+            navigate(ROUTES.Login)
         } catch (error) {
             setMessage(error.response.data.error);
         }
@@ -102,7 +104,6 @@ const ResetPassword = () => {
                         </form>
                     </div>
                 )}
-
                 {message && <p>{message}</p>}
             </div>
         </div>

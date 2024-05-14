@@ -7,6 +7,7 @@ import EditCarForm from "../../Dashboard/Admin/EditCarForm.jsx";
 import styles from "../../../styles/admincarsdetail.module.css";
 import sprite from "../../../sprite.svg";
 import axios from "axios";
+import {API} from "../../../utils/APi";
 
 function CarsDetail(props) {
     const { carId } = useParams();
@@ -17,7 +18,7 @@ function CarsDetail(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const carResponse = await axios.get(`http://192.168.0.106:8000/cars/cars/${carId}`, {
+                const carResponse = await axios.get(`${API}/cars/cars/${carId}`, {
                     headers: {
                         Authorization: `Token ${token}`
                     }
@@ -37,7 +38,7 @@ function CarsDetail(props) {
 
     const handleDeleteAccount = async () => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/cars/cars/${carId}`, {
+            await axios.delete(`${API}/cars/cars/${carId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }

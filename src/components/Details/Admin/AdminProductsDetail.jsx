@@ -5,6 +5,7 @@ import EditProductForm from "../../Dashboard/Admin/EditProductForm.jsx";
 
 import styles from '../../../styles/adminproductsdetail.module.css'
 import sprite from "../../../sprite.svg";
+import {API} from "../../../utils/APi";
 
 
 function AdminProductsDetail(props) {
@@ -16,7 +17,7 @@ function AdminProductsDetail(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const productResponse = await axios.get(`http://192.168.0.106:8000/products/products/${productId}`, {
+                const productResponse = await axios.get(`${API}/products/products/${productId}`, {
                     headers: {
                         Authorization: `Token ${token}`
                     }
@@ -39,7 +40,7 @@ function AdminProductsDetail(props) {
     };
     const handleDeleteClick = async () => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/products/products/${productId}`, {
+            await axios.delete(`${API}/products/products/${productId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }

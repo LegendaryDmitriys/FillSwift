@@ -1,50 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import HeaderBoard from '../HeaderBoard.jsx';
-import styles from '../../../styles/admindashboardcars.module.css';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../utils/routes.js';
-import sprite from "../../../sprite.svg";
+import axios from "axios";
+import HeaderBoard from "../HeaderBoard.jsx";
+import styles from "../../../styles/admindashboardfuelstation.module.css";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../utils/routes.js";
 import ReactPaginate from 'react-paginate';
+import sprite from "../../../sprite.svg";
 import {API} from "../../../utils/APi";
 
-function Cars(props) {
-    const [cars, setCars] = useState([]);
+function OperatorFuelStation(props) {
+    const [fuelStations, setFuelStations] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const carsPerPage = 5;
+    const fuelStationsPerPage = 5;
 
     useEffect(() => {
-        const fetchCars = async () => {
+        const fetchFuelStations = async () => {
             try {
-                const response = await axios.get(`${API}/cars/users/`);
-                setCars(response.data);
+                const response = await axios.get(`${API}/fuelstation/list/`);
+                setFuelStations(response.data);
             } catch (error) {
-                console.error('Ошибка загрузки автомобилей:', error);
+                console.error('Ошибка загрузки заправочных станций:', error);
             }
         };
 
-        fetchCars();
+        fetchFuelStations();
     }, []);
 
-    const pageCount = Math.ceil(cars.length / carsPerPage);
-    const pagesVisited = pageNumber * carsPerPage;
+    const pageCount = Math.ceil(fuelStations.length / fuelStationsPerPage);
+    const pagesVisited = pageNumber * fuelStationsPerPage;
 
-    const displayCars = () => {
-        return cars
-            .filter(car =>
-                car.registration_number.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
-                car.brand_name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
-                car.model_name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+    const displayFuelStations = () => {
+        return fuelStations
+            .filter(fuelStation =>
+                fuelStation.name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
+                fuelStation.location.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
             )
-            .slice(pagesVisited, pagesVisited + carsPerPage)
-            .map(car => (
-                <tr key={car.id}>
-                    <td>{car.registration_number}</td>
-                    <td>{car.brand_name}</td>
-                    <td>{car.model_name}</td>
+            .slice(pagesVisited, pagesVisited + fuelStationsPerPage)
+            .map(fuelStation => (
+                <tr key={fuelStation.id}>
+                    <td>{fuelStation.name}</td>
+                    <td>{fuelStation.location}</td>
+                    <td>{fuelStation.fuel_quantity}</td>
                     <td>
-                        <Link to={`${ROUTES.CarsDetails}/${car.id}`}>
+                        <Link to={`${ROUTES.OperatorFuelStationDetail}/${fuelStation.id}`}>
                             <svg width={24} height={19} className={styles['icon-action']}>
                                 <use xlinkHref={sprite + "#arrow-left"}/>
                             </svg>
@@ -65,8 +64,8 @@ function Cars(props) {
 
     return (
         <div>
-            <HeaderBoard title={'Автомобили'} description={'Здесь отображаются все автомобили зарегистрированные в системе'} />
-            <div className={styles.cars}>
+            <HeaderBoard title={"Заправочные станции"} description={"Здесь отображаются все заправочные станции"}/>
+            <div className={styles.fuelstation}>
                 <div className={styles['iteraction']}>
                     <form action="">
                         <div className={styles["form-input"]}>
@@ -80,20 +79,20 @@ function Cars(props) {
                 <table>
                     <thead>
                     <tr>
-                        <th>Регистрационный номер</th>
-                        <th>Марка</th>
-                        <th>Модель</th>
+                        <th>Название</th>
+                        <th>Местоположение</th>
+                        <th>Количество топлива</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {displayCars()}
+                    {displayFuelStations()}
                     </tbody>
                 </table>
                 <div className={styles.paginationContainer}>
                     <div className={styles.paginationText}>
                         Строк на
-                        странице: {pageNumber * carsPerPage + 1}–{(pageNumber + 1) * carsPerPage} из {cars.length}
+                        странице: {pageNumber * fuelStationsPerPage + 1}–{(pageNumber + 1) * fuelStationsPerPage} из {fuelStations.length}
                     </div>
                     <ReactPaginate
                         previousLabel={'Предыдущая'}
@@ -115,4 +114,4 @@ function Cars(props) {
     );
 }
 
-export default Cars;
+export default OperatorFuelStation;

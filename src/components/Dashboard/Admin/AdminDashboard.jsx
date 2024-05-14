@@ -3,11 +3,9 @@ import React, {useEffect, useState} from 'react';
 import styles from "../../../styles/admindashboard.module.css"
 
 import Stats from "./Stats.jsx";
-import AvgFuelQuantityChart from "../Charts/AvgFuelQuantityChart.jsx";
 import CarStatsChart from "../Charts/CarStatsChart.jsx";
-import TotalProductsSoldChart from "../Charts/TotalProductsSoldChart";
-import TotalFuelRefueledChart from "../Charts/TotalFuelRefueledChart";
 import axios from "axios";
+import {API} from "../../../utils/APi";
 
 
 function AdminDashboard(props) {
@@ -17,8 +15,8 @@ function AdminDashboard(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const popularProductsResponse = await axios.get('http://192.168.0.106:8000/products/popular-products/');
-                const totalSpentResponse = await axios.get('http://192.168.0.106:8000/statistic/total-spent-stats/');
+                const popularProductsResponse = await axios.get(`${API}/products/popular-products/`);
+                const totalSpentResponse = await axios.get(`${API}/statistic/total-spent-stats/`);
 
                 setPopularProducts(popularProductsResponse.data);
                 setTotalSpent(totalSpentResponse.data.total_spent);

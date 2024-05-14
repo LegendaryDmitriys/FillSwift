@@ -4,12 +4,13 @@ import axios from 'axios';
 
 
 import styles from '../../styles/waitrefuelingmodal.module.css'
+import {API} from "../../utils/APi";
 const WaitRefuelingModal = ({ refuelingId, onClose }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            axios.get(`http://192.168.0.106:8000/refuling/refuelings/${refuelingId}`)
+            axios.get(`${API}/refuling/refuelings/${refuelingId}`)
                 .then(response => {
                     const status = response.data.status;
                     if (status === 'confirmed') {

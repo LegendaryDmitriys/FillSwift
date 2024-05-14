@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { isAuthenticated } from "../../utils/authUsers.js";
 import {toast} from "react-toastify";
+import {API} from "../../utils/APi";
 
 const ProductDetails = (props) => {
     const { productId } = useParams();
@@ -27,7 +28,7 @@ const ProductDetails = (props) => {
     };
 
     useEffect(() => {
-        axios.get(`http://192.168.0.106:8000/products/products/${productId}`)
+        axios.get(`${API}/products/products/${productId}`)
             .then(response => {
                 setProduct(response.data);
                 setTotalPrice(response.data.price_per_unit * quantity);
@@ -56,17 +57,17 @@ const ProductDetails = (props) => {
     const handleBuyProduct = async () => {
         if (isAuthenticated()) {
             try {
-                const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                const userResponse = await axios.get(`${API}/api/user`, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`
                     }
                 });
                 const userId = userResponse.data.user.id;
-                const basketResponse = await axios.get(`http://192.168.0.106:8000/carts/baskets/${userId}/`);
+                const basketResponse = await axios.get(`${API}/carts/baskets/${userId}/`);
                 const basketId = basketResponse.data.id;
 
                 const productResponse = await axios.post(
-                    'http://192.168.0.106:8000/carts/basket-products/',
+                    `${API}/carts/basket-products/`,
                     {
                         basket: basketId,
                         product: parseInt(productId),

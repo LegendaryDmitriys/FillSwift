@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 
 import styles from '../../../styles/editcarform.module.css'
+import {API} from "../../../utils/APi";
 
 function EditCarForm({ car, toggleEdit, userId, }) {
     const [selectedBrand, setSelectedBrand] = useState(car.brand);
@@ -16,7 +17,7 @@ function EditCarForm({ car, toggleEdit, userId, }) {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/cars/models/')
+        axios.get(`${API}/cars/models/`)
             .then(response => {
                 const data = response.data;
                 const brandMap = {};
@@ -33,7 +34,7 @@ function EditCarForm({ car, toggleEdit, userId, }) {
                 toast.error('Ошибка при загрузке моделей автомобилей:', error)
             });
 
-        axios.get('http://192.168.0.106:8000/api/user-list')
+        axios.get(`${API}/api/user-list`)
             .then(response => {
                 setUsers(response.data);
             })
@@ -54,7 +55,7 @@ function EditCarForm({ car, toggleEdit, userId, }) {
             fuel_tank_volume: fuelTankVolume
         };
 
-        axios.put(`http://192.168.0.106:8000/cars/cars/${car.id}/`, data)
+        axios.put(`${API}/cars/cars/${car.id}/`, data)
             .then(response => {
                 toast.success('Данные об автомобиле успешно обновлены');
                 toggleEdit();

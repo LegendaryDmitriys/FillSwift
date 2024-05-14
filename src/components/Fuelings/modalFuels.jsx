@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../../styles/modalfuels.module.css';
 import ModalColumn from './ModalColumn.jsx';
 import axios from 'axios';
+import {API} from "../../utils/APi";
 
 const ModalFuels = ({ fuelStation, onClose }) => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -11,7 +12,7 @@ const ModalFuels = ({ fuelStation, onClose }) => {
     useEffect(() => {
         async function fetchFuelTypes() {
             try {
-                const response = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStation.id}/`);
+                const response = await axios.get(`${API}/fuelstation/${fuelStation.id}/`);
                 setFuelTypes(response.data.fuel_types);
             } catch (error) {
                 console.error('Ошибка при получении данных о типах топлива на заправке:', error);
@@ -28,6 +29,7 @@ const ModalFuels = ({ fuelStation, onClose }) => {
         setModalOpen(true);
     };
 
+
     return (
         <div className={styles.modalBackground}>
             <div className={styles.modalContent}>
@@ -43,7 +45,7 @@ const ModalFuels = ({ fuelStation, onClose }) => {
                                 <button onClick={openModal}>Заправиться</button>
                             </div>
                             <div className={styles['button-route']}>
-                                <button>Построить маршрут</button>
+                                <button><a href={`https://yandex.ru/maps/24/veliky-novgorod/?ll=${fuelStation.longitude}%2C${fuelStation.latitude}&mode=whatshere&whatshere%5Bpoint%5D=${fuelStation.longitude}%2C${fuelStation.latitude}&whatshere%5Bzoom%5D=13.97&z=15`}>Построить маршрут</a></button>
                             </div>
                         </div>
                         <div className={styles['typefuels-gastation']}>

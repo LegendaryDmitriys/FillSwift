@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../styles/auth.module.css';
 import sprite from '../../sprite.svg';
 import { ROUTES } from '../../utils/routes.js';
 import { toast } from 'react-toastify';
 import '../../styles/toastify.css'
+import {API} from "../../utils/APi";
 
 const Auth = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://192.168.0.106:8000/api/users/login/',
+                `${API}/api/users/login/`,
                 {
                     user: {
                         email,
@@ -23,10 +25,22 @@ const Auth = (props) => {
                     }
                 },
             );
-            const token = response.data.user.token;
+            const { token, is_staff, operator } = response.data.user;
+            console.log(response.data.user)
             localStorage.setItem('token', token)
+            localStorage.setItem('isStaff', is_staff);
+            localStorage.setItem('isOperator', operator);
             toast.success('Аутентификация успешна');
-            window.location.href = '/user/settings';
+
+
+            if (operator) {
+                navigate(ROUTES.OperatorRequests)
+            } else  {
+                navigate(ROUTES.Settings);
+            }
+
+
+            navigate(ROUTES.Settings)
         } catch (error) {
             console.error('Ошибка аутентификации:', error);
             setTimeout(() => {

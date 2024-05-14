@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from '../../../styles/purchaserequests.module.css';
 import sprite from "../../../sprite.svg";
 import { formatDate } from "../../../utils/formateDate.js";
+import {API} from "../../../utils/APi";
 
 function AdminPurchaseRequests() {
     const [purchaseRequests, setPurchaseRequests] = useState([]);
@@ -13,7 +14,7 @@ function AdminPurchaseRequests() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/carts/purchases-list/');
+                const response = await axios.get(`${API}/carts/purchases-list/`);
                 setPurchaseRequests(response.data.purchases);
             } catch (error) {
                 console.error('Ошибка при получении данных о запросах на покупку:', error);
@@ -53,7 +54,7 @@ function AdminPurchaseRequests() {
 
     const handleChangePurchaseRequestStatus = async (requestId, newStatus) => {
         try {
-            await axios.patch(`http://192.168.0.106:8000/carts/purchase/${requestId}/change_status/`, { status: newStatus });
+            await axios.patch(`${API}/carts/purchase/${requestId}/change_status/`, { status: newStatus });
 
             setPurchaseRequests(prevRequests => prevRequests.map(request => {
                 if (request.id === requestId) {
@@ -119,95 +120,104 @@ function AdminPurchaseRequests() {
 
             <h2 className={styles.subtitle}>Принятые ({confirmedPurchaseRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {confirmedPurchaseRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user.firstname} {request.user.lastname}</p>
-                        <p>{request.user.email}</p>
-                        <p>{formatDate(request.purchase_date)}</p>
-                        <p>{request.total_price}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
-                            <span
-                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                <table className={styles.table}>
+                    <tbody>
+                    {confirmedPurchaseRequests.map(request => (
+                        <tr key={request.id}>
+                            <td>{request.user.firstname} {request.user.lastname}</td>
+                            <td>{request.user.email}</td>
+                            <td>{formatDate(request.purchase_date)}</td>
+                            <td>{request.total_price}</td>
+                            <td className={styles.status} onClick={() => handleStatusClick(request.id)}>
+                        <span
+                            className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>
+                            {request.status}
+                        </span>
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
 
             <h2 className={styles.subtitle}>Отмененные ({rejectedPurchaseRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {rejectedPurchaseRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user.firstname} {request.user.lastname}</p>
-                        <p>{request.user.email}</p>
-                        <p>{formatDate(request.purchase_date)}</p>
-                        <p>{request.total_price}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
-                            <span
-                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                <table className={styles.table}>
+                    <tbody>
+                    {rejectedPurchaseRequests.map(request => (
+                        <tr key={request.id}>
+                            <td>{request.user.firstname} {request.user.lastname}</td>
+                            <td>{request.user.email}</td>
+                            <td>{formatDate(request.purchase_date)}</td>
+                            <td>{request.total_price}</td>
+                            <td className={styles.status} onClick={() => handleStatusClick(request.id)}>
+                        <span
+                            className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>
+                            {request.status}
+                        </span>
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
 
             <h2 className={styles.subtitle}>В ожидании ({pendingPurchaseRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {pendingPurchaseRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user.firstname} {request.user.lastname}</p>
-                        <p>{request.user.email}</p>
-                        <p>{formatDate(request.purchase_date)}</p>
-                        <p>{request.total_price}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
-                            <span
-                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                <table className={styles.table}>
+                    <tbody>
+                    {pendingPurchaseRequests.map(request => (
+                        <tr key={request.id}>
+                            <td>{request.user.firstname} {request.user.lastname}</td>
+                            <td>{request.user.email}</td>
+                            <td>{formatDate(request.purchase_date)}</td>
+                            <td>{request.total_price}</td>
+                            <td className={styles.status} onClick={() => handleStatusClick(request.id)}>
+                        <span
+                            className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>
+                            {request.status}
+                        </span>
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangePurchaseRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

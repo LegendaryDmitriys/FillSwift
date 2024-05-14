@@ -6,6 +6,7 @@ import SortPopup from './SortPopup.jsx';
 import styles from '../../styles/shop.module.css';
 import sprite from '../../sprite.svg';
 import ReactPaginate from 'react-paginate';
+import {API} from "../../utils/APi";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -20,8 +21,8 @@ const Shop = () => {
         const fetchProducts = async () => {
             try {
                 const [productsResponse, popularProductsResponse] = await Promise.all([
-                    axios.get('http://192.168.0.106:8000/products/products/'),
-                    axios.get('http://192.168.0.106:8000/products/popular-products/')
+                    axios.get(`${API}/products/products/`),
+                    axios.get(`${API}/products/popular-products/`)
                 ]);
                 setProducts(productsResponse.data);
                 setPopularProducts(popularProductsResponse.data);

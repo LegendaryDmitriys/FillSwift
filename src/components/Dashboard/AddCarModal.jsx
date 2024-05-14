@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../styles/addcarmodal.module.css';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import {API} from "../../utils/APi";
 function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand, selectedModel, setSelectedModel,updateCars }) {
     const [registrationNumber, setRegistrationNumber] = useState('');
     const [fuelTankVolume, setFuelTankVolume] = useState('');
@@ -10,7 +11,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
     const [error, setError] = useState('');
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/cars/models/')
+        axios.get(`${API}/cars/models/`)
             .then(response => {
                 const data = response.data;
                 const brandMap = {};
@@ -37,7 +38,7 @@ function AddCarModal({ handleCloseModal, userId, selectedBrand, setSelectedBrand
             fuel_tank_volume: fuelTankVolume
         };
 
-        fetch('http://192.168.0.106:8000/cars/users/', {
+        fetch(`${API}/cars/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

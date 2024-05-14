@@ -4,6 +4,7 @@ import HeaderBoard from "./HeaderBoard.jsx";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {isAuthenticated} from "../../utils/authUsers.js";
+import {API} from "../../utils/APi";
 
 
 function DashboardSettings(props) {
@@ -18,7 +19,7 @@ function DashboardSettings(props) {
 
     useEffect(() => {
         if (isAuthenticated()) {
-            axios.get('http://192.168.0.106:8000/api/user', {
+            axios.get(`${API}/api/user`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
@@ -50,7 +51,7 @@ function DashboardSettings(props) {
             }
         };
 
-        axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
+        axios.put(`${API}/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
                 toast.success("Данные успешно поменяны!")
@@ -75,7 +76,7 @@ function DashboardSettings(props) {
             }
         };
 
-        axios.put(`http://192.168.0.106:8000/api/user`, formData, { headers })
+        axios.put(`${API}/api/user`, formData, { headers })
             .then(response => {
                 console.log(response.data);
                 toast.success('Пароль успешно поменян!')

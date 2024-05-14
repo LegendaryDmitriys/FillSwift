@@ -8,6 +8,7 @@ import HeaderBoard from "./HeaderBoard.jsx";
 import MinSideBar from "./MinSideBar.jsx";
 import {isAuthenticated} from "../../utils/authUsers.js";
 import {formatDate} from "../../utils/formateDate.js";
+import {API} from "../../utils/APi";
 
 function DashboardHistoryFuels(props) {
     const [refuelings, setRefuelings] = useState([]);
@@ -17,14 +18,14 @@ function DashboardHistoryFuels(props) {
         if (isAuthenticated()) {
             async function fetchData() {
                 try {
-                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                    const userResponse = await axios.get(`${API}/api/user`, {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     setUserData(userResponse.data);
 
-                    const refuelingsResponse = await axios.get(`http://192.168.0.106:8000/refuling/${userResponse.data.user.id}/refuelings/`);
+                    const refuelingsResponse = await axios.get(`${API}/refuling/${userResponse.data.user.id}/refuelings/`);
                     setRefuelings(refuelingsResponse.data);
                     setRefuelings(refuelingsResponse.data.map(refueling => ({
                         ...refueling,
@@ -41,7 +42,7 @@ function DashboardHistoryFuels(props) {
 
     const downloadReceipt = async (refuelingId) => {
         try {
-            const response = await axios.get(`http://192.168.0.106:8000/refuling/download/receipt/${refuelingId}`, {
+            const response = await axios.get(`${API}/refuling/download/receipt/${refuelingId}`, {
                 responseType: 'blob',
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`

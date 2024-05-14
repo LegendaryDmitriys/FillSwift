@@ -17,6 +17,7 @@ function AddFuelTypesModal({ showForm, setShowForm, addFuelType, handleInputChan
                             value={newFuelType.name}
                             onChange={handleInputChange}
                             placeholder="Тип топлива"
+                            className={styles['typefuels-form__input']}
                         />
                     </div>
                     <div className={styles["types-settings"]}>
@@ -27,8 +28,9 @@ function AddFuelTypesModal({ showForm, setShowForm, addFuelType, handleInputChan
                             value={newFuelType.octane_number}
                             onChange={handleInputChange}
                             placeholder="Октановое число"
+                            className={styles['typefuels-form__input']}
                         />
-                        <button onClick={addFuelType}>Добавить</button>
+                        <button onClick={addFuelType} className={styles['types-add']}>Добавить</button>
                     </div>
                 </div>
             </div>

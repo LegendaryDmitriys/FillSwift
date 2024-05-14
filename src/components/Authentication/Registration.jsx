@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import styles from "../../styles/registration.module.css"
 import sprite from "../../sprite.svg";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/routes";
 import { toast } from 'react-toastify';
+import {API} from "../../utils/APi";
 
 
 const Registration = (props) => {
@@ -14,7 +15,7 @@ const Registration = (props) => {
     const [password, setPassword] = useState('');
     const [lastname, setLastname] = useState('');
     const [firstname, setFirstname] = useState('');
-
+    const navigate = useNavigate()
 
 
 
@@ -23,7 +24,7 @@ const Registration = (props) => {
         try {
             const csrfToken = getCSRFToken();
             const response = await axios.post(
-                'http://192.168.0.106:8000/api/users/',
+                `${API}/api/users/`,
                 {
                     user: {
                         lastname,
@@ -41,7 +42,7 @@ const Registration = (props) => {
             );
             console.log(response.data);
             toast.success("Успешная регистрация")
-            window.location.href = '/login';
+            navigate(ROUTES.Login)
         } catch (error) {
             if (error.response && error.response.data && error.response.data.errors) {
                 const serverErrors = error.response.data.errors;

@@ -9,6 +9,7 @@
 .cars th,
 .cars td {
     padding: 10px;
+    text-align: center;
 }
 
 .cars th:first-child,

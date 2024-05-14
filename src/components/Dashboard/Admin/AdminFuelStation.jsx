@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes.js";
 import ReactPaginate from 'react-paginate';
 import sprite from "../../../sprite.svg";
+import {API} from "../../../utils/APi";
 
 function AdminFuelStation(props) {
     const [fuelStations, setFuelStations] = useState([]);
@@ -16,7 +17,7 @@ function AdminFuelStation(props) {
     useEffect(() => {
         const fetchFuelStations = async () => {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/fuelstation/list/');
+                const response = await axios.get(`${API}/fuelstation/list/`);
                 setFuelStations(response.data);
             } catch (error) {
                 console.error('Ошибка загрузки заправочных станций:', error);

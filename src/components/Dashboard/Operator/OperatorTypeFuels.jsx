@@ -4,18 +4,12 @@ import HeaderBoard from "../HeaderBoard.jsx";
 import styles from "../../../styles/admindashboardfueltypes.module.css";
 import ReactPaginate from 'react-paginate';
 import sprite from "../../../sprite.svg";
-import AddFuelTypesModal from "./AddFuelTypesModal.jsx";
 import {API} from "../../../utils/APi";
 
-function AdminFuelType(props) {
+function OperatorTypeFuels(props) {
     const [fuelTypes, setFuelTypes] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const [newFuelType, setNewFuelType] = useState({
-        name: '',
-        octane_number: ''
-    });
-    const [showForm, setShowForm] = useState(false);
     const fuelTypesPerPage = 5;
 
     useEffect(() => {
@@ -46,48 +40,11 @@ function AdminFuelType(props) {
                     <td>{fuelType.id}</td>
                     <td>{fuelType.name}</td>
                     <td>{fuelType.octane_number}</td>
-                    <td>
-                        <button onClick={() => deleteFuelType(fuelType.id)}>Удалить</button>
-                    </td>
                 </tr>
             ));
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewFuelType({
-            ...newFuelType,
-            [name]: value
-        });
-    };
 
-    const addFuelType = async () => {
-        try {
-            const response = await axios.post(
-                `${API}/fuelstation/fueltypes/`,
-                newFuelType
-            );
-            console.log('Тип топлива успешно добавлен:', response.data);
-            setFuelTypes([...fuelTypes, response.data]);
-            setNewFuelType({
-                name: '',
-                octane_number: ''
-            });
-            setShowForm(false);
-        } catch (error) {
-            console.error('Ошибка при добавлении типа топлива:', error);
-        }
-    };
-
-    const deleteFuelType = async (fuelTypeId) => {
-        try {
-            await axios.delete(`${API}/fuelstation/fueltypes/${fuelTypeId}/`);
-            console.log('Тип топлива успешно удален');
-            setFuelTypes(fuelTypes.filter(fuelType => fuelType.id !== fuelTypeId));
-        } catch (error) {
-            console.error('Ошибка при удалении типа топлива:', error);
-        }
-    };
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -102,13 +59,10 @@ function AdminFuelType(props) {
         <div>
             <HeaderBoard title={"Типы топлива"} description={"Здесь отображаются все типы топлива зарегистрированные в системе"} />
             <div className={styles.fueltypes}>
-                <div className={styles['iteraction']}>
-                    <div className={styles['addButton-container']}>
-                        <button className={styles["addButton"]} onClick={() => setShowForm(true)}>Добавить</button>
-                    </div>
+                <div className={styles['iteraction-s']}>
                     <form action="">
-                    <div className={styles["form-input"]}>
-                            <svg width={24} height={24} className={styles["icon-search"]}>
+                        <div className={styles["form-input"]}>
+                            <svg width={24} height={24} className={styles["icon-search-o"]}>
                                 <use xlinkHref={sprite + "#glass"}/>
                             </svg>
                             <input type="text" placeholder="Поиск" value={searchTerm} onChange={handleSearchChange}/>
@@ -121,7 +75,6 @@ function AdminFuelType(props) {
                         <th>ID</th>
                         <th>Название</th>
                         <th>Октановое число</th>
-                        <th>Действие</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -149,15 +102,8 @@ function AdminFuelType(props) {
                     </div>
                 </div>
             </div>
-            <AddFuelTypesModal
-                showForm={showForm}
-                setShowForm={setShowForm}
-                addFuelType={addFuelType}
-                handleInputChange={handleInputChange}
-                newFuelType={newFuelType}
-            />
         </div>
     );
 }
 
-export default AdminFuelType;
+export default OperatorTypeFuels;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from '../../../styles/purchaserequests.module.css';
 import sprite from "../../../sprite.svg";
 import {formatDate} from "../../../utils/formateDate.js";
+import {API} from "../../../utils/APi";
 
 function AdminRefuelingRequests() {
     const [refuelingRequests, setRefuelingRequests] = useState([]);
@@ -13,7 +14,7 @@ function AdminRefuelingRequests() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/refuling/refueling_requests/');
+                const response = await axios.get(`${API}/refuling/refueling_requests/`);
                 const sortedRequests = response.data.refueling_requests.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setRefuelingRequests(sortedRequests);
             } catch (error) {
@@ -53,7 +54,7 @@ function AdminRefuelingRequests() {
 
     const handleChangeRefuelingRequestStatus = async (requestId, newStatus) => {
         try {
-            await axios.patch(`http://192.168.0.106:8000/refuling/change_refueling_request_status/${requestId}/`, { status: newStatus });
+            await axios.patch(`${API}/refuling/change_refueling_request_status/${requestId}/`, { status: newStatus });
 
             setRefuelingRequests(prevRequests => prevRequests.map(request => {
                 if (request.id === requestId) {
@@ -119,92 +120,104 @@ function AdminRefuelingRequests() {
             </div>
             <h2 className={styles.subtitle}>Принятые ({confirmedRefuelingRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {confirmedRefuelingRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user__email} {request.user__lastname} {request.user__firstname}</p>
-                        <p>{request.fuel_cost}</p>
-                        <p>{formatDate(request.refueling_date_time)}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
+                <table className={styles.table}>
+                    <tbody>
+                    {confirmedRefuelingRequests.map(request => (
+                        <tr key={request.id} className={styles.gridItem}>
+                            <td>{request.user__email} {request.user__lastname} {request.user__firstname}</td>
+                            <td>{request.fuel_cost}</td>
+                            <td>{formatDate(request.refueling_date_time)}</td>
+                            <td
+                                className={styles.status}
+                                onClick={() => handleStatusClick(request.id)}
+                            >
                             <span
-                            className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                                className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
 
             <h2 className={styles.subtitle}>Отмененные ({rejectedRefuelingRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {rejectedRefuelingRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user__email} {request.user__lastname} {request.user__firstname}</p>
-                        <p>{request.fuel_cost}</p>
-                        <p>{formatDate(request.refueling_date_time)}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
+                <table className={styles.table}>
+                    <tbody>
+                    {rejectedRefuelingRequests.map(request => (
+                        <tr key={request.id} className={styles.gridItem}>
+                            <td>{request.user__email} {request.user__lastname} {request.user__firstname}</td>
+                            <td>{request.fuel_cost}</td>
+                            <td>{formatDate(request.refueling_date_time)}</td>
+                            <td
+                                className={styles.status}
+                                onClick={() => handleStatusClick(request.id)}
+                            >
                             <span
                                 className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
 
             <h2 className={styles.subtitle}>В ожидании ({pendingRefuelingRequests.length})</h2>
             <div className={styles.gridContainer}>
-                {pendingRefuelingRequests.map(request => (
-                    <div key={request.id} className={styles.gridItem}>
-                        <p>{request.user__email} {request.user__lastname} {request.user__firstname}</p>
-                        <p>{request.fuel_cost}</p>
-                        <p>{formatDate(request.refueling_date_time)}</p>
-                        <div
-                            className={styles.status}
-                            onClick={() => handleStatusClick(request.id)}
-                        >
+                <table className={styles.table}>
+                    <tbody>
+                    {pendingRefuelingRequests.map(request => (
+                        <tr key={request.id} className={styles.gridItem}>
+                            <td>{request.user__email} {request.user__lastname} {request.user__firstname}</td>
+                            <td>{request.fuel_cost}</td>
+                            <td>{formatDate(request.refueling_date_time)}</td>
+                            <td
+                                className={styles.status}
+                                onClick={() => handleStatusClick(request.id)}
+                            >
                             <span
                                 className={`${styles.statusText} ${request.status === 'confirmed' ? styles.statusConfirmed : (request.status === 'rejected' ? styles.statusRejected : styles.statusPending)}`}>{request.status}</span>
-                            {request.isDropdownOpen && (
-                                <div className={styles.statusDropdown} onClick={handleDropdownClick}>
-                                    <select
-                                        value={request.status}
-                                        onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
-                                    >
-                                        <option value="confirmed">Принят</option>
-                                        <option value="rejected">Отклонен</option>
-                                        <option value="pending">В ожидании</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                ))}
+                                {request.isDropdownOpen && (
+                                    <div className={styles.statusDropdown} onClick={handleDropdownClick}>
+                                        <select
+                                            value={request.status}
+                                            onChange={(e) => handleChangeRefuelingRequestStatus(request.id, e.target.value)}
+                                        >
+                                            <option value="confirmed">Принят</option>
+                                            <option value="rejected">Отклонен</option>
+                                            <option value="pending">В ожидании</option>
+                                        </select>
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

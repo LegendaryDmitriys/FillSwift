@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import styles from '../../../styles/editproductform.module.css'
+import {API} from "../../../utils/APi";
 function EditProductForm({ product, toggleEdit }) {
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
@@ -23,7 +24,7 @@ function EditProductForm({ product, toggleEdit }) {
             manufacturer: manufacturer
         };
 
-        axios.put(`http://192.168.0.106:8000/products/products/${product.id}/`, data)
+        axios.put(`${API}/products/products/${product.id}/`, data)
             .then(response => {
                 toast.success('Product updated successfully');
                 toggleEdit();

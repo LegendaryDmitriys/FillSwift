@@ -107,6 +107,36 @@
     flex-direction: column;
 }
 
+.gridContainer > table{
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: .5rem;
+
+}
+.gridContainer-fuels > table > tbody {
+    overflow-y: auto;
+    max-height: 700px;
+}
+
+
+
+
+
+.gridContainer > table > thead {
+    background-color: #272727;
+    height: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.gridContainer > table > th,td{
+    padding: 12px 10px;
+    text-align: start;
+}
+
+
 
 .gridItem {
     display: grid;

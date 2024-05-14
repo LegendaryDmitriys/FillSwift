@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes.js';
 import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
+import {API} from "../../../utils/APi";
 
 function Customers(props) {
     const [users, setUsers] = useState([]);
@@ -16,9 +17,9 @@ function Customers(props) {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/api/user-list');
+                const response = await axios.get(`${API}/api/user-list`);
                 const usersWithCounts = await Promise.all(response.data.map(async user => {
-                    const countsResponse = await axios.get(`http://192.168.0.106:8000/user-history-count/${user.id}/`);
+                    const countsResponse = await axios.get(`${API}/user-history-count/${user.id}/`);
                     return { ...user, ...countsResponse.data };
                 }));
                 setUsers(usersWithCounts);
@@ -58,9 +59,11 @@ function Customers(props) {
                     <td>{user.purchase_count}</td>
                     <td>{user.total_spent}</td>
                     <td>
+                        <Link to={`${ROUTES.CustomersDetails}/${user.id}`}>
                         <svg width={24} height={19} className={styles['icon-action']}>
                             <use xlinkHref={sprite + "#arrow-left"}/>
                         </svg>
+                        </Link>
                     </td>
                 </tr>
             ));

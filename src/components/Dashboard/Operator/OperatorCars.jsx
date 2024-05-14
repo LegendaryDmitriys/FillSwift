@@ -8,7 +8,7 @@ import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
 import {API} from "../../../utils/APi";
 
-function Cars(props) {
+function OperatorCars(props) {
     const [cars, setCars] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
@@ -43,13 +43,6 @@ function Cars(props) {
                     <td>{car.registration_number}</td>
                     <td>{car.brand_name}</td>
                     <td>{car.model_name}</td>
-                    <td>
-                        <Link to={`${ROUTES.CarsDetails}/${car.id}`}>
-                            <svg width={24} height={19} className={styles['icon-action']}>
-                                <use xlinkHref={sprite + "#arrow-left"}/>
-                            </svg>
-                        </Link>
-                    </td>
                 </tr>
             ));
     };
@@ -83,7 +76,6 @@ function Cars(props) {
                         <th>Регистрационный номер</th>
                         <th>Марка</th>
                         <th>Модель</th>
-                        <th>Действие</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -115,4 +107,4 @@ function Cars(props) {
     );
 }
 
-export default Cars;
+export default OperatorCars;

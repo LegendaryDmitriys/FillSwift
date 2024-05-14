@@ -5,7 +5,8 @@ import styles from '../../../styles/adminfuelstaiondetail.module.css';
 import EditFuelStationForm from "../../Dashboard/Admin/EditFuelStationForm.jsx";
 import FillFuelForm from "../../Dashboard/Admin/FillFuelForm.jsx";
 import AddFuelColumnForm from "../../Dashboard/Admin/AddFuelColumnForm.jsx";
-import FillColumnForm from "./FillColumnForm";
+import FillColumnForm from "./FillColumnForm.jsx";
+import {API} from "../../../utils/APi";
 
 function FuelStationDetail(props) {
     const [fuelStation, setFuelStation] = useState(null);
@@ -30,7 +31,7 @@ function FuelStationDetail(props) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}`, {
+                const response = await axios.get(`${API}/fuelstation/${fuelStationId}`, {
                     headers: {
                         Authorization: `Token ${token}`
                     }
@@ -48,7 +49,7 @@ function FuelStationDetail(props) {
     useEffect(() => {
         const fetchFuelTypes = async () => {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/fuelstation/fueltypes');
+                const response = await axios.get(`${API}/fuelstation/fueltypes`);
                 setFuelTypes(response.data);
             } catch (error) {
                 console.error('Ошибка при получении типов топлива:', error);
@@ -77,7 +78,7 @@ function FuelStationDetail(props) {
     const updateFuelStation = async () => {
         try {
             const response = await axios.put(
-                `http://192.168.0.106:8000/fuelstation/${fuelStationId}/`,
+                `${API}/fuelstation/${fuelStationId}/`,
                 editedFuelStation,
                 {
                     headers: {
@@ -104,7 +105,7 @@ function FuelStationDetail(props) {
             const updatedFuelQuantity = currentFuelQuantity + additionalFuelAmount;
 
             const response = await axios.patch(
-                `http://192.168.0.106:8000/fuelstation/${fuelStationId}/`,
+                `${API}/fuelstation/${fuelStationId}/`,
                 { fuel_quantity: updatedFuelQuantity },
                 {
                     headers: {
@@ -123,7 +124,7 @@ function FuelStationDetail(props) {
     const addColumn = async () => {
         try {
             const response = await axios.post(
-                `http://192.168.0.106:8000/fuelstation/fuelcolumn/${fuelStationId}`,
+                `${API}/fuelstation/fuelcolumn/${fuelStationId}`,
                 newColumn,
                 {
                     headers: {
@@ -133,7 +134,7 @@ function FuelStationDetail(props) {
             );
             console.log('Колонка успешно добавлена:', response.data);
 
-            const updatedResponse = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}`, {
+            const updatedResponse = await axios.get(`${API}/fuelstation/${fuelStationId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -147,7 +148,7 @@ function FuelStationDetail(props) {
 
     const deleteFuelStation = async () => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/fuelstation/${fuelStationId}/`, {
+            await axios.delete(`${API}/fuelstation/${fuelStationId}/`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -161,13 +162,13 @@ function FuelStationDetail(props) {
 
     const deleteFuelColumn = async (columnId) => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/fuelstation/${fuelStationId}/fuelcolumn/${columnId}/`, {
+            await axios.delete(`${API}/fuelstation/${fuelStationId}/fuelcolumn/${columnId}/`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
             });
             console.log('Колонка успешно удалена');
-            const updatedResponse = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}`, {
+            const updatedResponse = await axios.get(`${API}/fuelstation/${fuelStationId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -206,7 +207,7 @@ function FuelStationDetail(props) {
             const updatedFuelQuantity = currentFuelQuantity + additionalFuelAmount;
 
             const response = await axios.patch(
-                `http://192.168.0.106:8000/fuelstation/${fuelStationId}/fuelcolumn/${selectedColumnId}/`,
+                `${API}/fuelstation/${fuelStationId}/fuelcolumn/${selectedColumnId}/`,
                 { fuel_quantity: updatedFuelQuantity },
                 {
                     headers: {
@@ -215,7 +216,7 @@ function FuelStationDetail(props) {
                 }
             );
 
-            const updatedResponse = await axios.get(`http://192.168.0.106:8000/fuelstation/${fuelStationId}`, {
+            const updatedResponse = await axios.get(`${API}/fuelstation/${fuelStationId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import styles from '../../../styles/customersdetail.module.css';
 import sprite from "../../../sprite.svg";
+import {API} from "../../../utils/APi";
 
 function CustomersDetail(props) {
     const [user, setUser] = useState(null);
@@ -13,7 +14,8 @@ function CustomersDetail(props) {
         email: '',
         firstname: '',
         lastname: '',
-        username: ''
+        username: '',
+        operator: false
     });
     const { userId } = useParams();
     const token = localStorage.getItem('token');
@@ -22,12 +24,12 @@ function CustomersDetail(props) {
         const fetchData = async () => {
             try {
                 const [userResponse, carsResponse] = await Promise.all([
-                    axios.get(`http://192.168.0.106:8000/api/users/${userId}`, {
+                    axios.get(`${API}/api/users/${userId}`, {
                         headers: {
                             Authorization: `Token ${token}`
                         }
                     }),
-                    axios.get(`http://192.168.0.106:8000/cars/user/${userId}`, {
+                    axios.get(`${API}/cars/user/${userId}`, {
                         headers: {
                             Authorization: `Token ${token}`
                         }
@@ -40,7 +42,8 @@ function CustomersDetail(props) {
                     email: userResponse.data.email,
                     firstname: userResponse.data.firstname,
                     lastname: userResponse.data.lastname,
-                    username: userResponse.data.username
+                    username: userResponse.data.username,
+                    operator: userResponse.data.operator
                 });
             } catch (error) {
                 console.error('Ошибка при получении данных:', error);
@@ -54,7 +57,7 @@ function CustomersDetail(props) {
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
         });
     };
 
@@ -69,7 +72,7 @@ function CustomersDetail(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://192.168.0.106:8000/api/users/${userId}/`, formData, {
+            const response = await axios.put(`${API}/api/users/${userId}/`, formData, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -87,7 +90,7 @@ function CustomersDetail(props) {
 
     const handleDeleteAccount = async () => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/api/users/${userId}`, {
+            await axios.delete(`${API}/api/users/${userId}`, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -100,7 +103,7 @@ function CustomersDetail(props) {
 
     const handleResetPassword = async () => {
         try {
-            await axios.post(`http://192.168.0.106:8000/api/reset-password-admin/`, { user_id: userId }, {
+            await axios.post(`${API}/api/reset-password-admin/`, { user_id: userId }, {
                 headers: {
                     Authorization: `Token ${token}`
                 }
@@ -148,8 +151,21 @@ function CustomersDetail(props) {
                         <label>Ник:</label>
                         <input type="text" name="username" value={formData.username} onChange={handleInputChange}
                                readOnly={!isEditing}/>
+                        <label>Статус оператора:</label>
+                        <select
+                            name="operator"
+                            value={formData.operator}
+                            onChange={handleInputChange}
+                            readOnly={!isEditing}
+                            disabled={!isEditing}
+                        >
+                            <option value={true}>Да</option>
+                            <option value={false}>Нет</option>
+                        </select>
+
                         {isEditing && (
                             <>
+
                                 <button type="button" onClick={handleCancelEditButtonClick}>Отменить</button>
                                 <button type="submit">Сохранить</button>
                             </>
@@ -158,7 +174,7 @@ function CustomersDetail(props) {
                     <div className={styles['car-list-container']}>
                         <h4>Автомобили во владении:</h4>
                         <ul className={styles['car-list']}>
-                            {cars.map(car => (
+                            {cars && cars.map(car => (
                                 <li key={car.id}>
                                     <p>Регистрационный номер: {car.registration_number}</p>
                                     <p>Марка: {car.brand_name}</p>

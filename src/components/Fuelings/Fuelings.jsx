@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import ModalFuels from "./modalFuels.jsx";
 import axios from "axios";
+import {API} from "../../utils/APi";
 
 
 function Fuelings(props) {
@@ -14,7 +15,7 @@ function Fuelings(props) {
     useEffect(() => {
         async function fetchFuelStations() {
             try {
-                const response = await axios.get('http://192.168.0.106:8000/fuelstation/list/');
+                const response = await axios.get(`${API}/fuelstation/list/`);
                 setFuelStations(response.data);
             } catch (error) {
                 console.error('Ошибка при получении данных о заправках:', error);

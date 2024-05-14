@@ -7,9 +7,9 @@ import {ROUTES} from "../../utils/routes.js";
 
 
 const Home = (props) => (
-    <section className={styles.home}>
-        <div className={styles.container}>
-            <div className={styles.content}>
+    <section className={styles["home"]}>
+        <div className={styles["container"]}>
+            <div className={styles["content"]}>
                 <div className={styles["content-left"]}>
                     <h2 className={styles["fill-header"]}>
                         Открой Для Себя <br/>Заправку Своей Мечты
@@ -18,22 +18,22 @@ const Home = (props) => (
                     <h3 className={styles["fill-subheader"]}>
                         Ваш путь к идеальной заправке. Откройте для себя топливо, созданное специально для вас!
                     </h3>
-                    <div className={styles.btns}>
+                    <div className={styles["btns"]}>
                         <Link to={ROUTES.Shop}><button className={styles["btn-shop"]}>Магазин</button></Link>
                         <Link to={ROUTES.Fueling}><button className={styles["btn-fill"]}>Заправиться</button></Link>
                     </div>
-                    <div className={styles.blocks}>
+                    <div className={styles["blocks"]}>
                         <div className={styles["mobile-blocks"]}>
-                            <article className={styles.block}>
+                            <article className={styles["block"]}>
                                 <p className={styles["header-text"]}>200+</p>
-                                <span className={styles.text}>Клиентов</span>
+                                <span className={styles["text"]}>Клиентов</span>
                             </article>
-                            <article className={styles.block}>
+                            <article className={styles["block"]}>
                                 <p className={styles["header-text"]}>10k+</p>
-                                <span className={styles.text}>Залито топлива</span>
+                                <span className={styles["text"]}>Залито топлива</span>
                             </article>
                         </div>
-                        <article className={styles.block}>
+                        <article className={styles["block"]}>
                             <p className={styles["header-text"]}>16+</p>
                             <span className={styles.text}>Годы опыта</span>
                         </article>

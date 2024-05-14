@@ -7,6 +7,7 @@ import {isAuthenticated} from "../../utils/authUsers.js";
 import axios from "axios";
 import AddCarModal from "./AddCarModal.jsx";
 import {toast} from "react-toastify";
+import {API} from "../../utils/APi";
 
 function DashboardCars(props) {
     const [cars, setCars] = useState([]);
@@ -37,14 +38,14 @@ function DashboardCars(props) {
         if (isAuthenticated()) {
             async function fetchData() {
                 try {
-                    const userResponse = await axios.get('http://192.168.0.106:8000/api/user', {
+                    const userResponse = await axios.get(`${API}/api/user`, {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`
                         }
                     });
                     setUserData(userResponse.data);
 
-                    const carsResponse = await Axios.get(`http://192.168.0.106:8000/cars/user/${userResponse.data.user.id}`);
+                    const carsResponse = await Axios.get(`${API}/cars/user/${userResponse.data.user.id}`);
                     setCars(carsResponse.data);
                 } catch (error) {
                     console.error('Ошибка при получении данных:', error);
@@ -70,7 +71,7 @@ function DashboardCars(props) {
 
     const handleDeleteCar = async (carId) => {
         try {
-            await axios.delete(`http://192.168.0.106:8000/cars/user/${userData.user.id}/${carId}/`);
+            await axios.delete(`${API}/cars/user/${userData.user.id}/${carId}/`);
 
             setCars(cars.filter(car => car.id !== carId));
             toast.success("Машина успешно удалена!")

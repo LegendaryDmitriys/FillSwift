@@ -6,6 +6,7 @@ import {Link, useLocation} from "react-router-dom";
 import {ROUTES} from "../../utils/routes.js";
 import {isAuthenticated, logout} from "../../utils/authUsers.js";
 import axios from "axios";
+import {API} from "../../utils/APi";
 
 function Sidebar(props) {
     const [userData, setUserData] = useState(null);
@@ -13,7 +14,7 @@ function Sidebar(props) {
 
     useEffect(() => {
         if (isAuthenticated()) {
-            axios.get('http://192.168.0.106:8000/api/user', {
+            axios.get(`${API}/api/user`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`
                 }
@@ -32,8 +33,6 @@ function Sidebar(props) {
         logout();
     };
 
-
-    console.log(userData)
 
     return (
         <div className={styles.sidebar}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeaderBoard from '../HeaderBoard.jsx';
-import styles from '../../../styles/admindashboardcars.module.css';
+import styles from '../../../styles/dashboardcustomers.module.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../utils/routes.js';
@@ -8,43 +8,58 @@ import sprite from "../../../sprite.svg";
 import ReactPaginate from 'react-paginate';
 import {API} from "../../../utils/APi";
 
-function Cars(props) {
-    const [cars, setCars] = useState([]);
+function Operators(props) {
+    const [operators, setOperators] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
-    const carsPerPage = 5;
+    const operatorsPerPage = 5;
 
     useEffect(() => {
-        const fetchCars = async () => {
+        const fetchOperators = async () => {
             try {
-                const response = await axios.get(`${API}/cars/users/`);
-                setCars(response.data);
+                const responseOperators = await axios.get(`${API}/api/user-list`);
+                const operatorUsers = responseOperators.data.filter(user => user.operator);
+                setOperators(operatorUsers);
             } catch (error) {
-                console.error('Ошибка загрузки автомобилей:', error);
+                console.error('Ошибка загрузки операторов:', error);
             }
         };
 
-        fetchCars();
+        fetchOperators();
     }, []);
 
-    const pageCount = Math.ceil(cars.length / carsPerPage);
-    const pagesVisited = pageNumber * carsPerPage;
+    const pageCount = Math.ceil(operators.length / operatorsPerPage);
+    const pagesVisited = pageNumber * operatorsPerPage;
 
-    const displayCars = () => {
-        return cars
-            .filter(car =>
-                car.registration_number.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
-                car.brand_name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
-                car.model_name.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
+    console.log(operators)
+
+
+    const displayUsers = () => {
+        return operators
+            .filter(user =>
+                user.firstname.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
+                user.lastname.toLowerCase().trim().includes(searchTerm.toLowerCase().trim()) ||
+                user.email.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
             )
-            .slice(pagesVisited, pagesVisited + carsPerPage)
-            .map(car => (
-                <tr key={car.id}>
-                    <td>{car.registration_number}</td>
-                    <td>{car.brand_name}</td>
-                    <td>{car.model_name}</td>
+            .slice(pagesVisited, pagesVisited + operatorsPerPage)
+            .map(user => (
+                <tr key={user.id}>
                     <td>
-                        <Link to={`${ROUTES.CarsDetails}/${car.id}`}>
+                        <Link to={`${ROUTES.CustomersDetails}/${user.id}`}>
+                            <div className={styles["user-bio"]}>
+                                <img className={styles["user-avatar"]} src={user.avatar || "../../images/avatar.png"} alt=""/>
+                                <article className={styles["user-bio_text"]}>
+                                    <p>{user.firstname} {user.lastname}</p>
+                                    <p>{user.email}</p>
+                                </article>
+                            </div>
+                        </Link>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <Link to={`${ROUTES.CustomersDetails}/${user.id}`}>
                             <svg width={24} height={19} className={styles['icon-action']}>
                                 <use xlinkHref={sprite + "#arrow-left"}/>
                             </svg>
@@ -65,8 +80,8 @@ function Cars(props) {
 
     return (
         <div>
-            <HeaderBoard title={'Автомобили'} description={'Здесь отображаются все автомобили зарегистрированные в системе'} />
-            <div className={styles.cars}>
+            <HeaderBoard title={'Операторы'} description={'Здесь отображаются все операторы зарегистрированные в системе'} />
+            <div className={styles.customers}>
                 <div className={styles['iteraction']}>
                     <form action="">
                         <div className={styles["form-input"]}>
@@ -80,20 +95,21 @@ function Cars(props) {
                 <table>
                     <thead>
                     <tr>
-                        <th>Регистрационный номер</th>
-                        <th>Марка</th>
-                        <th>Модель</th>
-                        <th>Действие</th>
+                        <th>Имя</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Действия</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {displayCars()}
+                    {displayUsers()}
                     </tbody>
                 </table>
                 <div className={styles.paginationContainer}>
                     <div className={styles.paginationText}>
                         Строк на
-                        странице: {pageNumber * carsPerPage + 1}–{(pageNumber + 1) * carsPerPage} из {cars.length}
+                        странице: {pageNumber * operatorsPerPage + 1}–{(pageNumber + 1) * operatorsPerPage} из {operators.length}
                     </div>
                     <ReactPaginate
                         previousLabel={'Предыдущая'}
@@ -115,4 +131,4 @@ function Cars(props) {
     );
 }
 
-export default Cars;
+export default Operators;

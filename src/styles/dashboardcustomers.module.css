@@ -42,6 +42,7 @@
 .customers th,
 .customers td {
     padding: 10px;
+    text-align: center;
 }
 
 .customers th:first-child,

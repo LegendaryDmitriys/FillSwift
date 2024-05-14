@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import {formatDate} from "../../../utils/formateDate";
+import {API} from "../../../utils/APi";
 
 const Stats = () => {
     const [combinedData, setCombinedData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://192.168.0.106:8000/stats/?month=5&year=2024')
+        axios.get(`${API}/stats/?month=5&year=2024`)
             .then(response => {
                 const purchases = response.data.purchases.map(entry => ({ ...entry, category: 'Покупка' }));
                 const refuelings = response.data.refuelings.map(entry => ({ ...entry, category: 'Заправка' }));
