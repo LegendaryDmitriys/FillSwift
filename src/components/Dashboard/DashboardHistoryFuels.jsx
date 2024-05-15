@@ -77,10 +77,10 @@ function DashboardHistoryFuels(props) {
                         <tbody>
                         {refuelings.map(refueling => (
                             <tr key={refueling.id}>
-                                <td>Заправка #{refueling.id}</td>
-                                <td>{refueling.refueling_date_time}</td>
-                                <td>{refueling.fuel_quantity} л</td>
-                                <td>
+                                <td className={styles["item-table"]}>Заправка #{refueling.id}</td>
+                                <td className={styles["item-table"]}>{refueling.refueling_date_time}</td>
+                                <td className={styles["item-table"]}>{refueling.fuel_quantity} л</td>
+                                <td className={styles["item-table"]}>
                                     <svg className={styles["download-check"]} width={22} height={26} onClick={() => downloadReceipt(refueling.id)}>
                                         <use xlinkHref={sprite + "#check"}/>
                                     </svg>

@@ -1,116 +1,136 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-
-import styles from '../../../styles/editproductform.module.css'
 import { API } from "../../../utils/APi";
+import styles from '../../../styles/editproductform.module.css';
+import {toast} from "react-toastify";
 
 function EditProductForm({ product, toggleEdit }) {
-    const [name, setName] = useState(product.name);
-    const [description, setDescription] = useState(product.description);
-    const [quantity, setQuantity] = useState(product.quantity);
-    const [productType, setProductType] = useState(product.product_type);
-    const [pricePerUnit, setPricePerUnit] = useState(product.price_per_unit);
-    const [manufacturer, setManufacturer] = useState(product.manufacturer);
-    const [error, setError] = useState('');
-    const [image, setImage] = useState(null);
+    const [updatedProduct, setUpdatedProduct] = useState({
+        name: product.name,
+        description: product.description,
+        quantity: product.quantity,
+        product_type: product.product_type,
+        price_per_unit: product.price_per_unit,
+        manufacturer: product.manufacturer,
+    });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const token = localStorage.getItem('token');
 
-    const handleEditProduct = () => {
-        const data = {
-            name,
-            description,
-            quantity,
-            product_type: productType,
-            price_per_unit: pricePerUnit,
-            manufacturer
-        };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setUpdatedProduct({ ...updatedProduct, [name]: value });
+    };
 
-        const formData = new FormData();
-        formData.append('image', image);
-        formData.append('data', JSON.stringify(data));
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
 
-        axios.put(`${API}/products/products/${product.id}/`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-            .then(response => {
-                toast.success('Product updated successfully');
-                toggleEdit();
-            })
-            .catch(error => {
-                console.error('Error updating product:', error);
-                setError('Error updating product');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await axios.put(`${API}/products/products/${product.id}/`, updatedProduct, {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
             });
-    };
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
+            if (selectedFile) {
+                const formData = new FormData();
+                formData.append('image', selectedFile);
 
-    const handleCancel = () => {
-        toggleEdit();
-    };
+                await axios.post(
+                    `${API}/products/upload-image/`,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Token ${token}`,
+                        },
+                        params: {
+                            product_id: product.id,
+                        },
+                    }
+                );
+            }
 
-    console.log(image); // Проверяем, что изображение корректно передается
+            toggleEdit();
+            toast.success('Продукт успешно обновлен!')
+        } catch (error) {
+            console.error('Ошибка при обновлении продукта:', error);
+            toast.error(error)
+        }
+    };
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.title}>Редактирование продукта</h2>
-            <form className={styles["edit-product-form"]}>
-                <label>Наименование:</label>
+        <form onSubmit={handleSubmit} className={styles.form}>
+            <label>
+                Название:
                 <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    name="name"
+                    value={updatedProduct.name}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Описание:</label>
+            </label>
+            <label>
+                Описание:
                 <input
                     type="text"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    name="description"
+                    value={updatedProduct.description}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Количество:</label>
+            </label>
+            <label>
+                Количество:
                 <input
                     type="number"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
+                    name="quantity"
+                    value={updatedProduct.quantity}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Тип продукта:</label>
+            </label>
+            <label>
+                Тип продукта:
                 <input
                     type="text"
-                    value={productType}
-                    onChange={(e) => setProductType(e.target.value)}
+                    name="product_type"
+                    value={updatedProduct.product_type}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Цена за единицу:</label>
+            </label>
+            <label>
+                Цена за единицу:
                 <input
                     type="number"
-                    value={pricePerUnit}
-                    onChange={(e) => setPricePerUnit(e.target.value)}
+                    name="price_per_unit"
+                    value={updatedProduct.price_per_unit}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Производитель:</label>
+            </label>
+            <label>
+                Производитель:
                 <input
                     type="text"
-                    value={manufacturer}
-                    onChange={(e) => setManufacturer(e.target.value)}
+                    name="manufacturer"
+                    value={updatedProduct.manufacturer}
+                    onChange={handleInputChange}
                     required
                 />
-                <label>Изображение:</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                />
-                {error && <p>{error}</p>}
-                <button type="button" onClick={handleEditProduct} className={styles["btn-save"]}>Сохранить</button>
-                <button type="button" onClick={handleCancel} className={styles['btn-cancel']}>Отменить</button>
-            </form>
-        </div>
+            </label>
+            <label>
+                Изображение:
+                <input type="file" onChange={handleFileChange} />
+            </label>
+            <button type="submit">Сохранить</button>
+            <button type="button" onClick={toggleEdit}>Отмена</button>
+        </form>
     );
 }
 

@@ -65,8 +65,10 @@ function EditFuelStationForm({ editedFuelStation, handleInputChange, handleNewCo
                         ))}
                     </select>
                 </label>
-                <button onClick={updateFuelStation} className={styles['btn-save']}>Сохранить изменения</button>
-                <button onClick={cancelEdit} className={styles["btn-cancel"]}>Отмена</button>
+                <article className={styles['btns']}>
+                    <button onClick={updateFuelStation} className={styles['btn-save']}>Сохранить изменения</button>
+                    <button onClick={cancelEdit} className={styles["btn-cancel"]}>Отмена</button>
+                </article>
             </div>
         </div>
     );

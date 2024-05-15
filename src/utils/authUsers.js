@@ -14,6 +14,8 @@ export  const isOperator = () => {
 
 export const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('isStaff');
+    localStorage.removeItem('isOperator');
     window.location.href = '/';
 };
 

@@ -1,67 +1,57 @@
 .container {
     margin: 20px;
-    padding: 16px 20px;
-
+    padding: 20px;
 }
 
 .fuelstation {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #999999;
-}
-
-.product-details {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.product-details li {
-    margin-bottom: 10px;
-}
-
-.product-details li span {
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.btn-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.btn-edit:hover {
-    background-color: #48269b;
-}
-
-.edit-product-form {
     margin-top: 20px;
 }
 
-.btn-edit {
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
+.fuelstation-details {
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.fuelstation-details h2 {
+    font-size: 24px;
+}
+
+.fuelstation-details p {
+    margin: 5px 0;
+}
+
+.fuelstation-details ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.fuelstation-details li {
+    margin-bottom: 10px;
+}
+
+.fuelstation-details button {
+    margin-right: 10px;
+    padding: 5px 10px;
     color: #fff;
-    padding: 10px 24px;
-    background: #703BF7;
-    border: 1px solid #703BF7;
-    border-radius: 10px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-delete {
-    background-color: transparent;
-    color: #ff2d2d;
-    padding: 10px 20px;
-    border-radius: 5px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #d53030;
+    color: #fff;
+    border: none;
     cursor: pointer;
-    margin-top: 10px;
-    text-decoration: none;
-    text-align: center;
-    border: 1px solid red;
 }
+
+.btn-fill {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #35961d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+

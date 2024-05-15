@@ -14,6 +14,7 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .details-products__slide {
     display: flex;
     flex-direction: column;
@@ -46,7 +47,11 @@
 }
 
 .img-container__base > img{
-    width: 435px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 

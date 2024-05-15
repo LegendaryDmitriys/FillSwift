@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from '../../../styles/fuelstationform.module.css'
+
 function FillColumnForm({ columnId, fuelAmount, handleFuelAmountChange, fillColumn, cancelFillColumn }) {
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -7,8 +9,8 @@ function FillColumnForm({ columnId, fuelAmount, handleFuelAmountChange, fillColu
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className={styles.container}>
+            <form className={styles.editfuel} onSubmit={handleSubmit}>
                 <label>
                     Количество топлива:
                     <input

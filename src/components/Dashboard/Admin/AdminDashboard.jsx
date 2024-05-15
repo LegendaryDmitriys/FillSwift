@@ -29,8 +29,6 @@ function AdminDashboard(props) {
     }, []);
 
 
-    console.log(popularProducts)
-
     return (
         <div className={styles.container}>
             <div className={styles["left-content"]}>

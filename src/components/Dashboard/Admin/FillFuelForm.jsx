@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from "../../../styles/fuelstationform.module.css";
 
+
 function FillFuelForm({ fuelAmount, handleFuelAmountChange, fillFuel }) {
     return (
         <div className={styles.container}>
@@ -15,6 +16,7 @@ function FillFuelForm({ fuelAmount, handleFuelAmountChange, fillFuel }) {
                     />
                 </label>
                 <button onClick={fillFuel} className={styles['btn-save']}>Залить топливо</button>
+
             </div>
         </div>
     );

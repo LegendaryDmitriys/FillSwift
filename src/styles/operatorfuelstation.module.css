@@ -69,17 +69,15 @@
     margin-bottom: 20px;
 }
 
-.iteraction-s{
+.iteraction{
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
+
 }
 
-.icon-search-o{
+.icon-search{
     position: absolute;
     left: 10px;
-    top: 35%;
+    top: 50%;
     transform: translateY(-50%);
 }
 

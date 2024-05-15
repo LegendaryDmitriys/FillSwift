@@ -143,6 +143,11 @@
     color:#999999;
 }
 
+.map-container{
+    width: 80vh;
+    height: 70vh;
+}
+
 
 
 
@@ -254,5 +259,10 @@
     .our-location__header > svg{
         left: 0;
     }
+    .map-container {
+        width: 100%;
+        height: 50vh;
+    }
+
 
 }

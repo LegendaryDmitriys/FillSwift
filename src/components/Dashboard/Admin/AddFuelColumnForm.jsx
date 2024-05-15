@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from '../../../styles/editcarform.module.css'
+import styles from '../../../styles/fuelstationform.module.css'
 
 function AddFuelColumnForm({ newColumn, handleNewColumnChange, fuelTypes, addColumn, cancelAddColumn }) {
     return (
-        <div className={styles.container}>
-            <div className={styles.editfuel}>
+        <div className={styles['modal']}>
+            <div className={styles['modal-content']}>
                 <h2>Добавить колонку</h2>
                 <label className={styles.label}>
                     Номер:
@@ -43,12 +43,14 @@ function AddFuelColumnForm({ newColumn, handleNewColumnChange, fuelTypes, addCol
                     >
                         <option value="">Выберите тип топлива</option>
                         {fuelTypes.map((fuelType, index) => (
-                            <option key={index} value={fuelType.id}>{fuelType.name}</option>
+                            <option key={index} value={fuelType.id}>{fuelType.name} {fuelType.octane_number}</option>
                         ))}
                     </select>
                 </label>
-                <button onClick={addColumn} className={styles['btn-save']}>Сохранить изменения</button>
-                <button onClick={cancelAddColumn} className={styles["btn-cancel"]}>Отмена</button>
+                <article className={styles['btns']}>
+                    <button onClick={addColumn} className={styles['btn-save']}>Сохранить изменения</button>
+                    <button onClick={cancelAddColumn} className={styles["btn-cancel"]}>Отмена</button>
+                </article>
             </div>
         </div>
     );

@@ -7,12 +7,20 @@ import { ROUTES } from "../../../utils/routes.js";
 import ReactPaginate from 'react-paginate';
 import sprite from "../../../sprite.svg";
 import {API} from "../../../utils/APi";
+import AddFuelStationModal from "./AddFuelStationModal";
 
 function AdminFuelStation(props) {
     const [fuelStations, setFuelStations] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const fuelStationsPerPage = 5;
+    const [showModal, setShowModal] = useState(false);
+    const [newFuelStationData, setNewFuelStationData] = useState({
+        name: '',
+        location: '',
+        latitude: '',
+        longitude: ''
+    });
 
     useEffect(() => {
         const fetchFuelStations = async () => {
@@ -26,6 +34,7 @@ function AdminFuelStation(props) {
 
         fetchFuelStations();
     }, []);
+
 
     const pageCount = Math.ceil(fuelStations.length / fuelStationsPerPage);
     const pagesVisited = pageNumber * fuelStationsPerPage;
@@ -41,7 +50,6 @@ function AdminFuelStation(props) {
                 <tr key={fuelStation.id}>
                     <td>{fuelStation.name}</td>
                     <td>{fuelStation.location}</td>
-                    <td>{fuelStation.fuel_quantity}</td>
                     <td>
                         <Link to={`${ROUTES.AdminFuelStationDetail}/${fuelStation.id}`}>
                             <svg width={24} height={19} className={styles['icon-action']}>
@@ -58,18 +66,45 @@ function AdminFuelStation(props) {
         setPageNumber(0);
     };
 
-    const changePage = ({ selected }) => {
+    const changePage = ({selected}) => {
         setPageNumber(selected);
     };
 
+    const handleNewFuelStationChange = (e) => {
+        const {name, value} = e.target;
+        setNewFuelStationData({
+            ...newFuelStationData,
+            [name]: value
+        });
+    };
+
+    const handleAddFuelStation = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${API}/fuelstation/list/`, newFuelStationData);
+            console.log('Успешно добавлена новая заправочная станция:', response.data);
+            setShowModal(false);
+            setFuelStations(prevFuelStations => [...prevFuelStations, response.data]);
+        } catch (error) {
+            console.error('Ошибка при добавлении новой заправочной станции:', error);
+        }
+    };
     return (
         <div>
             <HeaderBoard title={"Заправочные станции"} description={"Здесь отображаются все заправочные станции"}/>
             <div className={styles.fuelstation}>
-                <div className={styles['iteraction']}>
+                <div className={styles['iteraction-s']}>
+                    <div className={styles['addButton-container']}>
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className={styles["addButton"]}
+                        >
+                            Добавить
+                        </button>
+                    </div>
                     <form action="">
                         <div className={styles["form-input"]}>
-                            <svg width={24} height={24} className={styles["icon-search"]}>
+                            <svg width={24} height={24} className={styles["icon-search-o"]}>
                                 <use xlinkHref={sprite + "#glass"}/>
                             </svg>
                             <input type="text" placeholder="Поиск" value={searchTerm} onChange={handleSearchChange}/>
@@ -81,7 +116,6 @@ function AdminFuelStation(props) {
                     <tr>
                         <th>Название</th>
                         <th>Местоположение</th>
-                        <th>Количество топлива</th>
                         <th>Действие</th>
                     </tr>
                     </thead>
@@ -110,6 +144,13 @@ function AdminFuelStation(props) {
                     </div>
                 </div>
             </div>
+            <AddFuelStationModal
+                showModal={showModal}
+                setShowModal={setShowModal}
+                handleAddFuelStation={handleAddFuelStation}
+                newFuelStationData={newFuelStationData}
+                handleNewFuelStationChange={handleNewFuelStationChange}
+            />
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import HeaderBoard from "../HeaderBoard.jsx";
-import styles from "../../../styles/admindashboardfuelstation.module.css";
+import styles from "../../../styles/operatorfuelstation.module.css";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../utils/routes.js";
 import ReactPaginate from 'react-paginate';

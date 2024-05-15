@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import styles from '../../../styles/adminfuelstaiondetail.module.css';
 import EditFuelStationForm from "../../Dashboard/Admin/EditFuelStationForm.jsx";
-import FillFuelForm from "../../Dashboard/Admin/FillFuelForm.jsx";
 import AddFuelColumnForm from "../../Dashboard/Admin/AddFuelColumnForm.jsx";
 import FillColumnForm from "./FillColumnForm.jsx";
 import {API} from "../../../utils/APi";
+import {ROUTES} from "../../../utils/routes";
+import {toast} from "react-toastify";
 
 function FuelStationDetail(props) {
     const [fuelStation, setFuelStation] = useState(null);
     const [editedFuelStation, setEditedFuelStation] = useState(null);
     const [editing, setEditing] = useState(false);
-    const [fillingFuel, setFillingFuel] = useState(false);
     const [fuelAmount, setFuelAmount] = useState('');
     const { fuelStationId } = useParams();
     const [newColumn, setNewColumn] = useState({
@@ -27,6 +27,7 @@ function FuelStationDetail(props) {
     const token = localStorage.getItem('token');
     const [selectedColumnId, setSelectedColumnId] = useState(null);
     const [fillingColumn, setFillingColumn] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,29 +99,6 @@ function FuelStationDetail(props) {
         setFuelAmount(e.target.value);
     };
 
-    const fillFuel = async () => {
-        try {
-            const currentFuelQuantity = parseFloat(fuelStation.fuel_quantity);
-            const additionalFuelAmount = parseFloat(fuelAmount);
-            const updatedFuelQuantity = currentFuelQuantity + additionalFuelAmount;
-
-            const response = await axios.patch(
-                `${API}/fuelstation/${fuelStationId}/`,
-                { fuel_quantity: updatedFuelQuantity },
-                {
-                    headers: {
-                        Authorization: `Token ${token}`
-                    }
-                }
-            );
-            setFuelStation({ ...fuelStation, fuel_quantity: updatedFuelQuantity });
-            console.log('Топливо успешно добавлено:', response.data);
-            setFillingFuel(false);
-        } catch (error) {
-            console.error('Ошибка при добавлении топлива:', error);
-        }
-    };
-
     const addColumn = async () => {
         try {
             const response = await axios.post(
@@ -153,8 +131,8 @@ function FuelStationDetail(props) {
                     Authorization: `Token ${token}`
                 }
             });
-            console.log('Заправочная станция успешно удалена');
-            window.location.href ='/admin/fuelstations';
+            toast.success('Заправочная станция успешно удалена');
+            navigate(ROUTES.AdminFuelStation)
         } catch (error) {
             console.error('Ошибка при удалении заправочной станции:', error);
         }
@@ -167,7 +145,7 @@ function FuelStationDetail(props) {
                     Authorization: `Token ${token}`
                 }
             });
-            console.log('Колонка успешно удалена');
+            toast.success('Колонка успешно удалена');
             const updatedResponse = await axios.get(`${API}/fuelstation/${fuelStationId}`, {
                 headers: {
                     Authorization: `Token ${token}`
@@ -222,7 +200,7 @@ function FuelStationDetail(props) {
                 }
             });
             setFuelStation(updatedResponse.data);
-            console.log('Топливо успешно добавлено в колонку:', response.data);
+            toast.success('Топливо успешно добавлено в колонку:', response.data);
             setFillingColumn(false);
             setSelectedColumnId(null);
             setFuelAmount('');
@@ -263,8 +241,8 @@ function FuelStationDetail(props) {
                                     <li key={index}>
                                         Колонка {fuelColumn.number}: Количество топлива: {fuelColumn.fuel_quantity},
                                         Цена за литр: {fuelColumn.price_per_liter}
-                                        <button onClick={() => deleteFuelColumn(fuelColumn.id)}>Удалить</button>
-                                        <button onClick={() => openFillColumnForm(fuelColumn.id)}>Залить</button>
+                                        <button className={styles['btn-delete']} onClick={() => deleteFuelColumn(fuelColumn.id)}>Удалить</button>
+                                        <button className={styles['btn-fill']} onClick={() => openFillColumnForm(fuelColumn.id)}>Залить</button>
                                     </li>
                                 ))}
                                 {fillingColumn && selectedColumnId && (
@@ -278,10 +256,8 @@ function FuelStationDetail(props) {
                                 )}
                             </ul>
                             <button onClick={() => setEditing(true)}>Редактировать</button>
-                            <button onClick={() => setFillingFuel(true)}>Залить топливо</button>
                             <button onClick={deleteFuelStation}>Удалить</button>
                             <button onClick={() => setShowAddColumnForm(true)}>Добавить колонку</button>
-
                         </div>
                     ) : (
                         <EditFuelStationForm
@@ -291,13 +267,6 @@ function FuelStationDetail(props) {
                             fuelTypes={fuelTypes}
                             updateFuelStation={updateFuelStation}
                             cancelEdit={cancelEdit}
-                        />
-                    )}
-                    {fillingFuel && (
-                        <FillFuelForm
-                            fuelAmount={fuelAmount}
-                            handleFuelAmountChange={handleFuelAmountChange}
-                            fillFuel={fillFuel}
                         />
                     )}
                     {showAddColumnForm && (

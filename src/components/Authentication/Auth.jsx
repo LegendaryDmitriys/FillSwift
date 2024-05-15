@@ -39,8 +39,6 @@ const Auth = (props) => {
                 navigate(ROUTES.Settings);
             }
 
-
-            navigate(ROUTES.Settings)
         } catch (error) {
             console.error('Ошибка аутентификации:', error);
             setTimeout(() => {

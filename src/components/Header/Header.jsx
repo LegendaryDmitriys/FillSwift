@@ -4,7 +4,7 @@ import sprite  from "../../sprite.svg"
 import BurgerMenu from "./Burger.jsx";
 import {Link, useLocation} from "react-router-dom";
 import {ROUTES} from "../../utils/routes.js";
-import {isAuthenticated} from "../../utils/authUsers.js";
+import {isAuthenticated, isOperator} from "../../utils/authUsers.js";
 
 const Header = (props) => {
     const [activeMenuItem, setActiveMenuItem] = useState('Главная');
@@ -68,7 +68,11 @@ const Header = (props) => {
                     <div className={styles.person}>
                         <button>
                             {isAuthenticated() ? (
-                                <Link to={ROUTES.Settings}>Личный кабинет</Link>
+                                isOperator() ? (
+                                    <Link to={ROUTES.OperatorRequests}>Операторская страница</Link>
+                                ) : (
+                                    <Link to={ROUTES.Settings}>Личный кабинет</Link>
+                                )
                             ) : (
                                 <Link to={ROUTES.Login}>
                                     <svg className={styles.sign} width={32} height={32}>
@@ -79,7 +83,7 @@ const Header = (props) => {
                         </button>
                     </div>
                     <div className={styles['burger']}>
-                    <BurgerMenu/>
+                        <BurgerMenu/>
                     </div>
                 </div>
             </nav>

@@ -31,9 +31,6 @@ function Operators(props) {
     const pageCount = Math.ceil(operators.length / operatorsPerPage);
     const pagesVisited = pageNumber * operatorsPerPage;
 
-    console.log(operators)
-
-
     const displayUsers = () => {
         return operators
             .filter(user =>

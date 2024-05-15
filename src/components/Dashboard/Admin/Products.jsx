@@ -116,6 +116,7 @@ function Products(props) {
                 }
             );
 
+
             setProducts([...products, response.data]);
             setShowModal(false);
             setNewProduct({
@@ -129,6 +130,7 @@ function Products(props) {
             setSelectedFile(null);
 
             await uploadImage(response.data.id);
+            setProducts([...products, response.data]);
         } catch (error) {
             console.error('Ошибка при создании продукта:', error);
         }

@@ -2,11 +2,21 @@ import React from 'react';
 import { bubble as Menu } from 'react-burger-menu';
 import sprite from "../../sprite.svg";
 import "../../styles/burger.css"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ROUTES} from "../../utils/routes.js";
+import {isAuthenticated} from "../../utils/authUsers";
 
 
 const BurgerMenu = () => {
+    const navigate = useNavigate();
+
+    const handleProfileClick = () => {
+        if (isAuthenticated()) {
+            navigate(ROUTES.Settings);
+        } else {
+            navigate(ROUTES.Login);
+        }
+    };
     return (
         <Menu
             noOverlay
@@ -22,7 +32,7 @@ const BurgerMenu = () => {
             <Link id="home" className="menu-item" to={ROUTES.Home}>
                 Главная
             </Link>
-            <Link id="fueling" className="menu-item" to="">
+            <Link id="fueling" className="menu-item" to={ROUTES.Fueling}>
                 Заправиться
             </Link>
             <Link id="shop" className="menu-item" to={ROUTES.Shop}>
@@ -34,9 +44,9 @@ const BurgerMenu = () => {
             <Link id="contact" className="menu-item" to={ROUTES.Contact}>
                 Контакты
             </Link>
-            <Link id="profile" className="menu-item" to={ROUTES.Settings}>
+            <button id="profile" className="menu-item" onClick={handleProfileClick}>
                 Профиль
-            </Link>
+            </button>
         </Menu>
     );
 };
